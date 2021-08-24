@@ -2,6 +2,7 @@ package primary_page.view_article_page;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -38,6 +39,7 @@ public class ArticlePageView extends ScrollPane {
             hBox.getChildren().add(subSection);
             vBox.getChildren().add(hBox);
             vBox.getChildren().add(gridPane);
+            vBox.setAlignment(Pos.TOP_CENTER);
             setContent(vBox);
             change = 4;
         } else {
