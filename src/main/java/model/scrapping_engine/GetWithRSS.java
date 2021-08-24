@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetWithRSS extends Scrapping_Engine {
+public class GetWithRSS extends ScrappingEngine {
 
     @Override
     public List<Article> getArticle(String url, int qty) {
@@ -39,7 +39,7 @@ public class GetWithRSS extends Scrapping_Engine {
                 } catch (Exception e) {
                     System.out.println("Failed");
                 }
-                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), Scrapping_Engine.getImage(image), getSource(source), "");
+                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), ScrappingEngine.getImage(image), getSource(source), "");
 
                 articles.add(article);
             }
