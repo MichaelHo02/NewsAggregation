@@ -12,15 +12,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SidebarController implements Initializable {
+    private PrimaryController primaryController;
+
     @FXML
     private VBox sidebar;
 
     @FXML
     private Button menuBar, newBar, covidBar, politicsBar, businessBar, technologyBar, healthBar, sportsBar, entertainmentBar, worldBar, othersBar;
 
-    private PrimaryController primaryController;
-
-    public void injectMainController(PrimaryController primaryController) {
+    void injectMainController(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
@@ -39,7 +39,8 @@ public class SidebarController implements Initializable {
         othersBar = new Button();
     }
 
-    public void toggleExtendedSidebarByButton() {
+    @FXML
+    void toggleExtendedSidebarByButton() {
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), sidebar);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
@@ -52,7 +53,7 @@ public class SidebarController implements Initializable {
         });
     }
 
-    public void toggleExtendedSidebarByIcon() {
+    void toggleExtendedSidebarByIcon() {
         sidebar.setVisible(true);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), sidebar);
         fadeTransition.setFromValue(0);

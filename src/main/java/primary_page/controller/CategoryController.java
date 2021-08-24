@@ -11,15 +11,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CategoryController implements Initializable {
+    private PrimaryController primaryController;
+
+    private int currentCategory;
+
     @FXML
     private Button newButton, covidButton, politicsButton, businessButton, technologyButton, healthButton, sportsButton, entertainmentButton, worldButton, othersButton;
 
     @FXML
     private VBox categoryBox;
-
-    private PrimaryController primaryController;
-
-    private int currentCategory;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,51 +33,8 @@ public class CategoryController implements Initializable {
         setCurrentButton();
     }
 
-    public void injectMainController(PrimaryController primaryController) {
+    void injectMainController(PrimaryController primaryController) {
         this.primaryController = primaryController;
-    }
-
-    private void setCurrentButton() {
-        currentCategory = 0;
-        setButtonEffect();
-    }
-
-    @FXML
-    private void setCurrentCategory(MouseEvent event) {
-        cleanEffect();
-        Object source = event.getSource();
-        if (source == newButton) {
-            currentCategory = 0;
-        }
-        if (source == covidButton) {
-            currentCategory = 1;
-        }
-        if (source == politicsButton) {
-            currentCategory = 2;
-        }
-        if (source == businessButton) {
-            currentCategory = 3;
-        }
-        if (source == technologyButton) {
-            currentCategory = 4;
-        }
-        if (source == healthButton) {
-            currentCategory = 5;
-        }
-        if (source == sportsButton) {
-            currentCategory = 6;
-        }
-        if (source == entertainmentButton) {
-            currentCategory = 7;
-        }
-        if (source == worldButton) {
-            currentCategory = 8;
-        }
-        if (source == othersButton) {
-            currentCategory = 9;
-        }
-        // TODO: send the message to the model
-        setButtonEffect();
     }
 
     private void cleanEffect() {
@@ -149,5 +106,48 @@ public class CategoryController implements Initializable {
                 othersButton.setEffect(lighting);
                 break;
         }
+    }
+
+    private void setCurrentButton() {
+        currentCategory = 0;
+        setButtonEffect();
+    }
+
+    @FXML
+    private void setCurrentCategory(MouseEvent event) {
+        cleanEffect();
+        Object source = event.getSource();
+        if (source == newButton) {
+            currentCategory = 0;
+        }
+        if (source == covidButton) {
+            currentCategory = 1;
+        }
+        if (source == politicsButton) {
+            currentCategory = 2;
+        }
+        if (source == businessButton) {
+            currentCategory = 3;
+        }
+        if (source == technologyButton) {
+            currentCategory = 4;
+        }
+        if (source == healthButton) {
+            currentCategory = 5;
+        }
+        if (source == sportsButton) {
+            currentCategory = 6;
+        }
+        if (source == entertainmentButton) {
+            currentCategory = 7;
+        }
+        if (source == worldButton) {
+            currentCategory = 8;
+        }
+        if (source == othersButton) {
+            currentCategory = 9;
+        }
+        // TODO: send the message to the model
+        setButtonEffect();
     }
 }

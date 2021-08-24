@@ -32,6 +32,7 @@ public class PrimaryController implements Initializable {
         sidebarController.injectMainController(this);
 
         pageList = new ArrayList<>(5);
+        System.out.println("a");
         for (int i = 0; i < 5; i++) {
             ScrollPane scrollPane = new ArticlePageView(i);
             pageList.add(scrollPane);
@@ -39,15 +40,15 @@ public class PrimaryController implements Initializable {
         borderPane.setCenter(pageList.get(0));
     }
 
-    public void setView() {
+    void setView() {
         borderPane.setCenter(pageList.get(navigationController.getCurrentPage()));
     }
 
-    public void setSidebarOut() {
+    void setSidebarOut() {
         sidebarController.toggleExtendedSidebarByIcon();
     }
 
-    public void setSidebarIn() {
+    void setSidebarIn() {
         sidebarController.toggleExtendedSidebarByButton();
     }
 }

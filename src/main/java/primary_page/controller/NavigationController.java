@@ -11,28 +11,40 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NavigationController implements Initializable {
-    private int currentPage;
-
     private PrimaryController primaryController;
+
+    private int currentPage;
 
     @FXML
     private Button page1, page2, page3, page4, page5, prevPage, nextPage;
-
-    public void injectMainController(PrimaryController primaryController) {
-        this.primaryController = primaryController;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentButton();
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    void injectMainController(PrimaryController primaryController) {
+        this.primaryController = primaryController;
     }
-    private void setCurrentButton() {
-        currentPage = 0;
-        setButtonEffect();
+
+    private void cleanEffect() {
+        switch (currentPage) {
+            case 0:
+                page1.setEffect(null);
+                break;
+            case 1:
+                page2.setEffect(null);
+                break;
+            case 2:
+                page3.setEffect(null);
+                break;
+            case 3:
+                page4.setEffect(null);
+                break;
+            case 4:
+                page5.setEffect(null);
+                break;
+        }
     }
 
     private void setButtonEffect() {
@@ -56,24 +68,9 @@ public class NavigationController implements Initializable {
         }
     }
 
-    private void cleanEffect() {
-        switch (currentPage) {
-            case 0:
-                page1.setEffect(null);
-                break;
-            case 1:
-                page2.setEffect(null);
-                break;
-            case 2:
-                page3.setEffect(null);
-                break;
-            case 3:
-                page4.setEffect(null);
-                break;
-            case 4:
-                page5.setEffect(null);
-                break;
-        }
+    private void setCurrentButton() {
+        currentPage = 0;
+        setButtonEffect();
     }
 
     @FXML
@@ -111,5 +108,9 @@ public class NavigationController implements Initializable {
         }
         // TODO: send the message to the model
         setButtonEffect();
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
     }
 }
