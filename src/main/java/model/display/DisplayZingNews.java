@@ -21,13 +21,21 @@ public class DisplayZingNews extends DisplayArticle {
                     doc.select("p.the-article-summary").text() +
                     "</h2>\n" +
                     "<p>\n" +
-                    doc.getElementsByClass("the-article-body").select("td,p").text() +
+                    doc.getElementsByClass("the-article-body").select("td,p,blockquote").text() +
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
             return html;
         } catch (Exception e) {
-            return  "<html>" +"<head>" + "Article Scrapping Error" + "</head>\n" + "</html>";
+            return  "<html>" +
+                    "<head>" +
+                    "Article Scrapping Error" +
+                    "</head>\n" +
+                    "<body>" +
+                    "<h1 style=\"font-size:30px;font-weight:bold;\">" + "Unexpected errors" +
+                    "</h1>" +
+                    "</body>" +
+                    "</html>";
         }
     }
 }
