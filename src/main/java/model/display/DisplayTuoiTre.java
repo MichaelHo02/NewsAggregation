@@ -36,7 +36,15 @@ public class DisplayTuoiTre extends DisplayArticle{
                     "</html>";
             return html;
         } catch (Exception e) {
-            return  "<html>" +"<head>" + "Article Scrapping Error" + "</head>\n" + "</html>";
+            return  "<html>" +
+                    "<head>" +
+                    "Article Scrapping Error" +
+                    "</head>\n" +
+                    "<body>" +
+                    "<h1 style=\"font-size:30px;font-weight:bold;\">" + "Unexpected errors" +
+                    "</h1>" +
+                    "</body>" +
+                    "</html>";
         }
     }
 
