@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Scrapping_Engine {
+public abstract class ScrappingEngine {
 
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {
@@ -76,23 +76,6 @@ public abstract class Scrapping_Engine {
 
 
     }
-
-//    public static Duration getDurationValue(String originDate) {
-//        DateFormat dataFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
-//        Date date = null;
-//        try {
-//            date = dataFormat.parse(originDate);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        if (date == null) {
-//            return null;
-//        }
-//        Date now = new Date();
-//        dataFormat.format(now);
-//        return Duration.between(date.toInstant(), now.toInstant());
-//    }
 
     public abstract List<Article> getArticle(String url, int qty);
 
