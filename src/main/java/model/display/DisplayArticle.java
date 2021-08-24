@@ -11,6 +11,8 @@ public abstract class DisplayArticle {
     private String tmpTemplate;
     public abstract String articleScraper(Article article);
 
+    //public abstract WebView articleScraperr(String url);
+
     public String getTmpTemplate() {
         return tmpTemplate;
     }

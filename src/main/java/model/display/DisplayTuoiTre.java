@@ -40,4 +40,9 @@ public class DisplayTuoiTre extends DisplayArticle{
         }
     }
 
+//    @Override
+//    public WebView articleScraperr(String url) {
+//        return null;
+//    }
+
 }

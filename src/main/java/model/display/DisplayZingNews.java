@@ -1,5 +1,6 @@
 package model.display;
 
+import javafx.scene.web.WebView;
 import model.scrapping_engine.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,4 +31,9 @@ public class DisplayZingNews extends DisplayArticle {
             return  "<html>" +"<head>" + "Article Scrapping Error" + "</head>\n" + "</html>";
         }
     }
+
+//    @Override
+//    public WebView articleScraperr(String url) {
+//        return null;
+//    }
 }
