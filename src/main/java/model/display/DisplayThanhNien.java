@@ -16,12 +16,6 @@ public class DisplayThanhNien extends DisplayArticle {
     public WebView articleScraperr(String url) {
         WebView webView = new WebView();
         WebEngine webEng = webView.getEngine();
-//        String htmlTemplate = "<html>"
-//                + "<head>"
-//                + "</head>"
-//                + "<body>"
-//                + "</body>"
-//                + "</html>";
         try {
             Document doc = Jsoup.connect(url).get();
             String tempTemplate = "<html>\n" +
