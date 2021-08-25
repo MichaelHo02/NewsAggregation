@@ -15,7 +15,7 @@ public class DisplayTuoiTre extends DisplayArticle{
     public String articleScraper(Article article) {
         try {
             Document doc = Jsoup.connect(article.getLinkPage()).get();
-            String html = "<html>\n"+
+            return "<html>\n"+
                     "<head>\n" +
                     doc.getElementsByTag("h1").select("*").toString() +
                     "</head>\n" +
@@ -34,7 +34,6 @@ public class DisplayTuoiTre extends DisplayArticle{
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
-            return html;
         } catch (Exception e) {
             return  "<html>" +
                     "<head>" +

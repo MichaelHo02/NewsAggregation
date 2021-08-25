@@ -14,7 +14,7 @@ public class DisplayThanhNien extends DisplayArticle {
     public String articleScraper(Article article) {
         try {
             Document doc = Jsoup.connect(article.getLinkPage()).get();
-            String tempTemplate = "<html>\n" +
+            return "<html>\n" +
                     "<head>\n" +
                     doc.getElementsByTag("h1").select("*").toString() +
                     "</head>\n" +
@@ -27,7 +27,6 @@ public class DisplayThanhNien extends DisplayArticle {
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
-            return tempTemplate;
         } catch (Exception e) {
             return  "<html>" +
                     "<head>" +
