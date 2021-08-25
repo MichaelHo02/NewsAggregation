@@ -27,7 +27,7 @@ public class DisplayTuoiTre extends DisplayArticle{
                     doc.select("h2.sapo").text() +
                     "</h2>\n" +
                     "<p>\n" +
-                    doc.getElementsByClass("column-first-second").select("a,p").text() +
+                    doc.getElementsByClass("VCSortableInPreviewMode").select("p,img")+
                     "</p>\n" +
                     "<p>\n" +
                     doc.select("div.author").text() +
@@ -47,7 +47,11 @@ public class DisplayTuoiTre extends DisplayArticle{
                     "</html>";
         }
     }
-
+    public static void main(String[] args) {
+        DisplayTuoiTre test = new DisplayTuoiTre();
+        Article k = new Article();
+        System.out.println(test.articleScraper(k));
+    }
 //    @Override
 //    public WebView articleScraperr(String url) {
 //        return null;

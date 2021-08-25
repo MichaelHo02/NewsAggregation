@@ -1,6 +1,6 @@
 package model.display;
 
-import javafx.scene.web.WebView;
+
 import model.scrapping_engine.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +22,7 @@ public class DisplayZingNews extends DisplayArticle {
                     doc.select("p.the-article-summary").text() +
                     "</h2>\n" +
                     "<p>\n" +
-                    doc.getElementsByClass("the-article-body").select("td,p,blockquote").text() +
+                    doc.getElementsByClass("the-article-body").select("td,p,blockquote") +
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
@@ -38,8 +38,13 @@ public class DisplayZingNews extends DisplayArticle {
                     "</body>" +
                     "</html>";
         }
-    }
 
+       }
+    public static void main(String[] args) {
+        DisplayZingNews test = new DisplayZingNews();
+        Article k = new Article();
+        System.out.println(test.articleScraper(k));
+    }
 //    @Override
 //    public WebView articleScraperr(String url) {
 //        return null;
