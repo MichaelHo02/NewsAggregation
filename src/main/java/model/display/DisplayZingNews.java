@@ -1,5 +1,6 @@
 package model.display;
 
+
 import model.scrapping_engine.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,7 +10,7 @@ public class DisplayZingNews extends DisplayArticle {
     public String articleScraper(Article article) {
         try {
             Document doc = Jsoup.connect(article.getLinkPage()).get();
-            String html = "<html>\n"+
+            return "<html>\n"+
                     "<head>\n" +
                     doc.getElementsByTag("h1").select("*").toString() +
                     "</head>\n" +
@@ -21,11 +22,10 @@ public class DisplayZingNews extends DisplayArticle {
                     doc.select("p.the-article-summary").text() +
                     "</h2>\n" +
                     "<p>\n" +
-                    doc.getElementsByClass("the-article-body").select("td,p,blockquote").text() +
+                    doc.getElementsByClass("the-article-body").select("td,p,blockquote") +
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
-            return html;
         } catch (Exception e) {
             return  "<html>" +
                     "<head>" +
@@ -37,5 +37,15 @@ public class DisplayZingNews extends DisplayArticle {
                     "</body>" +
                     "</html>";
         }
+
+       }
+    public static void main(String[] args) {
+        DisplayZingNews test = new DisplayZingNews();
+        Article k = new Article();
+        System.out.println(test.articleScraper(k));
     }
+//    @Override
+//    public WebView articleScraperr(String url) {
+//        return null;
+//    }
 }

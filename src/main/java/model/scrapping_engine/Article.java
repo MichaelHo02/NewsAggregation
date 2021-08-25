@@ -4,6 +4,8 @@ package model.scrapping_engine;
 import java.util.Date;
 
 public class Article {
+    public Article() {
+    }
 
     private String titlePage;
     private String linkPage;

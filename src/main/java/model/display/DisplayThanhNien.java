@@ -6,31 +6,24 @@ import model.scrapping_engine.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class DisplayThanhNien extends DisplayArticle {
+    public DisplayThanhNien() {
+    }
 
-public class DisplayTuoiTre extends DisplayArticle{
-        //Return the String of HTML of the article
     @Override
     public String articleScraper(Article article) {
         try {
             Document doc = Jsoup.connect(article.getLinkPage()).get();
-            return "<html>\n"+
+            return "<html>\n" +
                     "<head>\n" +
                     doc.getElementsByTag("h1").select("*").toString() +
                     "</head>\n" +
-                    "<body>\n"  +
+                    "<body>\n" +
                     "<h1 style = \"font-size:38px;font-weight:bold;\">\n" +
-                    doc.select("h1.article-title").text() +
-                    "</h1>\n" +
-                    "<h2> \n" +
-                    doc.select("h2.sapo").text() +
-                    "</h2>\n" +
+                    doc.select(".details__headline").text() + "</h1>\n" +
                     "<p>\n" +
-                    doc.getElementsByClass("VCSortableInPreviewMode").select("p,img")+
-                    "</p>\n" +
-                    "<p>\n" +
-                    doc.select("div.author").text() +
+                    doc.select(".sapo").toString() +
+                    doc.getElementsByClass("cms-body detail").select("div") +
                     "</p>\n" +
                     "</body>\n" +
                     "</html>";
@@ -45,15 +38,12 @@ public class DisplayTuoiTre extends DisplayArticle{
                     "</body>" +
                     "</html>";
         }
-    }
-    public static void main(String[] args) {
-        DisplayTuoiTre test = new DisplayTuoiTre();
-        Article k = new Article();
-        System.out.println(test.articleScraper(k));
-    }
-//    @Override
-//    public WebView articleScraperr(String url) {
-//        return null;
-//    }
 
+    }
+
+    public static void main(String[] args) {
+        DisplayThanhNien test = new DisplayThanhNien();
+        Article k = new Article();
+        test.articleScraper(k);
+    }
 }
