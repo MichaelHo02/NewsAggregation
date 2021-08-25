@@ -12,6 +12,10 @@ import model.get_article_behavior.WebsiteURL;
 import java.io.IOException;
 
 public class CardController {
+
+    @FXML
+    private Text source;
+
     @FXML
     private Text title;
 
