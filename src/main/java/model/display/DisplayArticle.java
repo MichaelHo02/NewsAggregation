@@ -17,6 +17,7 @@ public abstract class DisplayArticle {
         return tmpTemplate;
     }
 
+
     public void setTmpTemplate(String tmpTemplate) {
         this.tmpTemplate = tmpTemplate;
     }
