@@ -41,11 +41,11 @@ public class DisplayTuoiTre extends DisplayArticle{
                     "</html>";
         }
     }
-    public static void main(String[] args) {
-        DisplayTuoiTre test = new DisplayTuoiTre();
-        Article k = new Article();
-        System.out.println(test.articleScraper(k));
-    }
+//    public static void main(String[] args) {
+//        DisplayTuoiTre test = new DisplayTuoiTre();
+//        Article k = new Article();
+//        System.out.println(test.articleScraper(k));
+//    }
 //    @Override
 //    public WebView articleScraperr(String url) {
 //        return null;

@@ -6,9 +6,8 @@ import model.get_article_behavior.Article;
 import model.get_article_behavior.WebsiteURL;
 
 public class DisplayEngine {
-    public WebView getWebView(Article article) {
-        WebView webView = new WebView();
-        WebEngine webEngine = new WebEngine();
+    //Switch to various HTML control
+    public String getHTML(Article article) {
         WebsiteURL source = article.getSource();
         String htmlTemplate = "";
         switch (source) {
@@ -17,30 +16,26 @@ public class DisplayEngine {
                 break;
             case TUOITRE:
                 DisplayTuoiTre displayTuoiTre = new DisplayTuoiTre();
-                displayTuoiTre.articleScraper(article);
-                htmlTemplate = displayTuoiTre.getTmpTemplate();
+
+                htmlTemplate =  displayTuoiTre.articleScraper(article);
                 break;
             case THANHNIEN:
                 DisplayThanhNien displayThanhNien = new DisplayThanhNien();
-                displayThanhNien.articleScraper(article);
-                htmlTemplate = displayThanhNien.getTmpTemplate();
+                htmlTemplate =  displayThanhNien.articleScraper(article);
                 break;
             case ZINGNEWS:
                 DisplayZingNews displayZingNews = new DisplayZingNews();
                 displayZingNews.articleScraper(article);
-                htmlTemplate = displayZingNews.getTmpTemplate();
+                htmlTemplate =  displayZingNews.articleScraper(article);
                 break;
             case VNEXPRESS:
                 System.out.println("This is where it is");
                 DisplayVNExpress displayVNExpress = new DisplayVNExpress();
-                System.out.println(displayVNExpress.articleScraper(article));
-                htmlTemplate = displayVNExpress.getTmpTemplate();
+                htmlTemplate = displayVNExpress.articleScraper(article);
                 break;
             default:
                 break;
         }
-        webEngine.loadContent(htmlTemplate);
-        System.out.println("This is B: " + htmlTemplate);
-        return webView;
+        return htmlTemplate;
     }
 }

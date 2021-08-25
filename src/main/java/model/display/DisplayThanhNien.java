@@ -39,9 +39,9 @@ public class DisplayThanhNien extends DisplayArticle {
 
     }
 
-    public static void main(String[] args) {
-        DisplayThanhNien test = new DisplayThanhNien();
-        Article k = new Article();
-        test.articleScraper(k);
-    }
+//    public static void main(String[] args) {
+//        DisplayThanhNien test = new DisplayThanhNien();
+//        Article k = new Article();
+//        test.articleScraper(k);
+//    }
 }

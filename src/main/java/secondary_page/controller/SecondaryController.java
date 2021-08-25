@@ -38,11 +38,15 @@ public class SecondaryController implements Initializable {
     }
 
     public void setupView() {
+        //Clear article vbox
+        if (articleVbox.getChildren().size() != 1) {
+            articleVbox.getChildren().remove(articleVbox.getChildren().size() - 1);
+        }
         DisplayEngine displayEngine = new DisplayEngine();
-        System.out.println(article.getLinkPage());
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-        webEngine.loadContent(new DisplayVNExpress().articleScraper(article));
+        //Display through the web view
+        webEngine.loadContent(displayEngine.getHTML(article));
         articleVbox.getChildren().add(webView);
     }
 }

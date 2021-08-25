@@ -39,11 +39,11 @@ public class DisplayZingNews extends DisplayArticle {
         }
 
        }
-    public static void main(String[] args) {
-        DisplayZingNews test = new DisplayZingNews();
-        Article k = new Article();
-        System.out.println(test.articleScraper(k));
-    }
+//    public static void main(String[] args) {
+//        DisplayZingNews test = new DisplayZingNews();
+//        Article k = new Article();
+//        System.out.println(test.articleScraper(k));
+//    }
 //    @Override
 //    public WebView articleScraperr(String url) {
 //        return null;
