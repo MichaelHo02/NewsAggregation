@@ -1,4 +1,4 @@
-package model.scrapping_engine;
+package model.get_article_behavior;
 
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;

@@ -1,4 +1,4 @@
-package model.scrapping_engine;
+package model.get_article_behavior;
 
 
 import org.jsoup.Jsoup;
@@ -6,8 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +14,7 @@ public abstract class ScrappingEngine {
 
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {
+            System.out.println("check");
             return WebsiteURL.VNEXPRESS;
         } else if (source.contains("Tuổi Trẻ Online")) {
             return WebsiteURL.TUOITRE;

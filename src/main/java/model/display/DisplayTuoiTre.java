@@ -1,13 +1,8 @@
 package model.display;
 
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import model.scrapping_engine.Article;
+import model.get_article_behavior.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DisplayTuoiTre extends DisplayArticle{
         //Return the String of HTML of the article

@@ -18,6 +18,14 @@ public class ArticlePageView extends ScrollPane {
 
     private final int page;
 
+    public List<FXMLLoader> getFxmlLoadersList() {
+        return fxmlLoadersList;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
     public ArticlePageView(int page) {
         fxmlLoadersList = new ArrayList<>(10);
         this.page = page;

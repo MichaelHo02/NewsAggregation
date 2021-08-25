@@ -1,4 +1,4 @@
-package model.scrapping_engine;
+package model.get_article_behavior;
 import com.github.sisyphsu.dateparser.DateParserUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

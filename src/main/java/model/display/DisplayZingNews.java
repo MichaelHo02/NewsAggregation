@@ -1,7 +1,7 @@
 package model.display;
 
 
-import model.scrapping_engine.Article;
+import model.get_article_behavior.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 

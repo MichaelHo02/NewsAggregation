@@ -2,8 +2,8 @@ package model.display;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import model.scrapping_engine.Article;
-import model.scrapping_engine.WebsiteURL;
+import model.get_article_behavior.Article;
+import model.get_article_behavior.WebsiteURL;
 
 public class DisplayEngine {
     public WebView getWebView(Article article) {
@@ -31,14 +31,16 @@ public class DisplayEngine {
                 htmlTemplate = displayZingNews.getTmpTemplate();
                 break;
             case VNEXPRESS:
+                System.out.println("This is where it is");
                 DisplayVNExpress displayVNExpress = new DisplayVNExpress();
-                displayVNExpress.articleScraper(article);
+                System.out.println(displayVNExpress.articleScraper(article));
                 htmlTemplate = displayVNExpress.getTmpTemplate();
                 break;
             default:
                 break;
         }
         webEngine.loadContent(htmlTemplate);
+        System.out.println("This is B: " + htmlTemplate);
         return webView;
     }
 }

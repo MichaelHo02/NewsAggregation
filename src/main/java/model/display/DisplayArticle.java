@@ -1,10 +1,6 @@
 package model.display;
 
-import com.sun.javafx.iio.ImageLoader;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import model.scrapping_engine.Article;
-import org.jsoup.nodes.Document;
+import model.get_article_behavior.Article;
 
 public abstract class DisplayArticle {
     //TODO:Implement a way to interact with webview

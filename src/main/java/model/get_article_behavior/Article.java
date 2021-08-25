@@ -1,4 +1,4 @@
-package model.scrapping_engine;
+package model.get_article_behavior;
 
 
 import java.util.Date;
