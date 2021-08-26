@@ -116,6 +116,7 @@ public class CategoryController implements Initializable {
     @FXML
     private void setCurrentCategory(MouseEvent event) {
         cleanEffect();
+        int oldCategory = currentCategory;
         Object source = event.getSource();
         if (source == newButton) {
             currentCategory = 0;
@@ -146,6 +147,9 @@ public class CategoryController implements Initializable {
         }
         if (source == othersButton) {
             currentCategory = 9;
+        }
+        if (oldCategory != currentCategory) {
+            primaryController.setCurrentCategory(currentCategory);
         }
         // TODO: send the message to the model
         setButtonEffect();

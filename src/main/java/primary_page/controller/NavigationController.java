@@ -68,7 +68,8 @@ public class NavigationController implements Initializable {
         }
     }
 
-    private void setCurrentButton() {
+    void setCurrentButton() {
+        cleanEffect();
         currentPage = 0;
         setButtonEffect();
     }
@@ -104,6 +105,7 @@ public class NavigationController implements Initializable {
             currentPage = 4;
         }
         if (oldPage != currentPage) {
+            System.out.println("start");
             primaryController.setView();
         }
         // TODO: send the message to the model

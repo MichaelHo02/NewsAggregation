@@ -14,13 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticlePageView extends ScrollPane {
-    private final List<FXMLLoader> fxmlLoadersList;
+    public final List<FXMLLoader> fxmlLoadersList;
 
     private final int page;
-
-    public List<FXMLLoader> getFxmlLoadersList() {
-        return fxmlLoadersList;
-    }
 
     public int getPage() {
         return page;

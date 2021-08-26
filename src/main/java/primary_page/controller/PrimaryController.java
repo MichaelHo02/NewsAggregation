@@ -1,9 +1,7 @@
 package primary_page.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import model.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
@@ -12,8 +10,7 @@ import java.net.URL;
 import java.util.*;
 
 public class PrimaryController implements Initializable {
-    @FXML
-    List<ArticlePageView> pageList;
+    private List<ArticlePageView> pageList;
 
     @FXML
     private NavigationController navigationController;
@@ -31,6 +28,16 @@ public class PrimaryController implements Initializable {
 
     ArticlePageView articlePageView;
 
+    private int currentPage;
+
+    private int currentCategory;
+
+    private boolean[] haveClick = new boolean[5];
+
+    private void resetHaveClick() {
+        Arrays.fill(haveClick, false);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         navigationController.injectMainController(this);
@@ -39,8 +46,8 @@ public class PrimaryController implements Initializable {
         articleDatabase = new ArticleDatabase();
         articleDatabase.performGetArticle();
 
+        resetHaveClick();
         pageList = new ArrayList<>(5);
-        System.out.println("a");
         for (int i = 0; i < 5; i++) {
             articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
@@ -52,17 +59,26 @@ public class PrimaryController implements Initializable {
 
     private void inputArticle() {
         // TODO: do not have enough article bug
-        int currentPage = navigationController.getCurrentPage();
-        List<FXMLLoader> fxmlLoaderList = pageList.get(currentPage).getFxmlLoadersList();
-        for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
-            CardController cardController = fxmlLoaderList.get(i % 10).getController();
-            System.out.println(articleDatabase.getArticles().get(i));
-            cardController.setData(articleDatabase.getArticles().get(i));
+        if (!haveClick[currentPage]) {
+            for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
+                CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
+                cardController.setData(articleDatabase.getArticles().get(i));
+            }
+            haveClick[currentPage] = true;
         }
+        borderPane.setCenter(pageList.get(currentPage));
     }
 
     void setView() {
-        borderPane.setCenter(pageList.get(navigationController.getCurrentPage()));
+        currentPage = navigationController.getCurrentPage();
+        inputArticle();
+    }
+
+    public void setCurrentCategory(int currentCategory) {
+        this.currentCategory = currentCategory;
+        currentPage = 0;
+        navigationController.setCurrentButton();
+        resetHaveClick();
         inputArticle();
     }
 

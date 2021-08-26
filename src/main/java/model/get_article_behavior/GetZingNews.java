@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetZingNews extends ScrappingEngine {
+public class GetZingNews extends GetArticleBehavior {
     @Override
     public List<Article> getArticle(String url, int qty) {
         List<Article> articles = new ArrayList<>();

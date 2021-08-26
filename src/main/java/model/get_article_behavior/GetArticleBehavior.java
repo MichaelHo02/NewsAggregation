@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
-public abstract class ScrappingEngine {
+public abstract class GetArticleBehavior {
 
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {

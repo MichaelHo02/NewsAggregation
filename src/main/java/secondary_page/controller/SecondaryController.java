@@ -29,7 +29,7 @@ public class SecondaryController implements Initializable {
     }
 
     @FXML
-    private void switchToPrimary() throws IOException {
+    private void switchToPrimary() {
         Main.setRoot();
     }
 

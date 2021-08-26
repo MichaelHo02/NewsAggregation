@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetNhanDan extends ScrappingEngine {
+public class GetNhanDan extends GetArticleBehavior {
     @Override
     public List<Article> getArticle(String url, int qty) {
         List<Article> articles = new ArrayList<>();
