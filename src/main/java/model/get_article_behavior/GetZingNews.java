@@ -4,6 +4,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import io.github.cdimascio.essence.Essence;
 import io.github.cdimascio.essence.EssenceResult;
+import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,11 +14,18 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GetZingNews extends ScrappingEngine {
+public class GetZingNews extends ScrappingEngine implements Runnable{
+
+    private String url;
+
+    public GetZingNews(String url) {
+        this.url = url;
+    }
+
     @Override
-    public List<Article> getArticle(String url, int qty) {
-        List<Article> articles = new ArrayList<>();
+    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
             Request request = new Request.Builder().url(url).get().build();
@@ -25,12 +33,7 @@ public class GetZingNews extends ScrappingEngine {
             //Get all the article in the element
             Elements elements = doc.getElementsByTag("article");
             //Looping through each element
-            int count = 0;
             for (Element element : elements) {
-                //Get a limit number of element
-                if (count >= qty) {
-                    break;
-                }
                 String title = element.child(1).getElementsByClass("article-title").select("a").text();
                 String linkPage = "https://zingnews.vn/" + element.getElementsByClass("article-title").select("a").attr("href");
 //                String tempDate = element.getElementsByClass("date").text() + " " + element.getElementsByClass("time").text();
@@ -53,12 +56,15 @@ public class GetZingNews extends ScrappingEngine {
                         getSource("ZingNews"),
                         null);
                 articles.add(tmp);
-                ++count;
-            }
 
+            }
         } catch (IOException e) {
             System.out.println("URL error");
         }
-        return articles;
+    }
+
+    @Override
+    public void run() {
+        scrapeArticle(this.url, InitScraper.articles);
     }
 }

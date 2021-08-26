@@ -17,12 +17,12 @@ public class ArticleDatabase {
     }
 
     public void performGetArticle() {
-        scrappingEngine = new GetWithRSS();
-        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/tin-moi-nhat.rss", 10));
-        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/kinh-doanh.rss", 10));
-        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/suc-khoe.rss", 10));
-        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/giai-tri.rss", 10));
-        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/the-gioi.rss", 10));
+//        scrappingEngine = new GetWithRSS();
+//        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/tin-moi-nhat.rss", 10));
+//        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/kinh-doanh.rss", 10));
+//        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/suc-khoe.rss", 10));
+//        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/giai-tri.rss", 10));
+//        articles.addAll(scrappingEngine.getArticle("https://vnexpress.net/rss/the-gioi.rss", 10));
     }
 
     public CopyOnWriteArrayList<Article> getArticles() {

@@ -3,28 +3,30 @@ package model.get_article_behavior;
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
+import model.scrapping_engine.InitScraper;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetWithRSS extends ScrappingEngine {
+public class GetWithRSS extends ScrappingEngine implements Runnable {
 
+    private String url;
+
+    public GetWithRSS(String url) {
+        this.url = url;
+    }
     @Override
-    public List<Article> getArticle(String url, int qty) {
-        List<Article> articles = new ArrayList<>();
+    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
         try {
             RssReader reader = new RssReader();
             Stream<Item> rssFeed = reader.read(url);
             List<Item> itemList = rssFeed.collect(Collectors.toList());
-            int count = 0;
             for (Item item : itemList) {
-                if (count == qty) {
-                    break;
-                }
-                count++;
                 String title = item.getTitle().isPresent() ? item.getTitle().get() : null;
                 String link = item.getLink().isPresent() ? item.getLink().get() : null;
 //                Date publishDate = null;
@@ -40,7 +42,6 @@ public class GetWithRSS extends ScrappingEngine {
                     System.out.println("Failed");
                 }
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), ScrappingEngine.getImage(image), getSource(source), "");
-
                 articles.add(article);
             }
         } catch (MalformedURLException e) {
@@ -49,11 +50,11 @@ public class GetWithRSS extends ScrappingEngine {
             e.printStackTrace();
             System.out.println("XML parser error");
         }
-        return articles;
     }
 
-//    public static void main(String[] args) {
-//        GetWithRSS getWithRSS = new GetWithRSS();
-//        getWithRSS.getArticle("");
-//    }
+    @Override
+    public void run() {
+        scrapeArticle(this.url, InitScraper.articles);
+    }
+
 }

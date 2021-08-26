@@ -6,11 +6,18 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
-public class URLCrawler {
+public class URLCrawler implements Runnable {
 
-    public ArrayList<String> getURLList(String url) {
-        ArrayList<String> urlList = new ArrayList<>();
+    private String url;
+
+    public URLCrawler(String url) {
+        this.url = url;
+    }
+
+    public ArrayList<String> getURLList(String url, ArrayList<String> urlList) {
+//        ArrayList<String> urlList = new ArrayList<>();
         try {
             Document doc = Jsoup.connect(url).get();
             // thanh nien full link
@@ -29,7 +36,7 @@ public class URLCrawler {
                     urlList.add("https://zingnews.vn" + element.attr("href"));
                 } else {
                     String temp = element.attr("href");
-                    if (temp.contains("video")) { continue; }
+                    if (temp.contains("video") || temp.contains("viec-lam") || temp.contains("game")) { continue; }
                     urlList.add(temp);
                 }
             }
@@ -39,6 +46,9 @@ public class URLCrawler {
         return urlList;
     }
 
-
+    @Override
+    public void run() {
+        getURLList(this.url, InitScraper.urlList);
+    }
 
 }

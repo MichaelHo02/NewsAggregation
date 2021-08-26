@@ -7,8 +7,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class ScrappingEngine {
 
@@ -76,6 +78,6 @@ public abstract class ScrappingEngine {
 
     }
 
-    public abstract List<Article> getArticle(String url, int qty);
+    public abstract void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles);
 
 }
