@@ -12,7 +12,7 @@ public class Article {
     private Date date;
     private String imageURL;
     private WebsiteURL source;
-    private String category;
+    private String category; // cach nhau boi dau ,
 
     public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
         this.titlePage = titlePage;
@@ -32,13 +32,6 @@ public class Article {
     public String getLinkPage() {
         return linkPage;
     }
-
-//    public String getPublishDate() {
-//        if (publishDate != null) {
-//            return publishDate.toString();
-//        }
-//        return "";
-//    }
 
     public Date getDuration() {
         return date;
