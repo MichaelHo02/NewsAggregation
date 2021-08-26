@@ -16,12 +16,16 @@ public class ArticleDatabase {
     }
 
     public void performGetArticle() {
-        getArticleBehavior = new GetWithRSS();
-        articles.addAll(getArticleBehavior.getArticle("https://vnexpress.net/rss/tin-moi-nhat.rss", 10));
-        articles.addAll(getArticleBehavior.getArticle("https://vnexpress.net/rss/kinh-doanh.rss", 10));
-        articles.addAll(getArticleBehavior.getArticle("https://vnexpress.net/rss/suc-khoe.rss", 10));
-        articles.addAll(getArticleBehavior.getArticle("https://vnexpress.net/rss/giai-tri.rss", 10));
-        articles.addAll(getArticleBehavior.getArticle("https://vnexpress.net/rss/the-gioi.rss", 10));
+        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/tin-moi-nhat.rss");
+        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/tin-moi-nhat.rss", articles);
+        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/kinh-doanh.rss");
+        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/kinh-doanh.rss", articles);
+        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/suc-khoe.rss");
+        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/suc-khoe.rss", articles);
+        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/giai-tri.rss");
+        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/giai-tri.rss", articles);
+        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/the-gioi.rss");
+        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/the-gioi.rss", articles);
     }
 
     public CopyOnWriteArrayList<Article> getArticles() {

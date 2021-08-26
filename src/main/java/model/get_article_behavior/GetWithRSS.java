@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetWithRSS extends ScrappingEngine implements Runnable {
+public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
     private String url;
 
@@ -41,7 +41,7 @@ public class GetWithRSS extends ScrappingEngine implements Runnable {
                 } catch (Exception e) {
                     System.out.println("Failed");
                 }
-                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), ScrappingEngine.getImage(image), getSource(source), "");
+                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
                 articles.add(article);
             }
         } catch (MalformedURLException e) {

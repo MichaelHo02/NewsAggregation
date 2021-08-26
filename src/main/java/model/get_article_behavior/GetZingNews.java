@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GetZingNews extends ScrappingEngine implements Runnable{
+public class GetZingNews extends GetArticleBehavior implements Runnable{
 
     private String url;
 

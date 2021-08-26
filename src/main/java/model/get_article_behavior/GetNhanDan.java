@@ -1,17 +1,25 @@
 package model.get_article_behavior;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
+import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GetNhanDan extends GetArticleBehavior {
+public class GetNhanDan extends GetArticleBehavior implements Runnable {
+
+    private String url;
+
+    public GetNhanDan(String url) {
+        this.url = url;
+    }
+
     @Override
-    public List<Article> getArticle(String url, int qty) {
-        List<Article> articles = new ArrayList<>();
+    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
         try {
             Document doc = Jsoup.connect(url).get();
             for (Element element : doc.select("div.box-title > a[href]")) { // Fetch all links
@@ -39,16 +47,15 @@ public class GetNhanDan extends GetArticleBehavior {
                 }
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.NHANDAN, category);
                 articles.add(article);
-                return articles;
             }
         } catch (Exception e) {
             System.out.println("Failed to connect");
         }
-        return null;
     }
 
-//    public static void main(String[] args) {
-//        GetNhanDan test = new GetNhanDan();
-//        test.getArticle("https://nhandan.vn/kinhte", 50);
-//    }
+    @Override
+    public void run() {
+        scrapeArticle(this.url, InitScraper.articles);
+    }
+
 }
