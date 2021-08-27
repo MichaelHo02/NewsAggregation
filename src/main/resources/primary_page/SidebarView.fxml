@@ -5,59 +5,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sidebar" alignment="CENTER" style="-fx-background-color: rgb(225,225,227) rgb(225,225,227);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.SidebarController">
+<VBox fx:id="sidebar" alignment="CENTER" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.SidebarController">
    <children>
-      <Button fx:id="menuBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Menu">
+      <Button fx:id="menuBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Menu" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="newBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Latest">
+      <Button fx:id="newBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Latest" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="covidBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="COVID">
+      <Button fx:id="covidBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="COVID" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="politicsBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Politics">
+      <Button fx:id="politicsBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Politics" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="businessBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Business">
+      <Button fx:id="businessBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Business" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="technologyBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Technology">
+      <Button fx:id="technologyBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Technology" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="healthBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Health">
+      <Button fx:id="healthBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Health" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="sportsBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Sport">
+      <Button fx:id="sportsBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Sport" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="entertainmentBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Entertainment">
+      <Button fx:id="entertainmentBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Entertainment" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="worldBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="World">
+      <Button fx:id="worldBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="World" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="othersBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Other">
+      <Button fx:id="othersBar" maxWidth="291.0" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarByButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: rgba(0,0,0,0);" text="Other" textFill="BLACK">
          <font>
             <Font size="26.0" />
          </font>
