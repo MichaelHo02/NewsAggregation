@@ -1,13 +1,11 @@
 package primary_page.view_article_page;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,20 +21,27 @@ public class ArticlePageView extends ScrollPane {
         this.page = page;
         getStylesheets().add("style/style.css");
         getStyleClass().add("dark_background");
+        setFitToHeight(true);
+        setFitToWidth(true);
         createPage();
     }
 
     private void createPage() {
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getStylesheets().add("style/style.css");
-        anchorPane.getStyleClass().add("dark_background");
+        StackPane stackPane = new StackPane();
+        stackPane.getStylesheets().add("style/style.css");
+        stackPane.getStyleClass().add("dark_background");
         GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.TOP_CENTER);
         int change = 0;
         if (page == 0) {
             HBox hBox = new HBox();
+            hBox.setAlignment(Pos.TOP_CENTER);
             VBox vBox = new VBox();
+            vBox.setAlignment(Pos.TOP_CENTER);
             VBox subSection = new VBox();
-            subSection.setPadding(new Insets(0, 10, 0, 10));
+            subSection.setAlignment(Pos.TOP_CENTER);
+            subSection.setPadding(new Insets(0, 0, 0, 10));
+            subSection.setSpacing(10);
             hBox.getChildren().add(createSpecialCard(0));
             for (int i = 0; i < 3; i++) {
                 subSection.getChildren().add(createSpecialCard(1));
@@ -46,18 +51,18 @@ public class ArticlePageView extends ScrollPane {
             vBox.getChildren().add(hBox);
             vBox.getChildren().add(gridPane);
             vBox.setAlignment(Pos.TOP_CENTER);
-            anchorPane.getChildren().add(vBox);
+            stackPane.getChildren().add(vBox);
             change = 4;
         } else {
-            anchorPane.getChildren().add(gridPane);
+            stackPane.getChildren().add(gridPane);
         }
-        setContent(anchorPane);
+        setContent(stackPane);
         int column = 0;
         int row = 1;
         try {
             for (int i = change; i < 10; i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("NormalCardViewV2.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("NormalCardView.fxml"));
                 fxmlLoadersList.add(fxmlLoader);
                 AnchorPane pane = fxmlLoader.load();
                 if (column == 2) {
@@ -79,10 +84,10 @@ public class ArticlePageView extends ScrollPane {
         String cardType;
         switch (i) {
             case 0:
-                cardType = "MainCardViewV2.fxml";
+                cardType = "MainCardView.fxml";
                 break;
             case 1:
-                cardType = "SubCardViewV2.fxml";
+                cardType = "SubCardView.fxml";
                 break;
             default:
                 return null;
