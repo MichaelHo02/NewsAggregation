@@ -6,14 +6,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="categoryBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CategoryController">
+<VBox fx:id="categoryBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="650.0" minWidth="-Infinity" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CategoryController">
    <children>
       <ImageView fx:id="menuIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/menu.png" />
          </image>
       </ImageView>
-      <Button fx:id="newButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="newButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -22,7 +22,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="covidButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="covidButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,7 +31,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="politicsButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="politicsButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,7 +40,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="businessButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="businessButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,7 +49,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="technologyButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="technologyButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +58,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="healthButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="healthButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,7 +67,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="sportsButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="sportsButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -76,7 +76,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="entertainmentButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="entertainmentButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,7 +85,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="worldButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="worldButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -94,7 +94,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="othersButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory">
+      <Button fx:id="othersButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -1,0 +1,14 @@
+.dark_background {
+    -fx-background-color: #F4F5F9;
+}
+
+.column_row_background {
+    -fx-background-color: #FFFFFF;
+}
+
+.bar {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+}
+.shadow {
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 10);
+}

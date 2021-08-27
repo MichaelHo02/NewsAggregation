@@ -18,50 +18,53 @@ public class ArticlePageView extends ScrollPane {
 
     private final int page;
 
-    public int getPage() {
-        return page;
-    }
-
     public ArticlePageView(int page) {
         fxmlLoadersList = new ArrayList<>(10);
         this.page = page;
+        getStylesheets().add("style/style.css");
+        getStyleClass().add("dark_background");
         createPage();
     }
 
     private void createPage() {
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStylesheets().add("style/style.css");
+        anchorPane.getStyleClass().add("dark_background");
         GridPane gridPane = new GridPane();
         int change = 0;
         if (page == 0) {
             HBox hBox = new HBox();
             VBox vBox = new VBox();
             VBox subSection = new VBox();
-            subSection.setSpacing(10);
+            subSection.setPadding(new Insets(0, 10, 0, 10));
             hBox.getChildren().add(createSpecialCard(0));
             for (int i = 0; i < 3; i++) {
                 subSection.getChildren().add(createSpecialCard(1));
             }
             hBox.getChildren().add(subSection);
+            hBox.setPadding(new Insets(10, 10, 0, 10));
             vBox.getChildren().add(hBox);
             vBox.getChildren().add(gridPane);
             vBox.setAlignment(Pos.TOP_CENTER);
-            setContent(vBox);
+            anchorPane.getChildren().add(vBox);
             change = 4;
         } else {
-            setContent(gridPane);
+            anchorPane.getChildren().add(gridPane);
         }
+        setContent(anchorPane);
         int column = 0;
         int row = 1;
         try {
             for (int i = change; i < 10; i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("NormalCardView.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("NormalCardViewV2.fxml"));
                 fxmlLoadersList.add(fxmlLoader);
-                AnchorPane anchorPane = fxmlLoader.load();
+                AnchorPane pane = fxmlLoader.load();
                 if (column == 2) {
                     column = 0;
                     row++;
                 }
-                gridPane.add(anchorPane, column++, row);
+                gridPane.add(pane, column++, row);
             }
             gridPane.setHgap(10);
             gridPane.setVgap(10);
@@ -76,10 +79,10 @@ public class ArticlePageView extends ScrollPane {
         String cardType;
         switch (i) {
             case 0:
-                cardType = "MainCardView.fxml";
+                cardType = "MainCardViewV2.fxml";
                 break;
             case 1:
-                cardType = "SubCardView.fxml";
+                cardType = "SubCardViewV2.fxml";
                 break;
             default:
                 return null;
