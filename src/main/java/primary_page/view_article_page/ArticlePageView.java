@@ -3,6 +3,7 @@ package primary_page.view_article_page;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
@@ -30,50 +31,35 @@ public class ArticlePageView extends ScrollPane {
         StackPane stackPane = new StackPane();
         stackPane.getStylesheets().add("style/style.css");
         stackPane.getStyleClass().add("dark_background");
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.setPadding(new Insets(10, 10, 10, 10));
+        FlowPane flowPane = new FlowPane();
+        flowPane.setOrientation(Orientation.HORIZONTAL);
+        flowPane.setAlignment(Pos.CENTER);
         int change = 0;
         if (page == 0) {
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.TOP_CENTER);
-            VBox vBox = new VBox();
-            vBox.setAlignment(Pos.TOP_CENTER);
+            flowPane.getChildren().add(createSpecialCard(0));
             VBox subSection = new VBox();
-            subSection.setAlignment(Pos.TOP_CENTER);
-            subSection.setPadding(new Insets(0, 0, 0, 10));
+            subSection.setAlignment(Pos.CENTER);
             subSection.setSpacing(10);
-            hBox.getChildren().add(createSpecialCard(0));
             for (int i = 0; i < 3; i++) {
                 subSection.getChildren().add(createSpecialCard(1));
             }
-            hBox.getChildren().add(subSection);
-            hBox.setPadding(new Insets(10, 10, 0, 10));
-            vBox.getChildren().add(hBox);
-            vBox.getChildren().add(gridPane);
-            vBox.setAlignment(Pos.TOP_CENTER);
-            stackPane.getChildren().add(vBox);
+            flowPane.getChildren().add(subSection);
             change = 4;
-        } else {
-            stackPane.getChildren().add(gridPane);
         }
+        stackPane.getChildren().add(flowPane);
         setContent(stackPane);
-        int column = 0;
-        int row = 1;
         try {
             for (int i = change; i < 10; i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("NormalCardView.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("MainCardView.fxml"));
                 fxmlLoadersList.add(fxmlLoader);
                 AnchorPane pane = fxmlLoader.load();
-                if (column == 2) {
-                    column = 0;
-                    row++;
-                }
-                gridPane.add(pane, column++, row);
+                flowPane.getChildren().add(pane);
             }
-            gridPane.setHgap(10);
-            gridPane.setVgap(10);
-            gridPane.setPadding(new Insets(0, 10, 0, 10));
+            flowPane.setHgap(10);
+            flowPane.setVgap(10);
+            flowPane.setPadding(new Insets(0, 10, 0, 10));
         } catch (IOException e) {
             e.printStackTrace();
         }
