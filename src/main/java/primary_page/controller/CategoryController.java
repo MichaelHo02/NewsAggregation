@@ -1,9 +1,9 @@
 package primary_page.controller;
 
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +16,9 @@ public class CategoryController implements Initializable {
     private int currentCategory;
 
     @FXML
+    Button menuIcon;
+
+    @FXML
     private Button newButton, covidButton, politicsButton, businessButton, technologyButton, healthButton, sportsButton, entertainmentButton, worldButton, othersButton;
 
     @FXML
@@ -23,13 +26,17 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        categoryBox.hoverProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue) {
-                primaryController.setSidebarOut();
-            } else {
-                primaryController.setSidebarIn();
-            }
-        });
+        menuIcon.hoverProperty().addListener(toggleHover(-1));
+        newButton.hoverProperty().addListener(toggleHover(0));
+        covidButton.hoverProperty().addListener(toggleHover(1));
+        politicsButton.hoverProperty().addListener(toggleHover(2));
+        businessButton.hoverProperty().addListener(toggleHover(3));
+        technologyButton.hoverProperty().addListener(toggleHover(4));
+        healthButton.hoverProperty().addListener(toggleHover(5));
+        sportsButton.hoverProperty().addListener(toggleHover(6));
+        entertainmentButton.hoverProperty().addListener(toggleHover(7));
+        worldButton.hoverProperty().addListener(toggleHover(8));
+        othersButton.hoverProperty().addListener(toggleHover(9));
         setCurrentButton();
     }
 
@@ -38,72 +45,151 @@ public class CategoryController implements Initializable {
     }
 
     private void cleanEffect() {
+        String style = "-fx-background-color:  rgba(0,0,0,0)";
         switch (currentCategory) {
             case 0:
-                newButton.setEffect(null);
+                newButton.setStyle(style);
                 break;
             case 1:
-                covidButton.setEffect(null);
+                covidButton.setStyle(style);
                 break;
             case 2:
-                politicsButton.setEffect(null);
+                politicsButton.setStyle(style);
                 break;
             case 3:
-                businessButton.setEffect(null);
+                businessButton.setStyle(style);
                 break;
             case 4:
-                technologyButton.setEffect(null);
+                technologyButton.setStyle(style);
                 break;
             case 5:
-                healthButton.setEffect(null);
+                healthButton.setStyle(style);
                 break;
             case 6:
-                sportsButton.setEffect(null);
+                sportsButton.setStyle(style);
                 break;
             case 7:
-                entertainmentButton.setEffect(null);
+                entertainmentButton.setStyle(style);
                 break;
             case 8:
-                worldButton.setEffect(null);
+                worldButton.setStyle(style);
                 break;
             case 9:
-                othersButton.setEffect(null);
+                othersButton.setStyle(style);
+                break;
+        }
+    }
+
+    void cleanEffect(int n) {
+        String style = "-fx-background-color:  rgba(0,0,0,0)";
+        switch (n) {
+            case -1:
+                menuIcon.setStyle(style);
+                break;
+            case 0:
+                newButton.setStyle(style);
+                break;
+            case 1:
+                covidButton.setStyle(style);
+                break;
+            case 2:
+                politicsButton.setStyle(style);
+                break;
+            case 3:
+                businessButton.setStyle(style);
+                break;
+            case 4:
+                technologyButton.setStyle(style);
+                break;
+            case 5:
+                healthButton.setStyle(style);
+                break;
+            case 6:
+                sportsButton.setStyle(style);
+                break;
+            case 7:
+                entertainmentButton.setStyle(style);
+                break;
+            case 8:
+                worldButton.setStyle(style);
+                break;
+            case 9:
+                othersButton.setStyle(style);
                 break;
         }
     }
 
     private void setButtonEffect() {
-        Lighting lighting = new Lighting();
+        String style = "-fx-background-color: #F4F5F9";
         switch (currentCategory) {
             case 0:
-                newButton.setEffect(lighting);
+                newButton.setStyle(style);
                 break;
             case 1:
-                covidButton.setEffect(lighting);
+                covidButton.setStyle(style);
                 break;
             case 2:
-                politicsButton.setEffect(lighting);
+                politicsButton.setStyle(style);
                 break;
             case 3:
-                businessButton.setEffect(lighting);
+                businessButton.setStyle(style);
                 break;
             case 4:
-                technologyButton.setEffect(lighting);
+                technologyButton.setStyle(style);
                 break;
             case 5:
-                healthButton.setEffect(lighting);
+                healthButton.setStyle(style);
                 break;
             case 6:
-                sportsButton.setEffect(lighting);
+                sportsButton.setStyle(style);
                 break;
             case 7:
-                entertainmentButton.setEffect(lighting);
+                entertainmentButton.setStyle(style);
                 break;
             case 8:
-                worldButton.setEffect(lighting);
+                worldButton.setStyle(style);
                 break;
             case 9:
-                othersButton.setEffect(lighting);
+                othersButton.setStyle(style);
+                break;
+        }
+    }
+
+    void setButtonEffect(int n) {
+        String style = "-fx-background-color: #F4F5F9";
+        switch (n) {
+            case -1:
+                menuIcon.setStyle(style);
+                break;
+            case 0:
+                newButton.setStyle(style);
+                break;
+            case 1:
+                covidButton.setStyle(style);
+                break;
+            case 2:
+                politicsButton.setStyle(style);
+                break;
+            case 3:
+                businessButton.setStyle(style);
+                break;
+            case 4:
+                technologyButton.setStyle(style);
+                break;
+            case 5:
+                healthButton.setStyle(style);
+                break;
+            case 6:
+                sportsButton.setStyle(style);
+                break;
+            case 7:
+                entertainmentButton.setStyle(style);
+                break;
+            case 8:
+                worldButton.setStyle(style);
+                break;
+            case 9:
+                othersButton.setStyle(style);
                 break;
         }
     }
@@ -153,5 +239,33 @@ public class CategoryController implements Initializable {
         }
         // TODO: send the message to the model
         setButtonEffect();
+    }
+
+    private ChangeListener<Boolean> toggleHover(int n) {
+        return (observableValue, oldValue, newValue) -> {
+            if (newValue && !oldValue && !primaryController.updateSideBar()) {
+                primaryController.setSidebarOut();
+            }
+
+            SidebarController sidebarController = primaryController.getSidebarController();
+            if (newValue) {
+                cleanEffect();
+                setButtonEffect(n);
+                sidebarController.setButtonEffect(n);
+            } else {
+                cleanEffect(n);
+                sidebarController.cleanEffect(n);
+                setButtonEffect();
+            }
+        };
+    }
+
+    @FXML
+    private void clickMenu() {
+        if (primaryController.updateSideBar()) {
+            primaryController.setSidebarIn();
+        } else {
+            primaryController.setSidebarOut();
+        }
     }
 }

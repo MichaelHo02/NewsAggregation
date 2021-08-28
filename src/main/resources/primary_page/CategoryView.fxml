@@ -8,12 +8,16 @@
 
 <VBox fx:id="categoryBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="650.0" minWidth="-Infinity" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CategoryController">
    <children>
-      <ImageView fx:id="menuIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/menu.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="newButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
+      <Button fx:id="menuIcon" mnemonicParsing="false" onMouseClicked="#clickMenu" style="-fx-background-color: rgb(0,0,0,0);">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/menu.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="newButton" contentDisplay="CENTER" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#setCurrentCategory" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

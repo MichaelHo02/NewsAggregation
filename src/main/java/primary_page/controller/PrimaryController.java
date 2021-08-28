@@ -83,10 +83,22 @@ public class PrimaryController implements Initializable {
     }
 
     void setSidebarOut() {
-        sidebarController.toggleExtendedSidebarByIcon();
+        sidebarController.toggleExtendedSidebarOut();
     }
 
     void setSidebarIn() {
-        sidebarController.toggleExtendedSidebarByButton();
+        sidebarController.toggleExtendedSidebarIn();
+    }
+
+    boolean updateSideBar() {
+        return sidebarController.getSidebar().isVisible();
+    }
+
+    SidebarController getSidebarController() {
+        return sidebarController;
+    }
+
+    public CategoryController getCategoryController() {
+        return categoryController;
     }
 }
