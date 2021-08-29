@@ -20,6 +20,8 @@ public class Main extends Application {
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
         stage.setScene(scene);
+        stage.setMinWidth(690);
+        stage.setMinHeight(730);
         stage.show();
     }
 
