@@ -1,6 +1,5 @@
 package primary_page.view_article_page;
 
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -21,9 +20,9 @@ public class ArticlePageView extends ScrollPane {
         fxmlLoadersList = new ArrayList<>(10);
         this.page = page;
         getStylesheets().add("style/style.css");
-        getStyleClass().add("dark_background");
-        setFitToHeight(true);
+        getStyleClass().add("edge-to-edge");
         setFitToWidth(true);
+        vbarPolicyProperty().setValue(ScrollBarPolicy.AS_NEEDED);
         createPage();
     }
 

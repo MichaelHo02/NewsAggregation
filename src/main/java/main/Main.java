@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.get_article_behavior.Article;
 import secondary_page.controller.SecondaryController;
 
@@ -22,6 +23,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(690);
         stage.setMinHeight(730);
+//        stage.initStyle(StageStyle.DECORATED);
         stage.show();
     }
 

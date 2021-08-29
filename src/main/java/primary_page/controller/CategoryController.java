@@ -120,7 +120,7 @@ public class CategoryController implements Initializable {
     }
 
     private void setButtonEffect() {
-        String style = "-fx-background-color: #F4F5F9";
+        String style = "-fx-background-color: #EFEFEF";
         switch (currentCategory) {
             case 0:
                 newButton.setStyle(style);
@@ -156,7 +156,7 @@ public class CategoryController implements Initializable {
     }
 
     void setButtonEffect(int n) {
-        String style = "-fx-background-color: #F4F5F9";
+        String style = "-fx-background-color: #EFEFEF";
         switch (n) {
             case -1:
                 menuIcon.setStyle(style);

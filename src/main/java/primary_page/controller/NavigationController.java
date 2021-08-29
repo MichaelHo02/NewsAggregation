@@ -105,12 +105,12 @@ public class NavigationController implements Initializable {
         if (source == page5) {
             currentPage = 4;
         }
+        setButtonEffect();
+
         if (oldPage != currentPage) {
             System.out.println("start");
             primaryController.setView();
         }
-        // TODO: send the message to the model
-        setButtonEffect();
     }
 
     public int getCurrentPage() {

@@ -112,7 +112,7 @@ public class SidebarController implements Initializable {
     }
 
     public void setButtonEffect(int n) {
-        String style = "-fx-background-color: #F4F5F9";
+        String style = "-fx-background-color: #EFEFEF";
         switch (n) {
             case -1:
                 menuBar.setStyle(style);
