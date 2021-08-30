@@ -52,7 +52,8 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
                 articles.add(article);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //Uncomment to see stacktrace
+//            e.printStackTrace();
             System.out.println("Failed to connect");
         }
     }
