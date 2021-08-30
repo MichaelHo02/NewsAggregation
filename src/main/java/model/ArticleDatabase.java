@@ -1,6 +1,7 @@
 package model;
 
 import model.get_article_behavior.Article;
+import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetArticleBehavior;
 
@@ -26,6 +27,8 @@ public class ArticleDatabase {
         getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/giai-tri.rss", articles);
         getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/the-gioi.rss");
         getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/the-gioi.rss", articles);
+        getArticleBehavior = new GetTuoiTre("https://tuoitre.vn");
+        getArticleBehavior.scrapeArticle("https://tuoitre.vn",articles);
     }
 
     public CopyOnWriteArrayList<Article> getArticles() {

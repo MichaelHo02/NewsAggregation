@@ -61,6 +61,11 @@ public class InitScraper {
                 Thread temp = new Thread(getZingNews);
                 temp.start();
                 temp.join();
+            } else if (entry.contains("tuoitre")) {
+                GetZingNews getTuoiTre = new GetZingNews(entry);
+                Thread temp = new Thread(getTuoiTre);
+                temp.start();
+                temp.join();
             }
         }
     }
