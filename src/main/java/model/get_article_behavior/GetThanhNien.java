@@ -32,10 +32,10 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                 String category = tempDoc.select(".breadcrumbs a").text();
 
                 // Uncomment these lines for testing purpose
-//                System.out.println("Title: " + title);
-//                System.out.println("Date: " + date);
-//                System.out.println("Img: " + imageURL);
-//                System.out.println("Category: " + category);
+                System.out.println("Title: " + title);
+                System.out.println("Date: " + date);
+                System.out.println("Img: " + imageURL);
+                System.out.println("Category: " + category);
                 if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
                     continue;
                 }

@@ -21,7 +21,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
 //            if(url.contains("javascript")) {
 //                throw   ;
 //            }
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect("https://beta.tuoitre.vn/").get();
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 String tempLink = "https://tuoitre.vn/" + element.attr("href"); // Join links
                 if(tempLink.contains("javascript")) {

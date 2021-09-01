@@ -2,6 +2,7 @@ package primary_page.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import model.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
@@ -20,6 +21,8 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private SidebarController sidebarController;
+
+    //Progress bar
 
     @FXML
     private BorderPane borderPane;
@@ -101,4 +104,6 @@ public class PrimaryController implements Initializable {
     public CategoryController getCategoryController() {
         return categoryController;
     }
+
+
 }

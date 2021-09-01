@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static primary_page.controller.PrimaryController.*;
+
 public class InitScraper {
     // Loop qua tat ca cac links, neu dung tag thi goi thread de tim
     static int numCovid = 0;
@@ -45,6 +47,7 @@ public class InitScraper {
     }
 
     public void scrapeArticles() throws InterruptedException {
+
         for (String entry : urlList) {
             if (entry.contains("rss")) {
                 GetWithRSS getWithRSS = new GetWithRSS(entry);
