@@ -10,13 +10,17 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
     private String url;
-
+    boolean stop = false;
+    private static Lock threadLock = new ReentrantLock();
     public GetWithRSS(String url) {
         this.url = url;
     }
@@ -27,6 +31,9 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
             Stream<Item> rssFeed = reader.read(url);
             List<Item> itemList = rssFeed.collect(Collectors.toList());
             for (Item item : itemList) {
+                if (InitScraper.articles.size() >= 200) {
+                    break;
+                }
                 String title = item.getTitle().isPresent() ? item.getTitle().get() : null;
                 String link = item.getLink().isPresent() ? item.getLink().get() : null;
 //                Date publishDate = null;
@@ -42,7 +49,9 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                     System.out.println("Failed");
                 }
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
+                threadLock.lock();
                 articles.add(article);
+                threadLock.unlock();
             }
         } catch (MalformedURLException e) {
             System.out.println("Url Error");
