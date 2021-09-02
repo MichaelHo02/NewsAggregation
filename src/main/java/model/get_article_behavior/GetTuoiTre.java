@@ -35,10 +35,10 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
                 String category = tempDoc.select("meta[name='keywords']" ).attr("content");
 
                 // Uncomment these lines for testing purpose
-                System.out.println("Title: " + title);
-                System.out.println("Date: " + date);
-                System.out.println("Img: " + imageURL);
-                System.out.println("Category: " + category);
+//                System.out.println("Title: " + title);
+//                System.out.println("Date: " + date);
+//                System.out.println("Img: " + imageURL);
+//                System.out.println("Category: " + category);
                 if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
                     continue;
                 }

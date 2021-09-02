@@ -8,42 +8,38 @@ import model.get_article_behavior.GetZingNews;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static primary_page.controller.PrimaryController.*;
 
 public class InitScraper {
     // Loop qua tat ca cac links, neu dung tag thi goi thread de tim
-    static int numCovid = 0;
-    static int numPolitics = 0;
-    static int numBusiness = 0;
-    static int numTechnology = 0;
-    static int numHealth = 0;
-    static int numSport = 0;
-    static int numEntertainment = 0;
-    static int numWorld = 0;
-    static int numOthers = 0;
+    public static int numCovid = 0;
+    public static int numPolitics = 0;
+    public static int numBusiness = 0;
+    public static int numTechnology = 0;
+    public static int numHealth = 0;
+    public static int numSport = 0;
+    public static int numEntertainment = 0;
+    public static int numWorld = 0;
+    public static int numOthers = 0;
 
     public static ArrayList<String> urlList = new ArrayList<String>();
 
     public static CopyOnWriteArrayList<Article> articles = new CopyOnWriteArrayList<>();
 
     public void scrapeLinks() throws InterruptedException {
-        Thread t1 = new Thread(new URLCrawler("https://vnexpress.net/rss"));
-//        Thread t2 = new Thread(new URLCrawler("https://tuoitre.vn/rss.htm"));
-//        Thread t3 = new Thread(new URLCrawler("https://thanhnien.vn/rss.html"));
-//        Thread t4 = new Thread(new URLCrawler("https://nhandan.vn/"));
-//        Thread t5 = new Thread(new URLCrawler("https://zingnews.vn/"));
-        t1.start();
-//        t2.start();
-//        t3.start();
-//        t4.start();
-//        t5.start();
-        t1.join();
-//        t2.join();
-//        t2.join();
-//        t3.join();
-//        t4.join();
-//        t5.join();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+//        executorService.submit(new URLCrawler("https://vnexpress.net/rss"));
+//        executorService.submit(new URLCrawler("https://tuoitre.vn/rss.htm"));
+//        executorService.submit(new URLCrawler("https://thanhnien.vn/rss.html"));
+        executorService.submit(new URLCrawler("https://nhandan.vn/"));
+//        executorService.submit(new URLCrawler("https://zingnews.vn/"));
+        executorService.shutdown();
+        while (!executorService.isTerminated()) {
+            System.out.println("Scraping in InitScraper...");
+        }
     }
 
     public void scrapeArticles() throws InterruptedException {
@@ -81,13 +77,17 @@ public class InitScraper {
 
     public static void main(String[] args) throws InterruptedException {
         InitScraper in = new InitScraper();
+//        in.scrapeLinks();
+//        in.scrapeArticles();
+//        URLCrawler uc = new URLCrawler("https://vnexpress.net/rss");
+//        Thread t1 = new Thread(uc);
+//        t1.start();
+//        t1.join();
+//        for (Article x : articles) {
+//            System.out.println(x.getTitlePage());
+//        }
         in.scrapeLinks();
-        in.scrapeArticles();
-
-        for (Article x : articles) {
-            System.out.println(x.getTitlePage());
-        }
-
+        System.out.println(articles.size());
     }
 
 }

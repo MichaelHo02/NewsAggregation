@@ -1,6 +1,8 @@
 package model.get_article_behavior;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,11 +23,17 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
     @Override
     public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
         try {
-            Document doc = Jsoup.connect(url).get();
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Request request = new Request.Builder().url(url).get().build();
+            Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
+//            Document doc = Jsoup.connect(url).get();
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 String tempLink = "https://thanhnien.vn/" + element.attr("href"); // Join links
                 System.out.println(tempLink);
-                Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
+//                Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
+                OkHttpClient okHttpClientForArticle = new OkHttpClient();
+                Request requestForArticle = new Request.Builder().url(tempLink).get().build();
+                Document tempDoc = Jsoup.parse(okHttpClientForArticle.newCall(requestForArticle).execute().body().string());
                 String title = tempDoc.select(".details__headline").text();
                 String date = tempDoc.select(".details__meta").select("time").text();
                 String imageURL = tempDoc.select(".pswp-content__image").select("img").attr("src");
