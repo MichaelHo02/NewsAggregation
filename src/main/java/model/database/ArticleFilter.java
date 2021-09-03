@@ -49,6 +49,7 @@ public  class ArticleFilter {
         for (String tmp: category ) {
             if(isMatch(article,"dictionary/" + category + ".txt"));
             //TODO: Devide into different category, idk how you guys display differnet article into different category. Need help on this
+            //TODO: lam sao de neu nhu dang scrape dung category day thi access vao bien num trong InitScraper, cho no += 1 de cap nhat so luong category
         }
     }
 
