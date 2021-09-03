@@ -45,12 +45,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
         return dictionary;
     }
 
-    public static void isMatch(Article article) { // check if articles's raw category data matches this database
-        for (String tmp : dictionary) {
-            Pattern key = Pattern.compile(tmp, Pattern.CASE_INSENSITIVE);
-            if (key.matcher(article.getCategory()).find()) { articles.add(article); }
-        }
-    }
+
 
     public CopyOnWriteArrayList<Article> getArticles() {
         return articles;
