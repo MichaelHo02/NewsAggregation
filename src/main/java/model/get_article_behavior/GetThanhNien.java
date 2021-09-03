@@ -3,6 +3,7 @@ package model.get_article_behavior;
 import com.github.sisyphsu.dateparser.DateParserUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,7 +55,11 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                     imageURL = ""; // Prevent bugs with ImageView
                 }
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.THANHNIEN, category);
-                articles.add(article);
+                // check if this article belongs to any category, if none then all categories are full => terminate
+                if (ArticleFilter.filterArticle(article)) {
+                    articles.add(article);
+                }
+                else return;
             }
         } catch (Exception e) {
             System.out.println("Failed to connect");

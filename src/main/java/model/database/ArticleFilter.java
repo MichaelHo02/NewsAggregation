@@ -1,6 +1,7 @@
 package model.database;
 
 import model.get_article_behavior.Article;
+import model.scrapping_engine.InitScraper;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -25,7 +26,7 @@ public  class ArticleFilter {
         }
     }
 
-    public static boolean isMatch(Article article, String dictionaryFile) { // check if articles's raw category data matches this database
+    public static boolean isMatch(String rawCategory, String dictionaryFile) { // check if articles's raw category data matches this database
         String [] dictionary = loadDictionary(dictionaryFile);
         //If have problem with any of the dictionary
         if(dictionary == null) {
@@ -36,20 +37,30 @@ public  class ArticleFilter {
             //Don't need t worry about the case of the file
             Pattern key = Pattern.compile(tmp, Pattern.CASE_INSENSITIVE);
             //We only need to matches 1 time
-            if (key.matcher(article.getCategory()).find()) { return true; }
+            if (key.matcher(rawCategory).find()) { return true; }
         }
         //Don't found any matches
         return false;
     }
 
     //Use this to filter the article
-    public static  void filterArticle(Article article) {
-        String [] category = {"Bussiness", "Covid","Entertainment", "Health", "Politcs", "Sport", "Technology", "World"};
+    public static boolean filterArticle(Article article) {
+        String [] category = {"Covid","Politcs","Bussiness","Technology","Health","Sport","Entertainment","World","Others"};
         //Need to ingest category into isMatch methode
-        for (String tmp: category ) {
-            if(isMatch(article,"dictionary/" + category + ".txt"));
-            //TODO: Devide into different category, idk how you guys display differnet article into different category. Need help on this
+        boolean flag = false; // boolean to flag if an article belongs to at least 01 category besides "Others"
+        for (int i = 0; i < 9; i++) {
+            if (InitScraper.catCounter.get(i) < 50) {
+                if (isMatch(article.getCategory(), "dictionary/" + category[i] + ".txt") || (i == 8 && !flag)) {
+                  article.addCategory(category[i]);
+                  InitScraper.catCounter.set(i, InitScraper.catCounter.get(i) + 1);
+                  flag = true; // set flag
+                }
+            }
+            else {
+                System.out.println("Category " + category[i] + " is full!");
+            }
         }
+        return flag;
     }
 
 }
