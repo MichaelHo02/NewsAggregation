@@ -15,15 +15,18 @@ import static primary_page.controller.PrimaryController.*;
 
 public class InitScraper {
     // Loop qua tat ca cac links, neu dung tag thi goi thread de tim
-    public static int numCovid = 0;
-    public static int numPolitics = 0;
-    public static int numBusiness = 0;
-    public static int numTechnology = 0;
-    public static int numHealth = 0;
-    public static int numSport = 0;
-    public static int numEntertainment = 0;
-    public static int numWorld = 0;
-    public static int numOthers = 0;
+//    public static int numCovid = 0;
+//    public static int numPolitics = 0;
+//    public static int numBusiness = 0;
+//    public static int numTechnology = 0;
+//    public static int numHealth = 0;
+//    public static int numSport = 0;
+//    public static int numEntertainment = 0;
+//    public static int numWorld = 0;
+//    public static int numOthers = 0;
+
+
+    public static ArrayList<Integer> catCounter = new ArrayList<>(9);
 
     public static ArrayList<String> urlList = new ArrayList<String>();
 
