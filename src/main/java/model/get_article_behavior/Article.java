@@ -1,6 +1,7 @@
 package model.get_article_behavior;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Article {
@@ -12,7 +13,7 @@ public class Article {
     private Date date;
     private String imageURL;
     private WebsiteURL source;
-    private String category; // cach nhau boi dau ,
+    private String category; // raw category data
 
     public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
         this.titlePage = titlePage;
@@ -22,8 +23,6 @@ public class Article {
         this.source = source;
         this.category = category;
     }
-
-
 
     public String getTitlePage() {
         return titlePage;
@@ -48,4 +47,5 @@ public class Article {
     public String getCategory() {
         return category;
     }
+
 }

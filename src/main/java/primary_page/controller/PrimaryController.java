@@ -2,9 +2,8 @@ package primary_page.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
-import model.ArticleDatabase;
+import model.database.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.net.URL;
