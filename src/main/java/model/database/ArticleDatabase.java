@@ -1,18 +1,28 @@
-package model;
+package model.database;
 
 import model.get_article_behavior.Article;
 import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetArticleBehavior;
+import model.database.ArticleFilter;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Pattern;
 
-public class ArticleDatabase {
-    private CopyOnWriteArrayList<Article> articles;
+import static model.database.ArticleFilter.loadDictionary;
+
+public class ArticleDatabase { // database contains category dictionary + articles for that category
+    private static String[] dictionary;
+
+    private static CopyOnWriteArrayList<Article> articles;
 
     private GetArticleBehavior getArticleBehavior;
 
     public ArticleDatabase() {
+        articles = new CopyOnWriteArrayList<>();
+    }
+    public ArticleDatabase(String dictFile) {
+        dictionary = loadDictionary(dictFile); // load dictionary from file
         articles = new CopyOnWriteArrayList<>();
     }
 
@@ -31,7 +41,15 @@ public class ArticleDatabase {
         getArticleBehavior.scrapeArticle("https://tuoitre.vn",articles);
     }
 
+    public String[] getDictionary() {
+        return dictionary;
+    }
+
+
+
     public CopyOnWriteArrayList<Article> getArticles() {
         return articles;
     }
+
+
 }

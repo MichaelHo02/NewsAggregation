@@ -42,13 +42,6 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
                 Document docForArticle = Jsoup.parse(okHttpClientForArticle.newCall(requestForArticle).execute().body().string());
                 EssenceResult data = Essence.extract(docForArticle.html());
                 System.out.println("Zing " + data.getDate());
-                try {
-                    System.out.println("Zing Stock:" + data.getDate());
-                    System.out.println("Zing: " + DateParserUtils.parseDate(data.getDate()).toString());
-                } catch (Exception e) {
-                    System.out.println("Failed");
-                }
-
                 Article tmp = new Article(title,
                         linkPage,
                         DateParserUtils.parseDate(data.getDate()),

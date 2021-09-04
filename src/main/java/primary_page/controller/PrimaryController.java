@@ -6,7 +6,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import model.ArticleDatabase;
+import model.database.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.net.URL;
@@ -23,6 +23,8 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private SidebarController sidebarController;
+
+    //Progress bar
 
     @FXML
     private BorderPane borderPane;
@@ -119,4 +121,6 @@ public class PrimaryController implements Initializable {
     public CategoryController getCategoryController() {
         return categoryController;
     }
+
+
 }

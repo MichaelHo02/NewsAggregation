@@ -58,4 +58,5 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
         scrapeArticle(this.url, InitScraper.articles);
     }
 
+
 }
