@@ -6,6 +6,7 @@ import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetZingNews;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -15,19 +16,19 @@ import static primary_page.controller.PrimaryController.*;
 
 public class InitScraper {
     // Loop qua tat ca cac links, neu dung tag thi goi thread de tim
-//    public static int numCovid = 0;
-//    public static int numPolitics = 0;
-//    public static int numBusiness = 0;
-//    public static int numTechnology = 0;
-//    public static int numHealth = 0;
-//    public static int numSport = 0;
-//    public static int numEntertainment = 0;
-//    public static int numWorld = 0;
-//    public static int numOthers = 0;
+    //Order in array are as following
+//    1 numCovid
+//    2 numPolitics
+//    3 numBusiness
+//    4 numTechnology
+//    5 numHealth
+//    6 numSport
+//    7 numEntertainment
+//    8 numWorld
+//    9 numOthers
 
 
-    public static ArrayList<Integer> catCounter = new ArrayList<>(9);
-
+    public static ArrayList<Integer> catCounter = new ArrayList<Integer>(Collections.nCopies(9, 0));
     public static ArrayList<String> urlList = new ArrayList<String>();
 
     public static CopyOnWriteArrayList<Article> articles = new CopyOnWriteArrayList<>();
@@ -93,4 +94,16 @@ public class InitScraper {
         System.out.println(articles.size());
     }
 
+    //Array accessor
+    public static void setValue(int index, int value) {
+        synchronized (catCounter) {
+            catCounter.set(index, value);
+        }
+    }
+
+    public static int getValue(int index) {
+        synchronized (catCounter) {
+            return catCounter.get(index);
+        }
+    }
 }

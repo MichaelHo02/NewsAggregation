@@ -49,15 +49,18 @@ public  class ArticleFilter {
 
     //Use this to filter the article
    synchronized public static boolean filterArticle(Article article) {
-        String [] category = {"Covid","Politcs","Bussiness","Technology","Health","Sport","Entertainment","World","Others"};
+        String [] category = {"Covid","Politcs","Bussiness","Technology","Health","Sport","Entertainment","World"};
         //Need to ingest category into isMatch methode
         boolean flag = false; // boolean to flag if an article belongs to at least 01 category besides "Others"
         for (int i = 0; i < category.length; i++) {
             if (InitScraper.catCounter.get(i) < 50) {
                 if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt") || (i == 8 && !flag)) {
                   article.addCategory(category[i]);
-                  InitScraper.catCounter.set(i, InitScraper.catCounter.get(i) + 1);
+                  InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                   flag = true; // set flag
+                } else {
+                    //Set the category counter for other if it doesn't match any of the ctegoryy
+                    InitScraper.setValue(8, InitScraper.getValue(i) +1);
                 }
             }
             else {
