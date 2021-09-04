@@ -1,5 +1,6 @@
 package primary_page.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,25 +30,23 @@ public class CardController {
 
     public void setData(Article article) {
         this.cardArticle = article;
-
-        title.setText(article.getTitlePage());
-
+        String titleStr = article.getTitlePage();
+        String timeStr = null;
         if (time != null) {
             if (article.getDuration() != null) {
-                time.setText(GetArticleBehavior.getFriendlyDate(article.getDuration()));
+                timeStr = GetArticleBehavior.getFriendlyDate(article.getDuration());
             } else {
-                time.setText("No Time");
+                timeStr = "No Time";
             }
         }
-
+        Image imageURL = null;
         if (imageView != null) {
             if (article.getImageURL() != null) {
-                imageView.setImage(new Image(article.getImageURL()));
+                imageURL = new Image(article.getImageURL());
             } else {
-                imageView.setImage(null);
+                imageURL = null;
             }
         }
-
         String sourceName = "";
         switch (cardArticle.getSource()) {
             case VNEXPRESS:
@@ -66,7 +65,19 @@ public class CardController {
                 sourceName = "ThanhNien";
                 break;
         }
-        source.setText(sourceName);
+        String finalSourceName = sourceName;
+        String finalTimeStr = timeStr;
+        Image finalImageURL = imageURL;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                title.setText(titleStr);
+                source.setText(finalSourceName);
+                time.setText(finalTimeStr);
+                imageView.setImage(finalImageURL);
+
+            }
+        });
     }
 
     public void clickTitle() {

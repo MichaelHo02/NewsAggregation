@@ -1,5 +1,8 @@
 package primary_page.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -38,8 +41,28 @@ public class PrimaryController implements Initializable {
         Arrays.fill(haveClick, false);
     }
 
+    Service<Integer> service;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        service = new Service<Integer>() {
+            @Override
+            protected Task<Integer> createTask() {
+                return new Task<Integer>() {
+                    @Override
+                    protected Integer call() throws Exception {
+                        if (!haveClick[currentPage]) {
+                            for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
+                                CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
+                                cardController.setData(articleDatabase.getArticles().get(i));
+                            }
+                            System.out.println("Cancel " + isCancelled());
+                            haveClick[currentPage] = true;
+                        }
+                        return 1;
+                    }
+                };
+            }
+        };
         navigationController.injectMainController(this);
         categoryController.injectMainController(this);
         sidebarController.injectMainController(this);
@@ -58,14 +81,9 @@ public class PrimaryController implements Initializable {
 
 
     private void inputArticle() {
-        // TODO: do not have enough article bug
-        if (!haveClick[currentPage]) {
-            for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
-                CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
-                cardController.setData(articleDatabase.getArticles().get(i));
-            }
-            haveClick[currentPage] = true;
-        }
+        System.out.println("Check 1 " + service.stateProperty());
+        service.restart();
+        System.out.println("Check 2" + service.stateProperty());
         borderPane.setCenter(pageList.get(currentPage));
     }
 
