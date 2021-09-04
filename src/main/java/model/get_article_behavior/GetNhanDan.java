@@ -20,22 +20,17 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
     @Override
     public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+
         try {
             Document doc = Jsoup.connect(url).get();
             for (Element element : doc.select("div.box-title > a[href]")) { // Fetch all links
                 String tempLink = "https://nhandan.vn" + element.attr("href"); // Join links
-//                System.out.println(tempLink);
+                System.out.println(tempLink);
                 Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
                 String title = tempDoc.select(".box-title-detail.entry-title").text();
                 String date = tempDoc.select(".box-date.pull-left").text();
                 String imageURL = tempDoc.select("img").attr("data-src");
                 String category = tempDoc.select(".uk-breadcrumb a").text();
-
-                // Uncomment these lines for testing purpose
-//                System.out.println("Title: " + title);
-//                System.out.println("Date: " + date);
-//                System.out.println("Img: " + imageURL);
-//                System.out.println("Category: " + category);
                 if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
                     continue;
                 }
@@ -46,11 +41,16 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     imageURL = ""; // Prevent bugs with ImageView
                 }
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.NHANDAN, category);
-                articles.add(article);
+                synchronized(this) {
+                    System.out.println(InitScraper.articles);
+                    articles.add(article);
+                }
             }
         } catch (Exception e) {
             System.out.println("Failed to connect");
         }
+
+
     }
 
     @Override

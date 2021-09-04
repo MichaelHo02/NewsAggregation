@@ -34,26 +34,26 @@ public class URLCrawler implements Runnable {
             for (Element element : elements) {
                 if (url.contains("vnexpress")) {
 //                    urlList.add("https://vnexpress.net" + element.attr("href"));
-                    executorService.submit(new GetWithRSS("https://vnexpress.net" + element.attr("href")));
+                    executorService.execute(new GetWithRSS("https://vnexpress.net" + element.attr("href")));
                 } else if (url.contains("tuoitre")) {
 //                    urlList.add("https://tuoitre.vn" + element.attr("href"));
-                    executorService.submit(new GetWithRSS("https://tuoitre.vn" + element.attr("href")));
+                    executorService.execute(new GetWithRSS("https://tuoitre.vn" + element.attr("href")));
                 } else if (url.contains("nhandan")) {
 //                    urlList.add("https://nhandan.vn" + element.attr("href"));
-                    executorService.submit(new GetNhanDan("https://nhandan.vn" + element.attr("href")));
+                    executorService.execute(new GetNhanDan("https://nhandan.vn" + element.attr("href")));
                 } else if (url.contains("zingnews")) {
 //                    urlList.add("https://zingnews.vn" + element.attr("href"));
-                    executorService.submit(new GetZingNews("https://zingnews.vn" + element.attr("href")));
+                    executorService.execute(new GetZingNews("https://zingnews.vn" + element.attr("href")));
                 } else {
                     String temp = element.attr("href");
                     if (temp.contains("video") || temp.contains("viec-lam") || temp.contains("game")) { continue; }
 //                    urlList.add(temp);
-                    executorService.submit(new GetWithRSS(element.attr("href")));
+                    executorService.execute(new GetWithRSS(element.attr("href")));
                 }
             }
             executorService.shutdown();
             while (!executorService.isTerminated()) {
-                System.out.println("Scraping...");
+//                System.out.println("Scraping...");
             }
         } catch (Exception e) {
             System.out.println("cannot connect to page");

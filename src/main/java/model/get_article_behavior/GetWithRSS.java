@@ -31,9 +31,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
             Stream<Item> rssFeed = reader.read(url);
             List<Item> itemList = rssFeed.collect(Collectors.toList());
             for (Item item : itemList) {
-                if (InitScraper.articles.size() >= 200) {
-                    break;
-                }
+
                 String title = item.getTitle().isPresent() ? item.getTitle().get() : null;
                 String link = item.getLink().isPresent() ? item.getLink().get() : null;
 //                Date publishDate = null;
@@ -49,9 +47,13 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                     System.out.println("Failed");
                 }
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
-                threadLock.lock();
-                articles.add(article);
-                threadLock.unlock();
+
+                synchronized(this) {
+                    if (InitScraper.articles.size() == 200) {
+                        break;
+                    }
+                    articles.add(article);
+                }
             }
         } catch (MalformedURLException e) {
             System.out.println("Url Error");

@@ -5,6 +5,8 @@ import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetArticleBehavior;
 import model.database.ArticleFilter;
+import model.scrapping_engine.InitScraper;
+import model.scrapping_engine.URLCrawler;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
@@ -27,18 +29,13 @@ public class ArticleDatabase { // database contains category dictionary + articl
     }
 
     public void performGetArticle() {
-        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/tin-moi-nhat.rss");
-        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/tin-moi-nhat.rss", articles);
-        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/kinh-doanh.rss");
-        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/kinh-doanh.rss", articles);
-        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/suc-khoe.rss");
-        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/suc-khoe.rss", articles);
-        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/giai-tri.rss");
-        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/giai-tri.rss", articles);
-        getArticleBehavior = new GetWithRSS("https://vnexpress.net/rss/the-gioi.rss");
-        getArticleBehavior.scrapeArticle("https://vnexpress.net/rss/the-gioi.rss", articles);
-        getArticleBehavior = new GetTuoiTre("https://tuoitre.vn");
-        getArticleBehavior.scrapeArticle("https://tuoitre.vn",articles);
+        InitScraper in = new InitScraper();
+        try {
+            in.scrapeLinks();
+        } catch (Exception e) {
+            System.out.println("failed");
+        }
+        articles = InitScraper.articles;
     }
 
     public String[] getDictionary() {
