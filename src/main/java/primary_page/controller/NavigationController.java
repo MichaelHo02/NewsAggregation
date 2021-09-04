@@ -19,7 +19,6 @@ public class NavigationController implements Initializable {
     @FXML
     private Button page1, page2, page3, page4, page5, prevPage, nextPage;
 
-    private ProgressbarController prog = new ProgressbarController();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentButton();
@@ -109,12 +108,6 @@ public class NavigationController implements Initializable {
         setButtonEffect();
 
         if (oldPage != currentPage) {
-            prog.startProgress();
-            System.out.println("start");
-            for(int i = 0; i < 10; i ++) {
-                prog.increaseProgress();
-            }
-            prog.finishProgress();
             primaryController.setView();
         }
     }

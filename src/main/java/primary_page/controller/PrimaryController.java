@@ -1,11 +1,17 @@
 package primary_page.controller;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import model.database.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
 
@@ -25,6 +31,8 @@ public class PrimaryController implements Initializable {
     private SidebarController sidebarController;
 
     //Progress bar
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     private BorderPane borderPane;
@@ -46,25 +54,37 @@ public class PrimaryController implements Initializable {
     Service<Integer> service;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        service = new Service<Integer>() {
+        service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
-                return new Task<Integer>() {
+                return new Task<>() {
                     @Override
-                    protected Integer call() throws Exception {
+                    protected Integer call() {
+                        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                         if (!haveClick[currentPage]) {
+                            Platform.runLater(() -> {
+                                fadeTransition.setToValue(1);
+                                fadeTransition.play();
+                            });
                             for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
                                 CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
                                 cardController.setData(articleDatabase.getArticles().get(i));
+                                updateProgress((i % 10) + 1, 10);
+                                System.out.println(progressBar.getProgress());
+                                System.out.println(i % 10 + 1);
                             }
-                            System.out.println("Cancel " + isCancelled());
                             haveClick[currentPage] = true;
+                            Platform.runLater(() -> {
+                                fadeTransition.setToValue(0);
+                                fadeTransition.play();
+                            });
                         }
                         return 1;
                     }
                 };
             }
         };
+        progressBar.progressProperty().bind(service.progressProperty());
         navigationController.injectMainController(this);
         categoryController.injectMainController(this);
         sidebarController.injectMainController(this);
@@ -83,9 +103,7 @@ public class PrimaryController implements Initializable {
 
 
     private void inputArticle() {
-        System.out.println("Check 1 " + service.stateProperty());
         service.restart();
-        System.out.println("Check 2" + service.stateProperty());
         borderPane.setCenter(pageList.get(currentPage));
     }
 

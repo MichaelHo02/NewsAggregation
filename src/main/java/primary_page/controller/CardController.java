@@ -68,15 +68,12 @@ public class CardController {
         String finalSourceName = sourceName;
         String finalTimeStr = timeStr;
         Image finalImageURL = imageURL;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                title.setText(titleStr);
-                source.setText(finalSourceName);
-                time.setText(finalTimeStr);
-                imageView.setImage(finalImageURL);
+        Platform.runLater(() -> {
+            title.setText(titleStr);
+            source.setText(finalSourceName);
+            time.setText(finalTimeStr);
+            imageView.setImage(finalImageURL);
 
-            }
         });
     }
 

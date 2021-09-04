@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane minHeight="600.0" minWidth="960.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.PrimaryController">
     <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -17,19 +16,18 @@
                <fx:include fx:id="category" source="primary_page/CategoryView.fxml" />
             </children></AnchorPane>
       </left>
-      <right>
-         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-      </right>
-      <top>
-         <ProgressBar fx:id="progressBar1" prefHeight="9.0" prefWidth="1270.0" progress="0.83" visible="true" BorderPane.alignment="CENTER">
+   </BorderPane>
+   <AnchorPane AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <ProgressBar fx:id="progressBar" prefHeight="10.0" progress="0.0" styleClass="progress-bar" stylesheets="@style/style.css" visible="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">
             <opaqueInsets>
                <Insets />
             </opaqueInsets>
-            <BorderPane.margin>
+            <padding>
                <Insets left="5.0" right="5.0" />
-            </BorderPane.margin>
+            </padding>
          </ProgressBar>
-      </top>
-   </BorderPane>
+      </children>
+   </AnchorPane>
    <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" />
 </AnchorPane>

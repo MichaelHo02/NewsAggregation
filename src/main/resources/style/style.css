@@ -40,3 +40,15 @@
 .scroll-bar:vertical:focused {
     -fx-background-color: transparent;
 }
+
+.progress-bar .track {
+    -fx-background-radius: 0;
+    -fx-background-color: #F4F5F9;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.progress-bar .bar {
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+}
