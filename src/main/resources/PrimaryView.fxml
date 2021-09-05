@@ -13,7 +13,7 @@
       <left>
          <AnchorPane styleClass="column_row_background" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
             <children>
-               <fx:include fx:id="category" source="primary_page/CategoryView.fxml" />
+               <fx:include fx:id="category" source="primary_page/CategoryView.fxml" AnchorPane.topAnchor="0.0" />
             </children></AnchorPane>
       </left>
    </BorderPane>
@@ -29,5 +29,5 @@
          </ProgressBar>
       </children>
    </AnchorPane>
-   <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" />
+   <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>

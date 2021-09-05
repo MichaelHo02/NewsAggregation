@@ -50,7 +50,6 @@ public class SidebarController implements Initializable {
         fadeTransition.setToValue(0);
         fadeTransition.play();
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), sidebar);
-        translateTransition.setFromX(66);
         translateTransition.play();
         translateTransition.setOnFinished(actionEvent -> {
             sidebar.setVisible(false);
@@ -64,7 +63,6 @@ public class SidebarController implements Initializable {
         fadeTransition.setToValue(1);
         fadeTransition.play();
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), sidebar);
-        translateTransition.setFromX(66);
         translateTransition.play();
     }
 
@@ -152,7 +150,7 @@ public class SidebarController implements Initializable {
 
     private ChangeListener<Boolean> toggleHover(int n) {
         return (observableValue, oldValue, newValue) -> {
-            if (n == 10 && !newValue && oldValue && sidebar.isVisible()) {
+            if (n == 10 && !newValue && oldValue && sidebar.isVisible() && primaryController.updateSideBar()) {
                 toggleExtendedSidebarIn();
             }
 

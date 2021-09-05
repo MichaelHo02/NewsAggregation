@@ -52,3 +52,8 @@
     -fx-background-color: black;
     -fx-border-color: transparent;
 }
+
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0em;
+}

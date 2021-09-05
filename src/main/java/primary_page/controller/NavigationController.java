@@ -115,4 +115,5 @@ public class NavigationController implements Initializable {
     public int getCurrentPage() {
         return currentPage;
     }
+
 }
