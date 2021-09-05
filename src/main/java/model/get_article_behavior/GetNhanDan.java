@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -20,11 +21,9 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
     }
 
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
-            OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(url).get().build();
-            Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
+            Document doc = Jsoup.connect(url).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
                 try {
                     String tempLink = element.select("a").attr("href"); // Join links
@@ -32,16 +31,13 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                         tempLink = "https://nhandan.vn" + tempLink;
                     }
                     String title = element.getElementsByClass("box-title").text();
+                    if (title == null) { continue; }
                     String date = element.select("div[class*=box-meta]").text();
                     String imageURL = element.select("img").attr("data-src");
                     String category = "";
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     addArticle(article);
-//                    if (InitScraper.articles.size() == 200) {
-//                        return;
-//                    }
-//                    InitScraper.articles.add(article);
                 } catch (Exception e) {
                     System.out.println("Cannot parse date");
                 }
@@ -57,10 +53,6 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
     }
 
     synchronized void addArticle(Article article) {
-//        if (InitScraper.tempSize == 200) {
-//            return;
-//        }
-        InitScraper.tempSize++;
         InitScraper.articles.add(article);
     }
 

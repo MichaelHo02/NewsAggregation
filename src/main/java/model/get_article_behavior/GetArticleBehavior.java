@@ -78,6 +78,6 @@ public abstract class GetArticleBehavior {
 
     }
 
-    public abstract void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles);
+    public abstract void scrapeArticle(String url, ArrayList<Article> articles);
 
 }

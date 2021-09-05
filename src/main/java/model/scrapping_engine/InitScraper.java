@@ -33,7 +33,7 @@ public class InitScraper {
     public static ArrayList<Integer> catCounter = new ArrayList<Integer>(Collections.nCopies(9, 0));
     public static ArrayList<String> urlList = new ArrayList<String>();
 
-    public static CopyOnWriteArrayList<Article> articles = new CopyOnWriteArrayList<>();
+    public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
     public void scrapeLinks() throws InterruptedException {
         long startTime = System.currentTimeMillis();
@@ -42,19 +42,20 @@ public class InitScraper {
         executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));
         executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
         executorService.execute(new URLCrawler("https://nhandan.vn/"));
-        executorService.submit(new URLCrawler("https://zingnews.vn/"));
+        executorService.execute(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
-        executorService.awaitTermination(10, TimeUnit.SECONDS);
-//        while (!executorService.isTerminated()) {
+//        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        while (!executorService.isTerminated()) {
 //            System.out.println("Scraping in InitScraper...");
-//        }
+        }
         articles.sort(Comparator.comparing(Article::getDuration).reversed());
         long endTime = System.currentTimeMillis();
         long elap = endTime - startTime;
 
-//        for (int i = 0; i < 20; i++) {
-//            System.out.println(articles.get(i).getTitlePage());
-//        }
+//        articles.remove(2);
+        for (int i = 0; i < 20; i++) {
+            System.out.println(articles.get(i).getTitlePage());
+        }
         System.out.println("Scraping done in: " + elap);
 
     }

@@ -7,6 +7,7 @@ import model.scrapping_engine.InitScraper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
         this.url = url;
     }
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
             RssReader reader = new RssReader();
             Stream<Item> rssFeed = reader.read(url);
@@ -36,16 +37,12 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
 
                 synchronized(this) {
-//                    if (InitScraper.articles.size() == 200) {
-//                        break;
-//                    }
                     articles.add(article);
                 }
             }
         } catch (MalformedURLException e) {
             System.out.println("Url Error");
         } catch (IOException e) {
-//            e.printStackTrace();
             System.out.println("XML parser error");
         }
     }

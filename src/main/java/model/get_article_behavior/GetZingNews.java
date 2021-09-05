@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -23,7 +24,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
     }
 
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
             Request request = new Request.Builder().url(url).get().build();

@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetTuoiTre extends GetArticleBehavior implements Runnable {
@@ -16,7 +17,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
     }
 
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
 //            if(url.contains("javascript")) {
 //                throw   ;
