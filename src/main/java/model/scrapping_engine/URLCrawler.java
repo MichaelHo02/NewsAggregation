@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class URLCrawler implements Runnable {
 
@@ -44,7 +45,7 @@ public class URLCrawler implements Runnable {
                 } else if (url.contains("zingnews")) {
 //                    urlList.add("https://zingnews.vn" + element.attr("href"));
                     executorService.execute(new GetZingNews("https://zingnews.vn" + element.attr("href")));
-                } else {
+                } else if (url.contains("thanhnien")) {
                     String temp = element.attr("href");
                     if (temp.contains("video") || temp.contains("viec-lam") || temp.contains("game")) { continue; }
 //                    urlList.add(temp);
@@ -52,9 +53,7 @@ public class URLCrawler implements Runnable {
                 }
             }
             executorService.shutdown();
-            while (!executorService.isTerminated()) {
-//                System.out.println("Scraping...");
-            }
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("cannot connect to page");
         }

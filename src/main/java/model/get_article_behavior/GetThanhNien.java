@@ -22,7 +22,7 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
     }
 
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
             Request request = new Request.Builder().url(url).get().build();

@@ -1,13 +1,15 @@
 package model.get_article_behavior;
 
-import com.github.sisyphsu.dateparser.DateParserUtils;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
@@ -19,44 +21,41 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
     }
 
     @Override
-    public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
-
+    public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
-            Document doc = Jsoup.connect(url).get();
-            for (Element element : doc.select("div.box-title > a[href]")) { // Fetch all links
-                String tempLink = "https://nhandan.vn" + element.attr("href"); // Join links
-                System.out.println(tempLink);
-                Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
-                String title = tempDoc.select(".box-title-detail.entry-title").text();
-                String date = tempDoc.select(".box-date.pull-left").text();
-                String imageURL = tempDoc.select("img").attr("data-src");
-                String category = tempDoc.select(".uk-breadcrumb a").text();
-                if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
-                    continue;
-                }
-                else if (date.equals("") || date.isBlank() || date.isEmpty()) { // Handle abnormal date format
-                    continue;
-                }
-                if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
-                    imageURL = ""; // Prevent bugs with ImageView
-                }
-                Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.NHANDAN, category);
-                synchronized(this) {
-                    System.out.println(InitScraper.articles);
-                    articles.add(article);
+            Document doc = Jsoup.connect(url).timeout(10000).get();
+            for (Element element : doc.select("article")) { // Fetch all links
+                try {
+                    String tempLink = element.select("a").attr("href"); // Join links
+                    if (!tempLink.contains("https://")) {
+                        tempLink = "https://nhandan.vn" + tempLink;
+                    }
+                    String title = element.getElementsByClass("box-title").text();
+                    if (title == null) { continue; }
+                    String date = element.select("div[class*=box-meta]").text();
+                    String imageURL = element.select("img").attr("data-src");
+                    String category = "";
+                    Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
+                    Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
+                    addArticle(article);
+                } catch (Exception e) {
+                    System.out.println("Cannot parse date");
                 }
             }
         } catch (Exception e) {
             System.out.println("Failed to connect");
         }
-
-
     }
 
     @Override
     public void run() {
         scrapeArticle(this.url, InitScraper.articles);
     }
+
+    synchronized void addArticle(Article article) {
+        InitScraper.articles.add(article);
+    }
+
 
 
 }
