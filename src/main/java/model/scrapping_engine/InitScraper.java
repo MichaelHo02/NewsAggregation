@@ -7,6 +7,7 @@ import model.get_article_behavior.GetZingNews;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -28,31 +29,45 @@ public class InitScraper {
 //    8 numWorld
 //    9 numOthers
 
-
+    public static int tempSize = 0;
     public static ArrayList<Integer> catCounter = new ArrayList<Integer>(Collections.nCopies(9, 0));
     public static ArrayList<String> urlList = new ArrayList<String>();
 
     public static CopyOnWriteArrayList<Article> articles = new CopyOnWriteArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
     public void scrapeLinks() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
 
         executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
         executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));
         executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
-//        executorService.execute(new URLCrawler("https://nhandan.vn/"));
-//        executorService.submit(new URLCrawler("https://zingnews.vn/"));
+        executorService.execute(new URLCrawler("https://nhandan.vn/"));
+        executorService.submit(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
-        while (!executorService.isTerminated()) {
-            System.out.println("Scraping in InitScraper...");
-        }
-//        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+//        while (!executorService.isTerminated()) {
+//            System.out.println("Scraping in InitScraper...");
+//        }
+        articles.sort(Comparator.comparing(Article::getDuration).reversed());
+        long endTime = System.currentTimeMillis();
+        long elap = endTime - startTime;
+
+//        for (int i = 0; i < 20; i++) {
+//            System.out.println(articles.get(i).getTitlePage());
+//        }
+        System.out.println("Scraping done in: " + elap);
+
     }
 
     public static void main(String[] args) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
         InitScraper in = new InitScraper();
 
         in.scrapeLinks();
         System.out.println(articles.size());
+        long endTime = System.currentTimeMillis();
+        long elap = endTime - startTime;
+        System.out.println("Program done in: " + elap);
     }
 
     //Array accessor

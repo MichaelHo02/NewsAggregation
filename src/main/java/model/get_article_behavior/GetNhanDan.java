@@ -1,5 +1,7 @@
 package model.get_article_behavior;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,8 +10,6 @@ import org.jsoup.nodes.Element;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
@@ -22,9 +22,9 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
     @Override
     public void scrapeArticle(String url, CopyOnWriteArrayList<Article> articles) {
         try {
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            System.out.println(url);
-            Document doc = Jsoup.connect(url).timeout(10000).get();
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Request request = new Request.Builder().url(url).get().build();
+            Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
             for (Element element : doc.select("article")) { // Fetch all links
                 try {
                     String tempLink = element.select("a").attr("href"); // Join links
@@ -38,6 +38,10 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     addArticle(article);
+//                    if (InitScraper.articles.size() == 200) {
+//                        return;
+//                    }
+//                    InitScraper.articles.add(article);
                 } catch (Exception e) {
                     System.out.println("Cannot parse date");
                 }
@@ -53,9 +57,10 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
     }
 
     synchronized void addArticle(Article article) {
-        if (InitScraper.articles.size() == 200) {
-            return;
-        }
+//        if (InitScraper.tempSize == 200) {
+//            return;
+//        }
+        InitScraper.tempSize++;
         InitScraper.articles.add(article);
     }
 

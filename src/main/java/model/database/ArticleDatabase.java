@@ -36,6 +36,13 @@ public class ArticleDatabase { // database contains category dictionary + articl
             System.out.println("failed");
         }
         articles = InitScraper.articles;
+        for (int i = 1; i < articles.size(); i++) {
+            if (articles.get(i).equals(articles.get(i - 1))) {
+                System.out.println("Yasuo yasuo");
+                articles.remove(i);
+                i--;
+            }
+        }
     }
 
     public String[] getDictionary() {
