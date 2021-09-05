@@ -26,25 +26,21 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
             System.out.println(url);
             Document doc = Jsoup.connect(url).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
-                executorService.submit(() -> {
-                    try {
-                        String tempLink = ""; // Join links
-                        String title = element.getElementsByClass("box-title").text();
-                        String date = element.select("div[class*=box-meta]").text();
-                        String imageURL = element.select("img").attr("data-src");
-                        String category = "";
-                        Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
-                        Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
-                        addArticle(article);
-                    } catch (Exception e) {
-                        System.out.println("Cannot parse date");
+                try {
+                    String tempLink = element.select("a").attr("href"); // Join links
+                    if (!tempLink.contains("https://")) {
+                        tempLink = "https://nhandan.vn" + tempLink;
                     }
-
-                });
-            }
-            executorService.shutdown();
-            while (!executorService.isTerminated()) {
-//                System.out.println("Nhandan is scraping...");
+                    String title = element.getElementsByClass("box-title").text();
+                    String date = element.select("div[class*=box-meta]").text();
+                    String imageURL = element.select("img").attr("data-src");
+                    String category = "";
+                    Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
+                    Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
+                    addArticle(article);
+                } catch (Exception e) {
+                    System.out.println("Cannot parse date");
+                }
             }
         } catch (Exception e) {
             System.out.println("Failed to connect");
