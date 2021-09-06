@@ -30,7 +30,7 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
 //            Document doc = Jsoup.connect(url).get();
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 String tempLink = "https://thanhnien.vn/" + element.attr("href"); // Join links
-                System.out.println(tempLink);
+//                System.out.println(tempLink);
 //                Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
                 OkHttpClient okHttpClientForArticle = new OkHttpClient();
                 Request requestForArticle = new Request.Builder().url(tempLink).get().build();
@@ -41,10 +41,10 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                 String category = tempDoc.select(".breadcrumbs a").text();
 
                 // Uncomment these lines for testing purpose
-                System.out.println("Title: " + title);
-                System.out.println("Date: " + date);
-                System.out.println("Img: " + imageURL);
-                System.out.println("Category: " + category);
+//                System.out.println("Title: " + title);
+//                System.out.println("Date: " + date);
+//                System.out.println("Img: " + imageURL);
+//                System.out.println("Category: " + category);
                 if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
                     continue;
                 }

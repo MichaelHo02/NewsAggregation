@@ -27,8 +27,8 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
             Stream<Item> rssFeed = reader.read(url);
             List<Item> itemList = rssFeed.collect(Collectors.toList());
             for (Item item : itemList) {
-
                 String title = item.getTitle().isPresent() ? item.getTitle().get() : null;
+                System.out.println("This is title " +title);
                 String link = item.getLink().isPresent() ? item.getLink().get() : null;
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;

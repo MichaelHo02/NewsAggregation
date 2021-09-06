@@ -1,5 +1,6 @@
 package model.scrapping_engine;
 
+import model.database.ArticleFilter;
 import model.get_article_behavior.GetNhanDan;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetZingNews;
@@ -31,27 +32,34 @@ public class URLCrawler implements Runnable {
             // vnexpress, tuoi tre /rss/link (needs to be joined)
             // nhan dan needs to be joined
             // zingnews needs to be joined
+            int countFolder = 0;
             Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href]");
             for (Element element : elements) {
-                if (url.contains("vnexpress")) {
+                String folder = element.attr("href");
+                if (ArticleFilter.filterArticle(folder)) {
+                    countFolder++;
+                    System.out.println("This is the filter: " + url + folder);
+                    if (url.contains("vnexpress")) {
 //                    urlList.add("https://vnexpress.net" + element.attr("href"));
-                    executorService.execute(new GetWithRSS("https://vnexpress.net" + element.attr("href")));
-                } else if (url.contains("tuoitre")) {
+                        executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
+                    } else if (url.contains("tuoitre")) {
 //                    urlList.add("https://tuoitre.vn" + element.attr("href"));
-                    executorService.execute(new GetWithRSS("https://tuoitre.vn" + element.attr("href")));
-                } else if (url.contains("nhandan")) {
+                        executorService.execute(new GetWithRSS("https://tuoitre.vn" + folder));
+                    } else if (url.contains("nhandan")) {
 //                    urlList.add("https://nhandan.vn" + element.attr("href"));
-                    executorService.execute(new GetNhanDan("https://nhandan.vn" + element.attr("href")));
-                } else if (url.contains("zingnews")) {
+                        executorService.execute(new GetNhanDan("https://nhandan.vn" + folder));
+                    } else if (url.contains("zingnews")) {
 //                    urlList.add("https://zingnews.vn" + element.attr("href"));
-                    executorService.execute(new GetZingNews("https://zingnews.vn" + element.attr("href")));
-                } else if (url.contains("thanhnien")) {
-                    String temp = element.attr("href");
-                    if (temp.contains("video") || temp.contains("viec-lam") || temp.contains("game")) { continue; }
+                        executorService.execute(new GetZingNews("https://zingnews.vn" + folder));
+                    } else if (url.contains("thanhnien")) {
+//                        String temp = element.attr("href");
+//                        if (temp.contains("video") || temp.contains("viec-lam") || temp.contains("game")) { continue; }
 //                    urlList.add(temp);
-                    executorService.execute(new GetWithRSS(element.attr("href")));
+                        executorService.execute(new GetWithRSS(folder));
+                    }
                 }
             }
+            System.out.println("Total folder: " + countFolder);
             executorService.shutdown();
             executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Exception e) {

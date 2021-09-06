@@ -16,7 +16,7 @@ public abstract class GetArticleBehavior {
 
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {
-            System.out.println("check");
+//            System.out.println("check");
             return WebsiteURL.VNEXPRESS;
         } else if (source.contains("Tuổi Trẻ Online")) {
             return WebsiteURL.TUOITRE;

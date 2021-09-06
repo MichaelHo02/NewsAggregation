@@ -54,7 +54,7 @@ public class InitScraper {
 
 //        articles.remove(2);
         for (int i = 0; i < 20; i++) {
-            System.out.println(articles.get(i).getTitlePage());
+//            System.out.println(articles.get(i).getTitlePage());
         }
         System.out.println("Scraping done in: " + elap);
 

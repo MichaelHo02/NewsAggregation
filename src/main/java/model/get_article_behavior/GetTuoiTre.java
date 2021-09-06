@@ -28,7 +28,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
                 if(tempLink.contains("javascript")) {
                     continue;
                 }
-                System.out.println(tempLink);
+//                System.out.println(tempLink);
                 Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
                 String title = tempDoc.select(".article-title").text();
                 String date = crazyDateString(tempDoc.select(".date-time").text());
