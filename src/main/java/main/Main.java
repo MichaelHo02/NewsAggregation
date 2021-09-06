@@ -27,7 +27,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(690);
         stage.setMinHeight(730);
-//        stage.initStyle(StageStyle.DECORATED);
         stage.show();
     }
 

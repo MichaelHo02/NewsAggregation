@@ -23,11 +23,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
-public class PrimaryController implements Initializable {
+public class PrimaryController implements Initializable, PropertyChangeListener {
     private List<ArticlePageView> pageList;
 
     private Stage stage;
@@ -68,22 +65,11 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         articleDatabase = new ArticleDatabase();
-        articleDatabase.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            inputArticle();
-                        }
-                    });
-                }
-            }
-        });
+        articleDatabase.addPropertyChangeListener(this);
 
         Thread thread = new Thread(() -> articleDatabase.performGetArticle());
         thread.start();
+
         service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
@@ -165,12 +151,16 @@ public class PrimaryController implements Initializable {
 
     public void ready(Stage stage) {
         this.stage = stage;
-        stage.setOnCloseRequest(new EventHandler<>() {
-            @Override
-            public void handle(WindowEvent event) {
-                System.out.println("Stage will close");
-                backgroundScraper.end();
-            }
+        stage.setOnCloseRequest(event -> {
+            System.out.println("Stage will close");
+            backgroundScraper.end();
         });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
+            Platform.runLater(() -> inputArticle());
+        }
     }
 }

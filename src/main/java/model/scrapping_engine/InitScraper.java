@@ -36,7 +36,7 @@ public class InitScraper {
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public void scrapeLinks() throws InterruptedException {
+    public void scrapeLinks() {
         long startTime = System.currentTimeMillis();
 
         executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
