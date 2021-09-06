@@ -1,12 +1,14 @@
 package primary_page.controller;
 
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,8 +26,12 @@ public class CategoryController implements Initializable {
     @FXML
     private VBox categoryBox;
 
+    private PropertyChangeSupport propertyChangeSupport;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        propertyChangeSupport = new PropertyChangeSupport(this);
+
         menuIcon.hoverProperty().addListener(toggleHover(-1));
         newButton.hoverProperty().addListener(toggleHover(0));
         covidButton.hoverProperty().addListener(toggleHover(1));
@@ -200,7 +206,7 @@ public class CategoryController implements Initializable {
     }
 
     @FXML
-    private void setCurrentCategory(MouseEvent event) {
+    private void setCurrentCategory(ActionEvent event) {
         cleanEffect();
         int oldCategory = currentCategory;
         Object source = event.getSource();
@@ -234,11 +240,20 @@ public class CategoryController implements Initializable {
         if (source == othersButton) {
             currentCategory = 9;
         }
-        if (oldCategory != currentCategory) {
-            primaryController.setCurrentCategory(currentCategory);
-        }
-        // TODO: send the message to the model
         setButtonEffect();
+        doNotify(oldCategory);
+    }
+
+    private void doNotify(int oldCategory) {
+        propertyChangeSupport.firePropertyChange("currentCategory", oldCategory, currentCategory);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
     private ChangeListener<Boolean> toggleHover(int n) {

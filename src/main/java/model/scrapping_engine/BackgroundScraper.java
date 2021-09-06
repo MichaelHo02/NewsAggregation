@@ -27,7 +27,7 @@ public class BackgroundScraper implements Runnable {
     public void backgroundScrape() {
         while (true) {
             try {
-                Thread.sleep(15000);
+                Thread.sleep(100_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
                 executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));

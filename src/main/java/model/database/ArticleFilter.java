@@ -58,7 +58,7 @@ public class ArticleFilter {
         for (int i = 0; i < category.length; i++) {
             if (InitScraper.catCounter.get(i) < 50) {
                 if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
-                    article.addCategory(category[i]);
+                    article.addCategory(i);
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                     flag = true; // set flag
                 } else {

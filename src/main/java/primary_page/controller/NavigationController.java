@@ -8,10 +8,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NavigationController implements Initializable {
+public class NavigationController implements Initializable, PropertyChangeListener {
     private PrimaryController primaryController;
 
     private int currentPage;
@@ -19,13 +22,17 @@ public class NavigationController implements Initializable {
     @FXML
     private Button page1, page2, page3, page4, page5, prevPage, nextPage;
 
+    private PropertyChangeSupport propertyChangeSupport;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentButton();
+        propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     void injectMainController(PrimaryController primaryController) {
         this.primaryController = primaryController;
+        primaryController.addPropertyChangeListener(this);
     }
 
     private void cleanEffect() {
@@ -106,14 +113,26 @@ public class NavigationController implements Initializable {
             currentPage = 4;
         }
         setButtonEffect();
+        doNotify(oldPage);
+    }
 
-        if (oldPage != currentPage) {
-            primaryController.inputArticle();
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    private void doNotify(int oldPage) {
+        propertyChangeSupport.firePropertyChange("currentPage", oldPage, currentPage);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("currentPage")) {
+            setCurrentButton();
         }
     }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
 }

@@ -16,11 +16,13 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.database.ArticleDatabase;
+import model.get_article_behavior.Article;
 import model.scrapping_engine.BackgroundScraper;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.*;
 
@@ -54,16 +56,20 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private boolean[] haveClick = new boolean[5];
 
+    private BackgroundScraper backgroundScraper;
+
+    private PropertyChangeSupport propertyChangeSupport;
+
+    Service<Integer> service;
+
     private void resetHaveClick() {
         Arrays.fill(haveClick, false);
     }
 
-    private BackgroundScraper backgroundScraper;
-
-    Service<Integer> service;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        propertyChangeSupport = new PropertyChangeSupport(this);
+
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
 
@@ -82,17 +88,29 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                     @Override
                     protected Integer call() {
                         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
-                        System.out.println("This is the update: " + haveClick[currentCategory]);
                         if (!haveClick[currentPage]) {
                             Platform.runLater(() -> {
                                 fadeTransition.setToValue(1);
                                 fadeTransition.play();
                             });
-                            for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
-                                CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
-                                cardController.setData(articleDatabase.getArticles().get(i));
-                                updateProgress((i % 10) + 1, 10);
-//                                System.out.println(progressBar.getProgress());
+
+
+                            if (currentCategory == 0) {
+                                for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
+                                    CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
+                                    cardController.setData(articleDatabase.getArticles().get(i));
+                                    updateProgress((i % 10) + 1, 10);
+                                }
+                            } else {
+                                for (int i = 0; i < 10; i++) {
+                                    CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i).getController();
+                                    for (Article article : articleDatabase.getArticles()) {
+                                        if (article.getCategories().contains(currentCategory)) {
+                                            cardController.setData(article);
+                                        }
+                                        updateProgress(i + 1, 10);
+                                    }
+                                }
                             }
                             haveClick[currentPage] = true;
                             Platform.runLater(() -> {
@@ -106,7 +124,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             }
         };
         progressBar.progressProperty().bind(service.progressProperty());
+        navigationController.addPropertyChangeListener(this);
         navigationController.injectMainController(this);
+        categoryController.addPropertyChangeListener(this);
         categoryController.injectMainController(this);
         sidebarController.injectMainController(this);
         resetHaveClick();
@@ -118,9 +138,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     }
 
     void inputArticle() {
-        currentPage = navigationController.getCurrentPage();
-        borderPane.setCenter(pageList.get(currentPage));
-        service.restart();
+        Platform.runLater(() -> {
+            borderPane.setCenter(pageList.get(currentPage));
+            service.restart();
+        });
+
     }
 
     public void setCurrentCategory(int currentCategory) {
@@ -163,11 +185,31 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
-            Platform.runLater(this::inputArticle);
+            inputArticle();
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
+            System.out.println("Category in Main");
             resetHaveClick();
-            Platform.runLater(this::inputArticle);
+            inputArticle();
         }
+        if (evt.getPropertyName().equals("currentPage")) {
+            currentPage = (int) evt.getNewValue();
+            inputArticle();
+        }
+        if (evt.getPropertyName().equals("currentCategory")) {
+            currentCategory = (int) evt.getNewValue();
+            // Send currentpage back to navigation
+            propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
+            resetHaveClick();
+            inputArticle();
+        }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }

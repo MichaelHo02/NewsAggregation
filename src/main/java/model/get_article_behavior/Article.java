@@ -14,7 +14,7 @@ public class Article {
     private String imageURL;
     private WebsiteURL source;
     private String category; // raw category data
-    private ArrayList<String> categories;
+    private ArrayList<Integer> categories;
 
     public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
         this.titlePage = titlePage;
@@ -26,7 +26,7 @@ public class Article {
         categories = new ArrayList<>();
     }
 
-    public void addCategory(String category) { categories.add(category); }
+    public void addCategory(int category) { categories.add(category); }
 
     public String getTitlePage() {
         return titlePage;
@@ -52,4 +52,7 @@ public class Article {
         return category;
     }
 
+    public ArrayList<Integer> getCategories() {
+        return categories;
+    }
 }
