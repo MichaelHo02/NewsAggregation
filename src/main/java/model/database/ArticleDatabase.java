@@ -52,7 +52,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
                 articles.add(InitScraper.articles.get(i));
             }
         }
-        System.out.println("After remove: " + articles);
+//        System.out.println("After remove: " + articles);
         doNotify(true);
     }
 

@@ -20,7 +20,7 @@ public class BackgroundScraper implements Runnable {
     }
 
     public void backgroundScrape() {
-        while (!stopThread) {
+        while (true) {
             try {
                 Thread.sleep(15000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
@@ -30,18 +30,23 @@ public class BackgroundScraper implements Runnable {
                 executorService.execute(new URLCrawler("https://nhandan.vn/"));
                 executorService.execute(new URLCrawler("https://zingnews.vn/"));
                 executorService.shutdown();
-                InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed());
+                if (stopThread) {
+                    executorService.shutdownNow();
+                    return;
+                } else {
+                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed());
 
-                // Remove duplicate articles
-                HashSet<String> articlesCheck = new HashSet<>();
-                for (int i = 0; i < InitScraper.articles.size(); i++) {
-                    if (stopThread) {
-                        return;
-                    }
-                    if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
-                        System.out.println("Background adding");
-                        articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
-                        ArticleDatabase.articles.add(InitScraper.articles.get(i));
+                    // Remove duplicate articles
+                    HashSet<String> articlesCheck = new HashSet<>();
+                    for (int i = 0; i < InitScraper.articles.size(); i++) {
+                        if (stopThread) {
+                            return;
+                        }
+                        if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
+                            System.out.println("Background adding");
+                            articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
+                            ArticleDatabase.articles.add(InitScraper.articles.get(i));
+                        }
                     }
                 }
                 System.out.println("Success!");

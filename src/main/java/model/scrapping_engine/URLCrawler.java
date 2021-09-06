@@ -27,12 +27,10 @@ public class URLCrawler implements Runnable {
         ExecutorService executorService = Executors.newCachedThreadPool();
         try {
             Document doc = Jsoup.connect(url).get();
-            int countFolder = 0;
             Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href]");
             for (Element element : elements) {
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
-                    countFolder++;
                     if (url.contains("vnexpress")) {
                         executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
                     } else if (url.contains("tuoitre")) {
@@ -47,7 +45,7 @@ public class URLCrawler implements Runnable {
                 }
             }
             executorService.shutdown();
-            System.out.println(executorService.awaitTermination(10, TimeUnit.SECONDS));
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("cannot connect to page");
         }
