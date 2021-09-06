@@ -1,11 +1,15 @@
 package model.test;
 
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.get_article_behavior.Article;
 import model.get_article_behavior.WebsiteURL;
+import primary_page.controller.CardController;
 
 import java.util.List;
 
@@ -28,9 +32,9 @@ public class Content {
 
     //Extract the article in the content list
     public static List<Content> articleSwitcher(Article article) {
-        WebsiteURL source = article.getSource();
+
         model.test.JsoupArticleDisplay disp;
-        switch (source) {
+        switch (CardController.websiteSource) {
             case VNEXPRESS:
                 disp = new model.test.DisplayVNExpress();
                 break;
@@ -38,23 +42,26 @@ public class Content {
                 disp = new model.test.DisplayTuoiTre();
                 break;
             case ZINGNEWS:
-                disp = new DisplayZingNews();
+                disp = new model.test.DisplayZingNews();
                 break;
             case NHANDAN:
-                disp = new DisplayNhanDan();
+                disp = new model.test.DisplayNhanDan();
                 break;
             case THANHNIEN:
-                disp = new DisplayThanhNien();
+                disp = new model.test.DisplayThanhNien();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " +article.getSource() );
         }
-        List<Content> contentList = disp.getContent(source.getUrl());
+//        System.out.println(source.getUrl());
+        List<Content> contentList = disp.getContent(CardController.websiteLink);
         return contentList;
     }
 
     //Add everythinf to vbox
-    public static void dispArt(List<Content> contentList, VBox articleVbox) {
+    public static BorderPane dispArt(List<Content> contentList) {
+        System.out.println("Working");
+        VBox articleVbox = new VBox();
         for (Content cnt : contentList) {
             if (cnt.getType().equals("p")) {
                 Text text = new Text(cnt.getContext());
@@ -73,5 +80,10 @@ public class Content {
                 }
             }
         }
+        ScrollPane scroll = new ScrollPane();
+        scroll.setContent(articleVbox);
+        BorderPane border = new BorderPane();
+        border.setCenter(scroll);
+        return border;
     }
 }

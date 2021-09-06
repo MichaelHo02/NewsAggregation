@@ -2,7 +2,10 @@ package secondary_page.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -40,7 +43,7 @@ public class SecondaryController implements Initializable {
 
     public void setupView() {
         //Clear article vbox
-        if (articleVbox.getChildren().size() != 1) {
+        if (articleVbox.getChildren().size() > 1) {
             articleVbox.getChildren().remove(articleVbox.getChildren().size() - 1);
         }
 //        DisplayEngine displayEngine = new DisplayEngine();
@@ -51,6 +54,7 @@ public class SecondaryController implements Initializable {
 //        articleVbox.getChildren().add(webView)
 
         //Add the new article
-        Content.dispArt(Content.articleSwitcher(article), articleVbox);
+    articleVbox.getChildren().addAll(Content.dispArt(Content.articleSwitcher(article)));
+
     }
 }
