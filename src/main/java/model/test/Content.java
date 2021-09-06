@@ -59,7 +59,7 @@ public class Content {
     }
 
     //Add everythinf to vbox
-    public static BorderPane dispArt(List<Content> contentList) {
+    public static ScrollPane dispArt(List<Content> contentList) {
         System.out.println("Working");
         VBox articleVbox = new VBox();
         for (Content cnt : contentList) {
@@ -82,8 +82,7 @@ public class Content {
         }
         ScrollPane scroll = new ScrollPane();
         scroll.setContent(articleVbox);
-        BorderPane border = new BorderPane();
-        border.setCenter(scroll);
-        return border;
+
+        return scroll;
     }
 }

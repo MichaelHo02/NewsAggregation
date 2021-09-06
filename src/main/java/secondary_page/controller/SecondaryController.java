@@ -43,7 +43,7 @@ public class SecondaryController implements Initializable {
 
     public void setupView() {
         //Clear article vbox
-        if (articleVbox.getChildren().size() > 1) {
+        if (articleVbox.getChildren().size() != 0) {
             articleVbox.getChildren().remove(articleVbox.getChildren().size() - 1);
         }
 //        DisplayEngine displayEngine = new DisplayEngine();
