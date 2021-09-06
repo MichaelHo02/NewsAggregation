@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.get_article_behavior.Article;
+import model.scrapping_engine.BackgroundScraper;
 import secondary_page.controller.SecondaryController;
 
 public class Main extends Application {
@@ -25,6 +26,8 @@ public class Main extends Application {
         stage.setMinHeight(730);
 //        stage.initStyle(StageStyle.DECORATED);
         stage.show();
+        Thread backgroundEngine = new Thread(new BackgroundScraper());
+        backgroundEngine.start();
     }
 
 

@@ -39,7 +39,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     addArticle(article);
                 } catch (Exception e) {
-                    System.out.println("Cannot parse date");
+//                    System.out.println("Cannot parse date");
                 }
             }
         } catch (Exception e) {
