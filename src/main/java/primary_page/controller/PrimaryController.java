@@ -70,6 +70,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         Thread thread = new Thread(() -> articleDatabase.performGetArticle());
         thread.start();
 
+        backgroundScraper = new BackgroundScraper();
+        backgroundScraper.addPropertyChangeListener(this);
+        Thread backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine.start();
+
         service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
@@ -77,6 +82,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                     @Override
                     protected Integer call() {
                         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
+                        System.out.println("This is the update: " + haveClick[currentCategory]);
                         if (!haveClick[currentPage]) {
                             Platform.runLater(() -> {
                                 fadeTransition.setToValue(1);
@@ -109,9 +115,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
-        backgroundScraper = new BackgroundScraper();
-        Thread backgroundEngine = new Thread(backgroundScraper);
-        backgroundEngine.start();
     }
 
     void inputArticle() {
@@ -160,7 +163,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
-            Platform.runLater(() -> inputArticle());
+            Platform.runLater(this::inputArticle);
+        }
+        if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
+            resetHaveClick();
+            Platform.runLater(this::inputArticle);
         }
     }
 }

@@ -3,6 +3,8 @@ package model.scrapping_engine;
 import model.database.ArticleDatabase;
 import model.get_article_behavior.Article;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -15,8 +17,11 @@ public class BackgroundScraper implements Runnable {
 
     private boolean stopThread;
 
+    private PropertyChangeSupport propertyChangeSupport;
+
     public BackgroundScraper() {
         stopThread = false;
+        propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     public void backgroundScrape() {
@@ -50,6 +55,7 @@ public class BackgroundScraper implements Runnable {
                     }
                 }
                 System.out.println("Success!");
+                doNotify(true);
             } catch (Exception e) {
                 System.out.println(e.toString());
                 System.out.println("Cannot perform background scraping");
@@ -64,5 +70,18 @@ public class BackgroundScraper implements Runnable {
 
     public void end() {
         stopThread = true;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+
+    private void doNotify(Boolean boo) {
+        propertyChangeSupport.firePropertyChange("updateScrapeDone", null, boo);
     }
 }
