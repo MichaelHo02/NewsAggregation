@@ -61,7 +61,7 @@ public class URLCrawler implements Runnable {
             }
             System.out.println("Total folder: " + countFolder);
             executorService.shutdown();
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            System.out.println(executorService.awaitTermination(10, TimeUnit.SECONDS));
         } catch (Exception e) {
             System.out.println("cannot connect to page");
         }

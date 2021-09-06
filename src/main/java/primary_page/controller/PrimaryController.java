@@ -7,19 +7,26 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.database.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
-
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class PrimaryController implements Initializable {
     private List<ArticlePageView> pageList;
+
+    private Stage stage;
 
     @FXML
     private NavigationController navigationController;
@@ -39,7 +46,6 @@ public class PrimaryController implements Initializable {
 
     ArticleDatabase articleDatabase;
 
-    ArticlePageView articlePageView;
 
     private int currentPage;
 
@@ -52,8 +58,12 @@ public class PrimaryController implements Initializable {
     }
 
     Service<Integer> service;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        articleDatabase = new ArticleDatabase();
+        Thread thread = new Thread(() -> articleDatabase.performGetArticle());
+        thread.start();
         service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
@@ -70,8 +80,7 @@ public class PrimaryController implements Initializable {
                                 CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
                                 cardController.setData(articleDatabase.getArticles().get(i));
                                 updateProgress((i % 10) + 1, 10);
-                                System.out.println(progressBar.getProgress());
-                                System.out.println(i % 10 + 1);
+//                                System.out.println(progressBar.getProgress());
                             }
                             haveClick[currentPage] = true;
                             Platform.runLater(() -> {
@@ -88,28 +97,19 @@ public class PrimaryController implements Initializable {
         navigationController.injectMainController(this);
         categoryController.injectMainController(this);
         sidebarController.injectMainController(this);
-        articleDatabase = new ArticleDatabase();
-        articleDatabase.performGetArticle();
-
         resetHaveClick();
         pageList = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
-            articlePageView = new ArticlePageView(i);
+            ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
-        borderPane.setCenter(pageList.get(0));
         inputArticle();
     }
 
-
-    private void inputArticle() {
-        service.restart();
-        borderPane.setCenter(pageList.get(currentPage));
-    }
-
-    void setView() {
+    void inputArticle() {
         currentPage = navigationController.getCurrentPage();
-        inputArticle();
+        borderPane.setCenter(pageList.get(currentPage));
+        service.restart();
     }
 
     public void setCurrentCategory(int currentCategory) {
@@ -141,4 +141,13 @@ public class PrimaryController implements Initializable {
     }
 
 
+    public void ready(Stage stage) {
+        this.stage = stage;
+        stage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.out.println("Stage will close");
+            }
+        });
+    }
 }

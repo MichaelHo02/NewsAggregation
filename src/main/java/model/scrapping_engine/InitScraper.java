@@ -35,6 +35,7 @@ public class InitScraper {
 
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
+
     public void scrapeLinks() throws InterruptedException {
         long startTime = System.currentTimeMillis();
 

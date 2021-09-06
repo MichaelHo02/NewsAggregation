@@ -108,7 +108,7 @@ public class NavigationController implements Initializable {
         setButtonEffect();
 
         if (oldPage != currentPage) {
-            primaryController.setView();
+            primaryController.inputArticle();
         }
     }
 

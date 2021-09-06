@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.get_article_behavior.Article;
+import primary_page.controller.PrimaryController;
 import secondary_page.controller.SecondaryController;
 
 public class Main extends Application {
@@ -20,10 +21,11 @@ public class Main extends Application {
         secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryView.fxml"));
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
+        PrimaryController primaryController = primaryFxmlLoader.getController();
+        primaryController.ready(stage);
         stage.setScene(scene);
         stage.setMinWidth(690);
         stage.setMinHeight(730);
-//        stage.initStyle(StageStyle.DECORATED);
         stage.show();
     }
 
