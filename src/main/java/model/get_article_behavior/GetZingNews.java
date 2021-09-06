@@ -33,16 +33,19 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
             Elements elements = doc.getElementsByTag("article");
             //Looping through each element
             for (Element element : elements) {
+                // get title and article url
                 String title = element.child(1).getElementsByClass("article-title").select("a").text();
                 String linkPage = "https://zingnews.vn/" + element.getElementsByClass("article-title").select("a").attr("href");
+                // get and format date
                 String tempDate = element.getElementsByClass("date").text() + " " + element.getElementsByClass("time").text();
                 Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(tempDate);
-                Article tmp = new Article(title,
-                        linkPage,
-                        date,
-                        getImage(element.getElementsByClass("article-thumbnail").select("img").toString()),
-                        getSource("ZingNews"),
-                        null);
+                // get image url
+                String image = getImage(element.getElementsByClass("article-thumbnail").select("img").toString());
+                // get article meta category
+                String category = element.getElementsByClass("article-meta").select("a").attr("title");
+                // construct article
+                Article tmp = new Article(title, linkPage, date, image, getSource("ZingNews"), category);
+                // thread-safe handling article
                 synchronized(this) {
                     articles.add(tmp);
                 }
@@ -52,6 +55,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
             System.out.println("URL error");
         }
     }
+
 
     @Override
     public void run() {

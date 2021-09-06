@@ -24,22 +24,18 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
 //            }
             Document doc = Jsoup.connect("https://beta.tuoitre.vn/").get();
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
+                // get article url
                 String tempLink = "https://tuoitre.vn/" + element.attr("href"); // Join links
                 if(tempLink.contains("javascript")) {
                     continue;
                 }
-//                System.out.println(tempLink);
                 Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
+                // get title, date, image url and category meta
                 String title = tempDoc.select(".article-title").text();
                 String date = crazyDateString(tempDoc.select(".date-time").text());
                 String imageURL = tempDoc.select(".VCSortableInPreviewMode").select("img").attr("src");
                 String category = tempDoc.select("meta[name='keywords']" ).attr("content");
 
-                // Uncomment these lines for testing purpose
-//                System.out.println("Title: " + title);
-//                System.out.println("Date: " + date);
-//                System.out.println("Img: " + imageURL);
-//                System.out.println("Category: " + category);
                 if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
                     continue;
                 }
@@ -49,6 +45,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
                 if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
                     imageURL = ""; // Prevent bugs with ImageView
                 }
+                // construct and add article to collection
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date), imageURL, WebsiteURL.TUOITRE, category);
                 articles.add(article);
             }

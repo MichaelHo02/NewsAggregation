@@ -37,6 +37,7 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                 Document tempDoc = Jsoup.parse(okHttpClientForArticle.newCall(requestForArticle).execute().body().string());
                 String title = tempDoc.select(".details__headline").text();
                 String date = tempDoc.select(".details__meta").select("time").text();
+                //TODO: image not display
                 String imageURL = tempDoc.select(".pswp-content__image").select("img").attr("src");
                 String category = tempDoc.select(".breadcrumbs a").text();
 
@@ -51,9 +52,9 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                 else if (date.equals("") || date.isBlank() || date.isEmpty()) { // Handle abnormal date format
                     continue;
                 }
-                if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
-                    imageURL = ""; // Prevent bugs with ImageView
-                }
+//                if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
+//                    imageURL = ""; // Prevent bugs with ImageView
+//                }
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.THANHNIEN, category);
                 // check if this article belongs to any category, if none then all categories are full => terminate
                 if (ArticleFilter.filterArticle(article)) {
