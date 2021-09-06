@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryFxmlLoader = new FXMLLoader(Main.class.getResource("/PrimaryView.fxml"));
-        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryView.fxml"));
+        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryTest.fxml"));
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
         stage.setScene(scene);

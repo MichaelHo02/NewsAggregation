@@ -8,7 +8,6 @@ import javafx.scene.text.Text;
 import main.Main;
 import model.get_article_behavior.Article;
 import model.get_article_behavior.GetArticleBehavior;
-import model.get_article_behavior.WebsiteURL;
 
 public class CardController {
 
