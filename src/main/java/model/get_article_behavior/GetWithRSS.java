@@ -28,14 +28,12 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
             List<Item> itemList = rssFeed.collect(Collectors.toList());
             for (Item item : itemList) {
                 String title = item.getTitle().isPresent() ? item.getTitle().get() : null;
-                System.out.println("This is title " +title);
                 String link = item.getLink().isPresent() ? item.getLink().get() : null;
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
                 assert pubDate != null;
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
-
                 synchronized(this) {
                     articles.add(article);
                 }
