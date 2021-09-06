@@ -13,8 +13,14 @@ import java.util.concurrent.Executors;
 
 public class BackgroundScraper implements Runnable {
 
+    private boolean stopThread;
+
+    public BackgroundScraper() {
+        stopThread = false;
+    }
+
     public void backgroundScrape() {
-        while (true) {
+        while (!stopThread) {
             try {
                 Thread.sleep(15000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
@@ -23,11 +29,15 @@ public class BackgroundScraper implements Runnable {
                 executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
                 executorService.execute(new URLCrawler("https://nhandan.vn/"));
                 executorService.execute(new URLCrawler("https://zingnews.vn/"));
+                executorService.shutdown();
                 InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed());
 
                 // Remove duplicate articles
                 HashSet<String> articlesCheck = new HashSet<>();
                 for (int i = 0; i < InitScraper.articles.size(); i++) {
+                    if (stopThread) {
+                        return;
+                    }
                     if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
                         System.out.println("Background adding");
                         articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
@@ -45,5 +55,9 @@ public class BackgroundScraper implements Runnable {
     @Override
     public void run() {
         backgroundScrape();
+    }
+
+    public void end() {
+        stopThread = true;
     }
 }

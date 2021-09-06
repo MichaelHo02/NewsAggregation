@@ -29,9 +29,6 @@ public class Main extends Application {
         stage.setMinHeight(730);
 //        stage.initStyle(StageStyle.DECORATED);
         stage.show();
-
-        Thread backgroundEngine = new Thread(new BackgroundScraper());
-        backgroundEngine.start();
     }
 
 

@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.database.ArticleDatabase;
+import model.scrapping_engine.BackgroundScraper;
 import primary_page.view_article_page.ArticlePageView;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -57,11 +61,27 @@ public class PrimaryController implements Initializable {
         Arrays.fill(haveClick, false);
     }
 
+    private BackgroundScraper backgroundScraper;
+
     Service<Integer> service;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         articleDatabase = new ArticleDatabase();
+        articleDatabase.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            inputArticle();
+                        }
+                    });
+                }
+            }
+        });
+
         Thread thread = new Thread(() -> articleDatabase.performGetArticle());
         thread.start();
         service = new Service<>() {
@@ -103,7 +123,9 @@ public class PrimaryController implements Initializable {
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
-        inputArticle();
+        backgroundScraper = new BackgroundScraper();
+        Thread backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine.start();
     }
 
     void inputArticle() {
@@ -147,6 +169,7 @@ public class PrimaryController implements Initializable {
             @Override
             public void handle(WindowEvent event) {
                 System.out.println("Stage will close");
+                backgroundScraper.end();
             }
         });
     }
