@@ -8,6 +8,8 @@ import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 import model.scrapping_engine.URLCrawler;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,13 +24,16 @@ public class ArticleDatabase { // database contains category dictionary + articl
 
     private GetArticleBehavior getArticleBehavior;
 
+    private final PropertyChangeSupport propertyChangeSupport;
+
     public ArticleDatabase() {
         articles = new ArrayList<>();
+        propertyChangeSupport = new PropertyChangeSupport(this);
     }
-    public ArticleDatabase(String dictFile) {
-        dictionary = loadDictionary(dictFile); // load dictionary from file
-        articles = new ArrayList<>();
-    }
+//    public ArticleDatabase(String dictFile) {
+//        dictionary = loadDictionary(dictFile); // load dictionary from file
+//        articles = new ArrayList<>();
+//    }
 
     public void performGetArticle() {
         InitScraper in = new InitScraper();
@@ -47,7 +52,8 @@ public class ArticleDatabase { // database contains category dictionary + articl
                 articles.add(InitScraper.articles.get(i));
             }
         }
-        System.out.println("After remove: " + articles);
+//        System.out.println("After remove: " + articles);
+        doNotify(true);
     }
 
     public String[] getDictionary() {
@@ -56,6 +62,18 @@ public class ArticleDatabase { // database contains category dictionary + articl
 
     public ArrayList<Article> getArticles() {
         return articles;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    private void doNotify(Boolean boo) {
+        propertyChangeSupport.firePropertyChange("isScrapeDone", null, boo);
     }
 
 }

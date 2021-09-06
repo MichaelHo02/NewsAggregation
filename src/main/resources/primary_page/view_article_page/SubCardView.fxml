@@ -18,9 +18,9 @@
                </HBox.margin></ImageView>
             <VBox alignment="CENTER_LEFT" spacing="10.0" styleClass="bar" stylesheets="@../../style/style.css" HBox.hgrow="ALWAYS">
                <children>
-                  <Text fx:id="title" onMouseClicked="#clickTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="400.0">
+                  <Text fx:id="title" onMouseClicked="#clickTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="420.0">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Text>
                   <Text fx:id="time" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
