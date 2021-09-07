@@ -103,7 +103,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                     if (i >= currentPage * 10) {
                                         CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
                                         cardController.setData(article);
-                                        updateProgress(i + 1, 10);
+                                        updateProgress((i % 10) + 1, 10);
                                     }
                                     i++;
                                 }
@@ -194,9 +194,10 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         }
         if (evt.getPropertyName().equals("currentCategory")) {
             currentCategory = (int) evt.getNewValue();
+            currentPage = 0;
             // Send currentpage back to navigation
-            propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
             resetHaveClick();
+            propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
             inputArticle();
         }
     }

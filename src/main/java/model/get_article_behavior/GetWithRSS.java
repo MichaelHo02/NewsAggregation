@@ -3,6 +3,7 @@ package model.get_article_behavior;
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
+import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 
 import java.io.IOException;
@@ -34,11 +35,15 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
                 String category = item.getCategory().isPresent() ? item.getCategory().get() : null;
+                System.out.println("This is the category: " + category);
                 // TODO: get category, not tested
                 assert pubDate != null;
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 synchronized(this) {
-                    articles.add(article);
+                    if (ArticleFilter.filterArticle(article)) {
+                        articles.add(article);
+                    }
+                    System.out.println("This is the list for article category" + article.getCategories());
                 }
             }
         } catch (MalformedURLException e) {

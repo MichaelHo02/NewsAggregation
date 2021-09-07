@@ -40,7 +40,7 @@ public class InitScraper {
         long startTime = System.currentTimeMillis();
 
 //        executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
-//        executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));
+        executorService.execute(new URLCrawler("https://tuoitre.vn/"));
 //        executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
 //        executorService.execute(new URLCrawler("https://nhandan.vn/"));
         executorService.execute(new URLCrawler("https://zingnews.vn/"));
@@ -54,9 +54,9 @@ public class InitScraper {
         long elap = endTime - startTime;
 
 //        articles.remove(2);
-        for (int i = 0; i < 20; i++) {
+//        for (int i = 0; i < 20; i++) {
 //            System.out.println(articles.get(i).getTitlePage());
-        }
+//        }
         System.out.println("Scraping done in: " + elap);
 
     }

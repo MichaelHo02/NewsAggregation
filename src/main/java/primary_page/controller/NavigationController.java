@@ -32,7 +32,7 @@ public class NavigationController implements Initializable, PropertyChangeListen
 
     void injectMainController(PrimaryController primaryController) {
         this.primaryController = primaryController;
-        primaryController.addPropertyChangeListener(this);
+        this.primaryController.addPropertyChangeListener(this);
     }
 
     private void cleanEffect() {

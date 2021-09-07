@@ -1,6 +1,7 @@
 package model.get_article_behavior;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
+import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +23,12 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
 //            if(url.contains("javascript")) {
 //                throw   ;
 //            }
-            Document doc = Jsoup.connect("https://beta.tuoitre.vn/").get();
+            Document doc;
+            if (url.contains("https")) {
+                doc = Jsoup.connect(url).get();
+            } else {
+                doc = Jsoup.connect("https://beta.tuoitre.vn" + url).get();
+            }
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 // get article url
                 String tempLink = "https://tuoitre.vn/" + element.attr("href"); // Join links
@@ -47,7 +53,12 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
                 }
                 // construct and add article to collection
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date), imageURL, WebsiteURL.TUOITRE, category);
-                articles.add(article);
+                synchronized(this) {
+                    if (ArticleFilter.filterArticle(article)) {
+                        articles.add(article);
+                    }
+                    System.out.println("This is the list for article category" + article.getCategories());
+                }
             }
         } catch (Exception e) {
             //Uncomment to see stacktrace

@@ -45,7 +45,7 @@ public class CardController {
         }
         Image imageURL = null;
         if (imageView != null) {
-            if (article.getImageURL() != null) {
+            if (article.getImageURL() != null && !article.getImageURL().isEmpty()) {
                 imageURL = new Image(article.getImageURL());
             } else {
                 imageURL = null;

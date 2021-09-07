@@ -2,6 +2,7 @@ package model.get_article_behavior;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,7 +43,12 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String category = "";
 
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
-                    addArticle(article);
+                    synchronized(this) {
+                        if (ArticleFilter.filterArticle(article)) {
+                            articles.add(article);
+                        }
+                        System.out.println("This is the list for article category" + article.getCategories());
+                    }
                 } catch (Exception e) {
 //                    System.out.println("Cannot parse date");
                 }
