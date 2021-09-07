@@ -32,8 +32,9 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
+                String category = item.getCategory().isPresent() ? null : item.getCategory().get();
                 assert pubDate != null;
-                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), "");
+                Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 synchronized(this) {
                     articles.add(article);
                 }

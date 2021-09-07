@@ -56,8 +56,9 @@ public class GetThanhNien extends GetArticleBehavior implements Runnable {
                 }
                 Article article = new Article(title, tempLink, DateParserUtils.parseDate(date.substring(9)), imageURL, WebsiteURL.THANHNIEN, category);
                 // check if this article belongs to any category, if none then all categories are full => terminate
-                if (ArticleFilter.filterArticle(article)) {
-                    articles.add(article);
+                Article tmp = ArticleFilter.filterArticle(article);
+                if (tmp != null) {
+                    articles.add(tmp);
                 }
                 else return;
             }

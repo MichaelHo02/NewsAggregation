@@ -50,7 +50,7 @@ public class ArticleFilter {
     }
 
     //Use this to filter the article
-    synchronized public static boolean filterArticle(Article article) {
+    synchronized public static Article filterArticle(Article article) {
         String[] category = {"Covid", "Politics", "Business", "Technology", "Health", "Sport", "Entertainment", "World"};
         //Need to ingest category into isMatch methode
         // ToDo: Do you need the flag?
@@ -58,9 +58,11 @@ public class ArticleFilter {
         for (int i = 0; i < category.length; i++) {
             if (InitScraper.catCounter.get(i) < 50) {
                 if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
-                    article.addCategory(i);
+                    article.addCategory(0);
+                    article.addCategory(i + 1);
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                     flag = true; // set flag
+                    System.out.println(article.getCategories());
                 } else {
                     //Set the category counter for other if it doesn't match any of the category
                     InitScraper.setValue(8, InitScraper.getValue(i) + 1);
@@ -68,17 +70,17 @@ public class ArticleFilter {
             } else {
                 System.out.println("Category " + category[i] + " is full!");
             }
-
+            System.out.println(article.getCategories());
         }
-
-        return flag;
+        if (flag) {
+            return article;
+        } else {
+            return null;
+        }
     }
 
     public static boolean filterArticle(String folderUrl) {
-        if (isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") && !folderUrl.contains("video") && !folderUrl.contains("game") && !folderUrl.contains("viec-lam")) {
-//            System.out.println("Get filter");
-            return true;
-        }
-        return false;
+        //            System.out.println("Get filter");
+        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") && !folderUrl.contains("video") && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 }

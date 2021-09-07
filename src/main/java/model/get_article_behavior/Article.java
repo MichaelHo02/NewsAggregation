@@ -3,6 +3,7 @@ package model.get_article_behavior;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Article {
     public Article() {
@@ -14,7 +15,7 @@ public class Article {
     private String imageURL;
     private WebsiteURL source;
     private String category; // raw category data
-    private ArrayList<Integer> categories;
+    private List<Integer> categories;
 
     public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
         this.titlePage = titlePage;
@@ -52,7 +53,8 @@ public class Article {
         return category;
     }
 
-    public ArrayList<Integer> getCategories() {
+    public List<Integer> getCategories() {
+//        System.out.println(categories);
         return categories;
     }
 }

@@ -93,23 +93,18 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 fadeTransition.setToValue(1);
                                 fadeTransition.play();
                             });
-
-
-                            if (currentCategory == 0) {
-                                for (int i = currentPage * 10; i < currentPage * 10 + 10; i++) {
+                            int i = 0;
+                            System.out.println("This is the size: " + articleDatabase.getArticles().size());
+                            for (Article article : articleDatabase.getArticles()) {
+                                if (article.getCategories().contains(currentCategory) && i >= currentPage * 10) {
+//                                    System.out.println("Check");
                                     CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
-                                    cardController.setData(articleDatabase.getArticles().get(i));
-                                    updateProgress((i % 10) + 1, 10);
+                                    cardController.setData(article);
+                                    updateProgress(i + 1, 10);
+                                    i++;
                                 }
-                            } else {
-                                for (int i = 0; i < 10; i++) {
-                                    CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i).getController();
-                                    for (Article article : articleDatabase.getArticles()) {
-                                        if (article.getCategories().contains(currentCategory)) {
-                                            cardController.setData(article);
-                                        }
-                                        updateProgress(i + 1, 10);
-                                    }
+                                if (i >= (currentPage + 1) * 10 - 1) {
+                                    break;
                                 }
                             }
                             haveClick[currentPage] = true;
