@@ -19,7 +19,7 @@ public class DisplayZingNews extends JsoupArticleDisplay {
             //Conntet
             Content tmp = new Content(doc.select("p.the-article-summary").text(), "h");
             CONTENT.add(tmp);
-            addZing(elements);
+            addZingArt(elements);
             //Get author info
             Content author = new Content(doc.getElementsByClass("author").text(), "p");
             CONTENT.add(author);
@@ -28,53 +28,41 @@ public class DisplayZingNews extends JsoupArticleDisplay {
         }
         return CONTENT;
     }
-
-    private void addZing(Elements elements) {
-        for (Element e : elements) {
+//Scrape content of ZingNews
+    private void addZingArt(Elements elements) {
+        for (Element ele : elements) {
             try {
-                // Create and add label if element is text
-                if (e.is("p")) {
-                    Content tmp = new Content(e.text(), "p");
+                if (ele.is("p")) { //Check if element not author
+                    Content tmp = new Content(ele.text(), "p");
                     CONTENT.add(tmp);
-                }
-                // Create and add wrapnote if element is wrapnote
-                else if (e.is("div") && e.attr("class").equals("notebox ncenter")) {
-                    addZing(e.select("> *"));
-                }
-                // Create and add header label if element is header
-                else if (e.is("h3")) {
-                    Content tmp = new Content(e.text(), "h");
+                } else if (ele.is("div") && ele.attr("class").equals("notebox ncenter")) {
+                    addZingArt(ele.select("> *"));
+                } else if (ele.is("h3")) { //Check header
+                    Content tmp = new Content(ele.text(), "h");
                     CONTENT.add(tmp);
-                }
-                // Create and add images if element is image/gallery
-                else if (e.is("table") && e.attr("class").contains("picture")) {
-                    for (Element i : e.select("td.pic > *")) {
-                        String imageURL = i.select("img").attr("data-src");
-                        if (imageURL.equals("")) imageURL = i.select("img").attr("src");
+                } else if (ele.is("table") && ele.attr("class").contains("picture")) { //For full picture post
+                    for (Element inner : ele.select("td.pic > *")) {
+                        String imageURL = inner.select("img").attr("data-src");
+                        if (imageURL.equals("")) imageURL = inner.select("img").attr("src");
                         Content img = new Content(imageURL, "img");
                         CONTENT.add(img);
-                        Content tmp = new Content(e.select("td[class=\"pCaption caption\"]").text(), "p");
+                        Content tmp = new Content(ele.select("td[class=\"pCaption caption\"]").text(), "p");
+                        CONTENT.add(tmp);
                     }
-                } else if (e.is("h1") && e.select("img").size() > 0) {
-                    Content tmp = new Content(e.select("img").attr("data-src"), "img");
+                } else if (ele.is("h1") && ele.select("img").size() > 0) {
+                    Content tmp = new Content(ele.select("img").attr("data-src"), "img");
                     CONTENT.add(tmp);
-                }
-                // For covid graph
-                else if (e.is("div") && e.attr("class").contains("widget")) {
-                    Content tmp = new Content(e.attr("data-src"), "img");
+                } else if (ele.is("div") && ele.attr("class").contains("widget")) { //Check graph covid
+                    Content tmp = new Content(ele.attr("data-src"), "img");
                     CONTENT.add(tmp);
+                } else if (ele.is("ul") || ele.is("div")) { //If see a block of tag
+                    addZingArt(ele.select("> *"));
+                } else if (ele.hasText() && ele.is("li")) {
+                    Content tmp = new Content(ele.text(), "p");
+                } else if (ele.is("blockquote")) {
+                    addZingArt(ele.select("> *"));
                 }
-                // Create and add group of text
-                else if (e.is("ul") || e.is("div")) {
-                    addZing(e.select("> *"));
-                } else if (e.hasText() && e.is("li")) {
-                    Content tmp = new Content(e.text(), "p");
-                }
-                // Create and add blockquote
-                else if (e.is("blockquote")) {
-                    addZing(e.select("> *"));
-                }
-            } catch (IllegalArgumentException ex) {
+            } catch (Exception ex) {
                 continue;
             }
         }
