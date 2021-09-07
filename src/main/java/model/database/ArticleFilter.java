@@ -1,6 +1,7 @@
 package model.database;
 
 import model.get_article_behavior.Article;
+import model.get_article_behavior.WebsiteURL;
 import model.scrapping_engine.InitScraper;
 
 import java.io.File;
@@ -54,24 +55,28 @@ public class ArticleFilter {
     synchronized public static boolean filterArticle(Article article) {
         String[] category = {"Covid", "Politics", "Business", "Technology", "Health", "Sport", "Entertainment", "World"};
         //Need to ingest category into isMatch methode
-        boolean flag = false; // boolean to flag if an article belongs to at least 01 category besides "Others"
-        article.addCategory(0);
+
+        article.addCategory(0); // add to category "latest"
         for (int i = 0; i < category.length; i++) {
-            if (InitScraper.catCounter.get(i) < 50) {
-                if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
-                    article.addCategory(i + 1);
+            // loop through all dictionaries, check if articles matches any
+            if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
+                if (InitScraper.catCounter.get(i) < 50) { // if match then check if the category still has storage
+                    article.addCategory(i + 1); // if yes then update category list + update counter
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
-                    flag = true; // set flag
-                } else if (!article.getCategories().contains(9)) {
-                    //Set the category counter for other if it doesn't match any of the category
-                    article.addCategory(9);
-                    InitScraper.setValue(8, InitScraper.getValue(i) + 1);
                 }
-            } else {
-                System.out.println("Category " + category[i] + " is full!");
+                else { // if no then print out the storage is full
+                    System.out.println("Category " + category[i] + " is full");
+                }
             }
         }
-        return flag;
+
+        final int others = 8;
+        if (article.catIsEmpty() && InitScraper.getValue(others) < 50) { // if article matches no category and others still has storage
+            article.addCategory(others + 1); // update category list and counter
+            InitScraper.setValue(others, InitScraper.getValue(others) + 1);
+        }
+
+        return !article.catIsEmpty(); // return whether article belongs to any category
     }
 
     public static boolean filterArticle(String folderUrl) {
