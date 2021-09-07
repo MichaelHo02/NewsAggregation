@@ -41,7 +41,8 @@ public class ArticleFilter {
             //Don't need t worry about the case of the file
             Pattern key = Pattern.compile(dictionary[i], Pattern.CASE_INSENSITIVE);
             //We only need to matches 1 time
-            if (key.matcher(rawCategory).find()) {
+            String tmp = rawCategory.toLowerCase();
+            if (key.matcher(tmp).find()) {
                 return true;
             }
         }
@@ -64,6 +65,7 @@ public class ArticleFilter {
                     flag = true; // set flag
                 } else {
                     //Set the category counter for other if it doesn't match any of the category
+                    article.addCategory(9);
                     InitScraper.setValue(8, InitScraper.getValue(i) + 1);
                 }
             } else {

@@ -39,7 +39,7 @@ public class InitScraper {
     public void scrapeLinks() {
         long startTime = System.currentTimeMillis();
 
-//        executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
+        executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
         executorService.execute(new URLCrawler("https://tuoitre.vn/"));
         executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
 //        executorService.execute(new URLCrawler("https://nhandan.vn/"));
