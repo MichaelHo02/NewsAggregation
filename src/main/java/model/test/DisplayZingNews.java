@@ -14,42 +14,58 @@ public class DisplayZingNews extends JsoupArticleDisplay {
         try {
             CONTENT.clear();
             Document doc = Jsoup.connect(linkPage).get();
-            Elements elements = doc.getElementsByClass("the-article-body").select("*");
+            Elements elements = doc.select("div.the-article-body > *");
 
-            System.out.println(elements.size());
-            for (Element element : elements) {
-                if (element.tagName().equals("img")) {
-                    Content tempImg = new Content(element.attr("data-src"),"img");
-                    CONTENT.add(tempImg);
-                    System.out.println(element.attr("data-src"));
-                } else if (element.tagName().equals("p")) {
-                    Content tempP = new Content(element.text(), "p");
-                    CONTENT.add(tempP);
-                    System.out.println(element.text());
-                } else if (element.tagName().equals("blockquote")) {
-                    Content tempQuote = new Content(element.text(), "quote");
-                    CONTENT.add(tempQuote);
-                    System.out.println(tempQuote.getContext());
-                } else if (element.tagName().matches("h\\d")) {
-                    Content tempH = new Content(element.text(), "h");
-                    CONTENT.add(tempH);
-                    System.out.println(tempH.getContext());
-                }
-                //Display the content
-//                }else if (element.tagName().equals("td")) {
-//                    Content tempCaption = new Content(element.text(), "p");
-//                    System.out.println(element.text());
-//                }
-            }
-
+            //Conntet
+            Content tmp = new Content(doc.select("p.the-article-summary").text(), "h");
+            CONTENT.add(tmp);
+            addZingArt(elements);
+            //Get author info
+            Content author = new Content(doc.getElementsByClass("author").text(), "p");
+            CONTENT.add(author);
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayZingNews");
         }
         return CONTENT;
     }
-
-    public static void main(String[] args) throws Exception {
-        DisplayZingNews test = new DisplayZingNews();
-        test.getContent("https://zingnews.vn/tphcm-muon-som-mo-lai-cho-quan-huyen-noi-kho-post1250905.html");
+//Scrape content of ZingNews
+    private void addZingArt(Elements elements) {
+        for (Element ele : elements) {
+            try {
+                if (ele.is("p")) { //Check if element not author
+                    Content tmp = new Content(ele.text(), "p");
+                    CONTENT.add(tmp);
+                } else if (ele.is("div") && ele.attr("class").equals("notebox ncenter")) {
+                    addZingArt(ele.select("> *"));
+                } else if (ele.is("h3")) { //Check header
+                    Content tmp = new Content(ele.text(), "h");
+                    CONTENT.add(tmp);
+                } else if (ele.is("table") && ele.attr("class").contains("picture")) { //For full picture post
+                    for (Element inner : ele.select("td.pic > *")) {
+                        String imageURL = inner.select("img").attr("data-src");
+                        if (imageURL.equals("")) imageURL = inner.select("img").attr("src");
+                        Content img = new Content(imageURL, "img");
+                        CONTENT.add(img);
+                        Content tmp = new Content(ele.select("td[class=\"pCaption caption\"]").text(), "p");
+                        CONTENT.add(tmp);
+                    }
+                } else if (ele.is("h1") && ele.select("img").size() > 0) {
+                    Content tmp = new Content(ele.select("img").attr("data-src"), "img");
+                    CONTENT.add(tmp);
+                } else if (ele.is("div") && ele.attr("class").contains("widget")) { //Check graph covid
+                    Content tmp = new Content(ele.attr("data-src"), "img");
+                    CONTENT.add(tmp);
+                } else if (ele.is("ul") || ele.is("div")) { //If see a block of tag
+                    addZingArt(ele.select("> *"));
+                } else if (ele.hasText() && ele.is("li")) {
+                    Content tmp = new Content(ele.text(), "p");
+                } else if (ele.is("blockquote")) {
+                    addZingArt(ele.select("> *"));
+                }
+            } catch (Exception ex) {
+                continue;
+            }
+        }
     }
+
 }

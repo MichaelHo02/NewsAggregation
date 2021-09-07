@@ -53,6 +53,14 @@ public class Article {
         return category;
     }
 
+    public boolean catIsEmpty() {
+        int sum = 0;
+        for(int i : categories) {
+            sum += i;
+        }
+        return sum == 0 ? true : false;
+    }
+
     public List<Integer> getCategories() {
 //        System.out.println(categories);
         return categories;
