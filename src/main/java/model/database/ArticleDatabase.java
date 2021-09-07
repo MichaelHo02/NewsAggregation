@@ -1,12 +1,8 @@
 package model.database;
 
 import model.get_article_behavior.Article;
-import model.get_article_behavior.GetTuoiTre;
-import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetArticleBehavior;
-import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
-import model.scrapping_engine.URLCrawler;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

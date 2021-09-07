@@ -70,14 +70,14 @@ public class Content {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font: 24 Helvetica");
                 articleVbox.getChildren().add(text);
-                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(40));
             } else if (cnt.getType().equals("video")) {
             } else if (cnt.getType().equals("img")) {
                 try {
                     ImageView imageView = new ImageView();
                     imageView.setSmooth(true);
                     imageView.setPreserveRatio(true);
-                    imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(24));
+                    imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(40));
                     imageView.setImage(new Image(cnt.getContext()));
                     articleVbox.getChildren().add(imageView);
                 } catch (Exception e) {

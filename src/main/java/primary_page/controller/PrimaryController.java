@@ -97,6 +97,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                             int i = 0;
                             System.out.println("This is the size: " + articleDatabase.getArticles().size());
                             for (Article article : articleDatabase.getArticles()) {
+                                if (isCancelled()) {
+                                    return 0;
+                                }
                                 if (i > (currentPage + 1) * 10 - 1) {
                                     break;
                                 }
@@ -178,6 +181,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
             backgroundScraper.end();
+            service.cancel();
         });
     }
 
