@@ -41,9 +41,9 @@ public class InitScraper {
 
 //        executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
 //        executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));
-        executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
+//        executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
 //        executorService.execute(new URLCrawler("https://nhandan.vn/"));
-//        executorService.execute(new URLCrawler("https://zingnews.vn/"));
+        executorService.execute(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
 //        executorService.awaitTermination(10, TimeUnit.SECONDS);
         while (!executorService.isTerminated()) {

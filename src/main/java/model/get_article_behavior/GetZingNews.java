@@ -1,6 +1,7 @@
 package model.get_article_behavior;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,12 +45,14 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
                 // get article meta category
                 String category = element.getElementsByClass("article-meta").select("a").attr("title");
                 // construct article
-                Article tmp = new Article(title, linkPage, date, image, getSource("ZingNews"), category);
+                Article article = new Article(title, linkPage, date, image, getSource("ZingNews"), category);
                 // thread-safe handling article
                 synchronized(this) {
-                    articles.add(tmp);
+                    if (ArticleFilter.filterArticle(article)) {
+                        articles.add(article);
+                    }
+                    System.out.println("This is the list for article category" + article.getCategories());
                 }
-
             }
         } catch (IOException | ParseException e) {
             System.out.println("URL error");

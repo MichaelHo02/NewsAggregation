@@ -96,15 +96,16 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                             int i = 0;
                             System.out.println("This is the size: " + articleDatabase.getArticles().size());
                             for (Article article : articleDatabase.getArticles()) {
-                                if (article.getCategories().contains(currentCategory) && i >= currentPage * 10) {
-//                                    System.out.println("Check");
-                                    CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
-                                    cardController.setData(article);
-                                    updateProgress(i + 1, 10);
-                                    i++;
-                                }
-                                if (i >= (currentPage + 1) * 10 - 1) {
+                                if (i > (currentPage + 1) * 10 - 1) {
                                     break;
+                                }
+                                if (article.getCategories().contains(currentCategory)) {
+                                    if (i >= currentPage * 10) {
+                                        CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
+                                        cardController.setData(article);
+                                        updateProgress(i + 1, 10);
+                                    }
+                                    i++;
                                 }
                             }
                             haveClick[currentPage] = true;
