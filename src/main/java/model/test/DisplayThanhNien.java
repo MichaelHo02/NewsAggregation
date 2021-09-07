@@ -66,36 +66,36 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
         }
 
         // Loop through div elements
-        for (Element i : div.select("> *")) {
+        for (Element e : div.select("> *")) {
             try {
                 // Recursion call if child is div
-                if (i.is("div") && !i.attr("class").contains("image")) {
-                    checkDivTN(i);
+                if (e.is("div") && !e.attr("class").contains("image")) {
+                    checkDivTN(e);
                 }
-                else if (i.is("p")) {
-                    Content ptmp = new Content(i.text(),"p");
-                } else if (i.attr("class").contains("image")) {
-                    Content tmpimg = new Content(i.select("img").attr("data-src"), "img");
-                    Content labimg = new Content(i.select("p").text(),"p");
+                else if (e.is("p")) {
+                    Content ptmp = new Content(e.text(),"p");
+                } else if (e.attr("class").contains("image")) {
+                    Content tmpimg = new Content(e.select("img").attr("data-src"), "img");
+                    Content labimg = new Content(e.select("p").text(),"p");
                     CONTENT.add(tmpimg);
                     CONTENT.add(labimg);
-                } else if (i.is("figure") && i.attr("class").equals("picture")) {
-                    if (i.select("img").size() > 0) {
-                      Content cont = new Content(i.select("img").attr("data-src"), "img");
-                      Content lab = new Content(i.select("figcaption").text(),"p");
+                } else if (e.is("figure") && e.attr("class").equals("picture")) {
+                    if (e.select("img").size() > 0) {
+                      Content cont = new Content(e.select("img").attr("data-src"), "img");
+                      Content lab = new Content(e.select("figcaption").text(),"p");
                       CONTENT.add(cont);
                       CONTENT.add(lab);
                     }
-                    else if (i.hasText()) {
-                        Content txt =new Content(i.text(),"p");
+                    else if (e.hasText()) {
+                        Content txt =new Content(e.text(),"p");
                     }
                 }
                 // Add header if child is header
-                else if (i.is("h2") || i.is("h3")) {
-                    Content cont = new Content(i.text(), "h");
+                else if (e.is("h2") || e.is("h3")) {
+                    Content cont = new Content(e.text(), "h");
                 }
                 // Add text label if child is neither image nor video and has text
-                else if (i.hasText()) {
+                else if (e.hasText()) {
                    Content cont = new Content(div.text(),"div");
                     break;
                 }

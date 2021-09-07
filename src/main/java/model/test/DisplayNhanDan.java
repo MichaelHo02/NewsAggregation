@@ -44,9 +44,4 @@ public class DisplayNhanDan extends JsoupArticleDisplay {
         }
         return CONTENT;
     }
-
-    public static void main(String[] args) throws Exception {
-        DisplayNhanDan test = new DisplayNhanDan();
-        test.getContent("https://nhandan.vn/tin-tuc-xa-hoi/chay-rung-o-quang-ngai-de-doa-an-toan-duong-day-500kv-659778/");
-    }
 }
