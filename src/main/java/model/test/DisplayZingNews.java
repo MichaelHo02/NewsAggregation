@@ -14,42 +14,70 @@ public class DisplayZingNews extends JsoupArticleDisplay {
         try {
             CONTENT.clear();
             Document doc = Jsoup.connect(linkPage).get();
-            Elements elements = doc.getElementsByClass("the-article-body").select("*");
+            Elements elements = doc.select("div.the-article-body > *");
 
-            System.out.println(elements.size());
-            for (Element element : elements) {
-                if (element.tagName().equals("img")) {
-                    Content tempImg = new Content(element.attr("data-src"),"img");
-                    CONTENT.add(tempImg);
-                    System.out.println(element.attr("data-src"));
-                } else if (element.tagName().equals("p")) {
-                    Content tempP = new Content(element.text(), "p");
-                    CONTENT.add(tempP);
-                    System.out.println(element.text());
-                } else if (element.tagName().equals("blockquote")) {
-                    Content tempQuote = new Content(element.text(), "quote");
-                    CONTENT.add(tempQuote);
-                    System.out.println(tempQuote.getContext());
-                } else if (element.tagName().matches("h\\d")) {
-                    Content tempH = new Content(element.text(), "h");
-                    CONTENT.add(tempH);
-                    System.out.println(tempH.getContext());
-                }
-                //Display the content
-//                }else if (element.tagName().equals("td")) {
-//                    Content tempCaption = new Content(element.text(), "p");
-//                    System.out.println(element.text());
-//                }
-            }
-
+            //Conntet
+            Content tmp = new Content(doc.select("p.the-article-summary").text(), "h");
+            CONTENT.add(tmp);
+            addZing(elements);
+            //Get author info
+            Content author = new Content(doc.getElementsByClass("author").text(), "p");
+            CONTENT.add(author);
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayZingNews");
         }
         return CONTENT;
     }
 
-    public static void main(String[] args) throws Exception {
-        DisplayZingNews test = new DisplayZingNews();
-        test.getContent("https://zingnews.vn/tphcm-muon-som-mo-lai-cho-quan-huyen-noi-kho-post1250905.html");
+    private void addZing(Elements elements) {
+        for (Element e : elements) {
+            try {
+                // Create and add label if element is text
+                if (e.is("p")) {
+                    Content tmp = new Content(e.text(), "p");
+                    CONTENT.add(tmp);
+                }
+                // Create and add wrapnote if element is wrapnote
+                else if (e.is("div") && e.attr("class").equals("notebox ncenter")) {
+                    addZing(e.select("> *"));
+                }
+                // Create and add header label if element is header
+                else if (e.is("h3")) {
+                    Content tmp = new Content(e.text(), "h");
+                    CONTENT.add(tmp);
+                }
+                // Create and add images if element is image/gallery
+                else if (e.is("table") && e.attr("class").contains("picture")) {
+                    for (Element i : e.select("td.pic > *")) {
+                        String imageURL = i.select("img").attr("data-src");
+                        if (imageURL.equals("")) imageURL = i.select("img").attr("src");
+                        Content img = new Content(imageURL, "img");
+                        CONTENT.add(img);
+                        Content tmp = new Content(e.select("td[class=\"pCaption caption\"]").text(), "p");
+                    }
+                } else if (e.is("h1") && e.select("img").size() > 0) {
+                    Content tmp = new Content(e.select("img").attr("data-src"), "img");
+                    CONTENT.add(tmp);
+                }
+                // For covid graph
+                else if (e.is("div") && e.attr("class").contains("widget")) {
+                    Content tmp = new Content(e.attr("data-src"), "img");
+                    CONTENT.add(tmp);
+                }
+                // Create and add group of text
+                else if (e.is("ul") || e.is("div")) {
+                    addZing(e.select("> *"));
+                } else if (e.hasText() && e.is("li")) {
+                    Content tmp = new Content(e.text(), "p");
+                }
+                // Create and add blockquote
+                else if (e.is("blockquote")) {
+                    addZing(e.select("> *"));
+                }
+            } catch (IllegalArgumentException ex) {
+                continue;
+            }
+        }
     }
+
 }
