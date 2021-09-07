@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -135,7 +136,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     void inputArticle() {
         Platform.runLater(() -> {
-            borderPane.setCenter(pageList.get(currentPage));
+            ScrollPane scrollPane = pageList.get(currentPage);
+            scrollPane.setVvalue(0);
+            borderPane.setCenter(scrollPane);
             service.restart();
         });
 
