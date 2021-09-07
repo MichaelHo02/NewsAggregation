@@ -26,16 +26,21 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
             Document doc = Jsoup.connect(url).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
                 try {
+                    // get article url and handle exception
                     String tempLink = element.select("a").attr("href"); // Join links
                     if (!tempLink.contains("https://")) {
                         tempLink = "https://nhandan.vn" + tempLink;
                     }
+                    // get article title, if not exists, skip
                     String title = element.getElementsByClass("box-title").text();
                     if (title == null) { continue; }
+                    // get article date and img
+                    // TODO: cannot scrape date + category
                     String date = element.select("div[class*=box-meta]").text();
+                    Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
                     String category = "";
-                    Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
+
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     addArticle(article);
                 } catch (Exception e) {
