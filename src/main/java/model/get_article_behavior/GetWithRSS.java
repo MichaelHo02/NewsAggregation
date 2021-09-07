@@ -34,7 +34,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
-                String category = title;
+                String category = title + " " + scrapeCat(url, 3) + " " + scrapeCat(url, 4);
                 System.out.println("This is the category: " + category);
                 // TODO: get category, not tested
                 assert pubDate != null;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Pattern;
 
 public abstract class GetArticleBehavior {
 
@@ -28,6 +29,16 @@ public abstract class GetArticleBehavior {
             return WebsiteURL.NHANDAN;
         }
         return null;
+    }
+    public static String scrapeCat(String url, int token) {
+        String regex = "/";
+        Pattern pattern = Pattern.compile(regex);
+        String[] result = pattern.split(url);
+//        for (String s : result) {
+//            System.out.println(s);
+//        }
+
+        return result[token].equals("rss") ? "" : result[token];
     }
     //Tools for getArticle
     public static String getImage(String description) {

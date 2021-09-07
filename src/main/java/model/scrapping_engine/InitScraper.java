@@ -42,7 +42,7 @@ public class InitScraper {
         executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
         executorService.execute(new URLCrawler("https://tuoitre.vn/"));
         executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
-//        executorService.execute(new URLCrawler("https://nhandan.vn/"));
+        executorService.execute(new URLCrawler("https://nhandan.vn/"));
         executorService.execute(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
 //        executorService.awaitTermination(10, TimeUnit.SECONDS);
@@ -58,6 +58,7 @@ public class InitScraper {
 //            System.out.println(articles.get(i).getTitlePage());
 //        }
         System.out.println("Scraping done in: " + elap);
+        System.out.println(InitScraper.catCounter);
 
     }
 
