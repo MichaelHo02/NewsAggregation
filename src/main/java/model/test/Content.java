@@ -64,6 +64,7 @@ public class Content {
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
+        articleVbox.setSpacing(20);
         articleVbox.setPadding(new Insets(10, 10, 10, 10));
         for (Content cnt : contentList) {
             if (cnt.getType().equals("p")) {
@@ -71,7 +72,6 @@ public class Content {
                 text.setStyle("-fx-font: 24 Helvetica");
                 articleVbox.getChildren().add(text);
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(40));
-            } else if (cnt.getType().equals("video")) {
             } else if (cnt.getType().equals("img")) {
                 try {
                     ImageView imageView = new ImageView();
