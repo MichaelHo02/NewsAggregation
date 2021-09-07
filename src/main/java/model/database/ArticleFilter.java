@@ -54,7 +54,6 @@ public class ArticleFilter {
     synchronized public static boolean filterArticle(Article article) {
         String[] category = {"Covid", "Politics", "Business", "Technology", "Health", "Sport", "Entertainment", "World"};
         //Need to ingest category into isMatch methode
-        // ToDo: Do you need the flag?
         boolean flag = false; // boolean to flag if an article belongs to at least 01 category besides "Others"
         article.addCategory(0);
         for (int i = 0; i < category.length; i++) {
