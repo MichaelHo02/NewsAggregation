@@ -63,7 +63,7 @@ public class ArticleFilter {
                     article.addCategory(i + 1);
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                     flag = true; // set flag
-                } else {
+                } else if (!article.getCategories().contains(9)) {
                     //Set the category counter for other if it doesn't match any of the category
                     article.addCategory(9);
                     InitScraper.setValue(8, InitScraper.getValue(i) + 1);

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
@@ -20,8 +21,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SecondaryController implements Initializable {
+
     @FXML
-    public VBox articleVbox;
+    private BorderPane borderPane;
 
     @FXML
     public Button secondaryButton;
@@ -43,9 +45,6 @@ public class SecondaryController implements Initializable {
 
     public void setupView() {
         //Clear article vbox
-        if (articleVbox.getChildren().size() != 0) {
-            articleVbox.getChildren().remove(articleVbox.getChildren().size() - 1);
-        }
 //        DisplayEngine displayEngine = new DisplayEngine();
 //        WebView webView = new WebView();
 //        WebEngine webEngine = webView.getEngine();
@@ -54,7 +53,6 @@ public class SecondaryController implements Initializable {
 //        articleVbox.getChildren().add(webView)
 
         //Add the new article
-    articleVbox.getChildren().addAll(Content.dispArt(Content.articleSwitcher(article)));
-
+        borderPane.setCenter(Content.dispArt(Content.articleSwitcher(article)));
     }
 }

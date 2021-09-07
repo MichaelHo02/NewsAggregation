@@ -4,13 +4,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import model.get_article_behavior.Article;
-import model.get_article_behavior.WebsiteURL;
 import primary_page.controller.CardController;
 
 import java.util.List;
@@ -63,38 +59,33 @@ public class Content {
     //Add everythinf to vbox
     public static ScrollPane dispArt(List<Content> contentList) {
         System.out.println("Working");
+        ScrollPane scroll = new ScrollPane();
+        scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
         articleVbox.setPadding(new Insets(10, 10, 10, 10));
-        articleVbox.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        articleVbox.setPrefWidth(Region.USE_COMPUTED_SIZE);
         for (Content cnt : contentList) {
             if (cnt.getType().equals("p")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font: 24 Helvetica");
                 articleVbox.getChildren().add(text);
-                text.setWrappingWidth(articleVbox.getWidth());
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
             } else if (cnt.getType().equals("video")) {
-                System.out.println("I don't know how to do dis, fuck");
             } else if (cnt.getType().equals("img")) {
                 try {
                     ImageView imageView = new ImageView();
                     imageView.setSmooth(true);
                     imageView.setPreserveRatio(true);
-                    imageView.setFitWidth(400);
-                    imageView.setFitHeight(400);
+                    imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(24));
                     imageView.setImage(new Image(cnt.getContext()));
                     articleVbox.getChildren().add(imageView);
-
                 } catch (Exception e) {
                     System.out.println("Failed to load img");
                 }
             }
         }
-        ScrollPane scroll = new ScrollPane();
-        scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setContent(articleVbox);
-
         return scroll;
     }
 }
