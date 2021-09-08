@@ -10,15 +10,20 @@ import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.database.ArticleDatabase;
 import model.get_article_behavior.Article;
 import model.scrapping_engine.BackgroundScraper;
+import model.scrapping_engine.ConnectionTest;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.beans.PropertyChangeEvent;
@@ -48,6 +53,12 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @FXML
     private BorderPane borderPane;
 
+    @FXML
+    private Label statusLabel;
+
+    @FXML
+    private Circle connectionCircle;
+
     ArticleDatabase articleDatabase;
 
 
@@ -59,6 +70,8 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private BackgroundScraper backgroundScraper;
 
+    private ConnectionTest connectionTest;
+
     private PropertyChangeSupport propertyChangeSupport;
 
     Service<Integer> service;
@@ -69,7 +82,13 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        connectionCircle.setFill(Color.GREEN);
         propertyChangeSupport = new PropertyChangeSupport(this);
+
+        connectionTest = new ConnectionTest();
+        connectionTest.addPropertyChangeListener(this);
+        Thread backgroundConnectionTest = new Thread(connectionTest);
+        backgroundConnectionTest.start();
 
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
@@ -203,6 +222,16 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
             inputArticle();
         }
+        if (evt.getPropertyName().equals("Bad internet connection")) {
+            System.out.println("Bad internet connection");
+            connectionAlert();
+        }
+    }
+
+    public void connectionAlert() {
+//        statusLabel.setText("Connection status: Disconnected");
+        connectionCircle.setFill(Color.RED);
+//        System.out.println("This is a text for changing connection status");
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

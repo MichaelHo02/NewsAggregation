@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="600.0" minWidth="960.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.PrimaryController">
     <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -30,4 +33,10 @@
       </children>
    </AnchorPane>
    <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="0.0" />
+   <Label fx:id="statusLabel" layoutX="1085.0" maxHeight="50.0" prefHeight="17.0" prefWidth="166.0" text="Connection status" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1085.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="770.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Circle fx:id="connectionCircle" fill="#1fff39" layoutY="230.0" radius="12.0" stroke="WHITE" strokeType="INSIDE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1200.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="770.0" />
 </AnchorPane>
