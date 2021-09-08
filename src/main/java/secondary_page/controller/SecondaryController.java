@@ -4,10 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import main.Main;
@@ -27,6 +31,9 @@ public class SecondaryController implements Initializable {
 
     @FXML
     public Button secondaryButton;
+
+    @FXML
+    public Label title;
 
     private Article article;
 
@@ -54,5 +61,6 @@ public class SecondaryController implements Initializable {
 
         //Add the new article
         borderPane.setCenter(Content.dispArt(Content.articleSwitcher(article)));
-    }
+        title.setFont(new Font(20));
+        title.setText(article.getTitlePage());}
 }
