@@ -1,17 +1,16 @@
-package model.test;
+package model.article_extraction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.List;
 
-public class DisplayVNExpress extends JsoupArticleDisplay {
+public class VnExpressExtraction extends ArticleExtractor {
     @Override
-    public List<Content> getContent(String linkPage) {
+    public List<ArticleFactory> getContent(String linkPage) {
         try {
-            CONTENT.clear();
+            ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
             Element article;
             if (doc.select("article.fck_detail").size() > 0) {
@@ -20,7 +19,7 @@ public class DisplayVNExpress extends JsoupArticleDisplay {
                 article = doc.select("div[class*=fck_detail]").first();
             }
             // Add description to article view
-            CONTENT.add(new Content(doc.select("p.description").text(), "p"));
+            ARTICLE_FACTORY.add(new ArticleFactory(doc.select("p.description").text(), "p"));
             // ChEck the div tag of VNEXPRESS
             checkBody(article);
             // Add author label to article view
@@ -28,9 +27,9 @@ public class DisplayVNExpress extends JsoupArticleDisplay {
             if (tmp.equals("")) {
                 tmp = article.select("p[class*=author]").text();
             }
-            CONTENT.add(new Content(tmp, "author"));
+            ARTICLE_FACTORY.add(new ArticleFactory(tmp, "author"));
 
-            return CONTENT;
+            return ARTICLE_FACTORY;
         } catch (Exception e) {
             System.out.println("Failed connection to the destination page");
             return null;
@@ -44,10 +43,10 @@ public class DisplayVNExpress extends JsoupArticleDisplay {
                 String type = "p";
                 if (ele.select("strong").size() > 0)
                     type = "h";
-                CONTENT.add(new Content(ele.text(), type));
+                ARTICLE_FACTORY.add(new ArticleFactory(ele.text(), type));
 
             } else if (ele.is("h2")) {
-                CONTENT.add(new Content(ele.text(), "h"));
+                ARTICLE_FACTORY.add(new ArticleFactory(ele.text(), "h"));
             }
             // If element is image
             else if (ele.is("figure") && ele.select("img").size() > 0) {
@@ -55,9 +54,9 @@ public class DisplayVNExpress extends JsoupArticleDisplay {
                 if (imgTmp.equals("")) {
                     imgTmp = ele.select("img").attr("src");
                 }
-                CONTENT.add(new Content(imgTmp, "img"));
+                ARTICLE_FACTORY.add(new ArticleFactory(imgTmp, "img"));
                 //Image Caption
-                CONTENT.add(new Content(ele.select("figcaption").text(), "caption"));
+                ARTICLE_FACTORY.add(new ArticleFactory(ele.select("figcaption").text(), "caption"));
             }
             // If element is gallery
             else if (ele.attr("class").contains("clearfix")) {
@@ -66,14 +65,14 @@ public class DisplayVNExpress extends JsoupArticleDisplay {
                     if (imagTmp.equals("")) {
                         imagTmp = ele.select("img").attr("src");
                     }
-                    CONTENT.add(new Content(imagTmp, "img"));
+                    ARTICLE_FACTORY.add(new ArticleFactory(imagTmp, "img"));
                     //Image Caption
-                    CONTENT.add(new Content(ele.select("p").text(), "caption"));
+                    ARTICLE_FACTORY.add(new ArticleFactory(ele.select("p").text(), "caption"));
                 }
             } else if (ele.is("div") && ele.attr("class").equals("box_brief_info")) {
                 for (Element innerEle : ele.select("> *")) {
                     if (innerEle.is("p")) {
-                        CONTENT.add(new Content(innerEle.text(), "p"));
+                        ARTICLE_FACTORY.add(new ArticleFactory(innerEle.text(), "p"));
                     }
                 }
             } else if (ele.is("div")) {

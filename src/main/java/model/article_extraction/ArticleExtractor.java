@@ -1,12 +1,9 @@
-package model.test;
-
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+package model.article_extraction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class JsoupArticleDisplay {
+public abstract class ArticleExtractor {
 
     // Workflow
     // Class Content has context and type
@@ -21,6 +18,6 @@ public abstract class JsoupArticleDisplay {
     //
     // TODO: Design a new ArticleViewer.fxml
 
-    final static List<Content> CONTENT = new ArrayList<Content>();
-    public abstract List<Content> getContent(String linkPage);
+    final static List<ArticleFactory> ARTICLE_FACTORY = new ArrayList<ArticleFactory>();
+    public abstract List<ArticleFactory> getContent(String linkPage);
 }

@@ -1,8 +1,5 @@
-package model.test;
+package model.article_extraction;
 
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.FlowPane;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,12 +7,12 @@ import org.jsoup.select.Elements;
 
 import java.util.List;
 
-public class DisplayThanhNien extends JsoupArticleDisplay {
+public class ThanhNienExtraction extends ArticleExtractor {
 
     @Override
-    public List<Content> getContent(String linkPage) {
+    public List<ArticleFactory> getContent(String linkPage) {
         try {
-            CONTENT.clear();
+            ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
 //          // TODO: Scrap sapo
             String firstImage = doc.select("#contentAvatar img").attr("src");
@@ -23,24 +20,24 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
             Elements elements = doc.select("div[id=abody] > *");
 //            System.out.println(doc.select("div[id=abody] > *").toString());
             if (body.select("div.sapo").size() > 0) {
-                Content cont = new Content(body.select("div.sapo").text(),"p");
-                CONTENT.add(cont);
+                ArticleFactory cont = new ArticleFactory(body.select("div.sapo").text(),"p");
+                ARTICLE_FACTORY.add(cont);
             }
             else {
-                Content cont = new Content(doc.select("div.summary").text(),"p");
-                CONTENT.add(cont);
+                ArticleFactory cont = new ArticleFactory(doc.select("div.summary").text(),"p");
+                ARTICLE_FACTORY.add(cont);
             }
 
             for (Element element : elements) {
                 if (element.tagName().equals("img")) {
-                    Content tempImg = new Content(element.select("div[id=contentAvatar] img").attr("src"),"img");
-                    CONTENT.add(tempImg);
+                    ArticleFactory tempImg = new ArticleFactory(element.select("div[id=contentAvatar] img").attr("src"),"img");
+                    ARTICLE_FACTORY.add(tempImg);
                 } else if (element.tagName().equals("p")) {
-                    Content tempP = new Content(element.text(), "p");
-                    CONTENT.add(tempP);
+                    ArticleFactory tempP = new ArticleFactory(element.text(), "p");
+                    ARTICLE_FACTORY.add(tempP);
                 } else if (element.tagName().matches("h\\d")) {
-                    Content tempH = new Content(element.text(), "h");
-                    CONTENT.add(tempH);
+                    ArticleFactory tempH = new ArticleFactory(element.text(), "h");
+                    ARTICLE_FACTORY.add(tempH);
                     System.out.println(tempH.getContext());
                 } else  if (element.is("div") && !element.className().equals("details__morenews")){
                     checkDivTN(element);
@@ -48,20 +45,20 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
             }
 
             //Add author
-            Content cont= new Content(doc.select("div.left h4").text(),"author");
-            CONTENT.add(cont);
+            ArticleFactory cont= new ArticleFactory(doc.select("div.left h4").text(),"author");
+            ARTICLE_FACTORY.add(cont);
 
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayTuoiTre");
         }
-        return CONTENT;
+        return ARTICLE_FACTORY;
     }
 
     private void checkDivTN(Element div) {
         // If element has 0 children and is not an ad div
         if (div.select("> *").size() == 0 && !div.className().contains("ads") && div.hasText()){
-            Content tmpdiv = new Content(div.text(),"div");
-            CONTENT.add(tmpdiv);
+            ArticleFactory tmpdiv = new ArticleFactory(div.text(),"div");
+            ARTICLE_FACTORY.add(tmpdiv);
             return;
         }
 
@@ -72,29 +69,29 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
                     checkDivTN(ele);
                 }
                 else if (ele.is("p")) {
-                    Content ptmp = new Content(ele.text(),"p");
+                    ArticleFactory ptmp = new ArticleFactory(ele.text(),"p");
                 } else if (ele.attr("class").contains("image")) {
                     //Extract image and Caption
-                    Content tmpimg = new Content(ele.select("img").attr("data-src"), "img");
-                    Content labimg = new Content(ele.select("p").text(),"caption");
-                    CONTENT.add(tmpimg);
-                    CONTENT.add(labimg);
+                    ArticleFactory tmpimg = new ArticleFactory(ele.select("img").attr("data-src"), "img");
+                    ArticleFactory labimg = new ArticleFactory(ele.select("p").text(),"caption");
+                    ARTICLE_FACTORY.add(tmpimg);
+                    ARTICLE_FACTORY.add(labimg);
                 } else if (ele.is("figure") && ele.attr("class").equals("picture")) {
                     if (ele.select("img").size() > 0) {
-                      Content cont = new Content(ele.select("img").attr("data-src"), "img");
-                      Content lab = new Content(ele.select("figcaption").text(),"caption");
-                      CONTENT.add(cont);
-                      CONTENT.add(lab);
+                      ArticleFactory cont = new ArticleFactory(ele.select("img").attr("data-src"), "img");
+                      ArticleFactory lab = new ArticleFactory(ele.select("figcaption").text(),"caption");
+                      ARTICLE_FACTORY.add(cont);
+                      ARTICLE_FACTORY.add(lab);
                     }
                     else if (ele.hasText()) {
-                        Content txt =new Content(ele.text(),"caption");
+                        ArticleFactory txt =new ArticleFactory(ele.text(),"caption");
                     }
                 }
                 else if (ele.is("h2") || ele.is("h3")) {
-                    Content cont = new Content(ele.text(), "h");
+                    ArticleFactory cont = new ArticleFactory(ele.text(), "h");
                 }
                 else if (ele.hasText()) {
-                   Content cont = new Content(div.text(),"div");
+                   ArticleFactory cont = new ArticleFactory(div.text(),"div");
                     break;
                 }
             }

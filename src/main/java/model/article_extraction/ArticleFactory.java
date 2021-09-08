@@ -1,4 +1,4 @@
-package model.test;
+package model.article_extraction;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,11 +12,11 @@ import primary_page.controller.CardController;
 
 import java.util.List;
 
-public class Content {
+public class ArticleFactory {
     private String context;
     private String type;
 
-    public Content(String context, String type) {
+    public ArticleFactory(String context, String type) {
         this.context = context;
         this.type = type;
     }
@@ -30,35 +30,35 @@ public class Content {
     }
 
     //Extract the article in the content list
-    public static List<Content> articleSwitcher(Article article) {
+    public static List<ArticleFactory> articleSwitcher(Article article) {
 
-        model.test.JsoupArticleDisplay disp;
+        ArticleExtractor disp;
         switch (CardController.websiteSource) {
             case VNEXPRESS:
-                disp = new model.test.DisplayVNExpress();
+                disp = new VnExpressExtraction();
                 break;
             case TUOITRE:
-                disp = new model.test.DisplayTuoiTre();
+                disp = new TuoiTreExtraction();
                 break;
             case ZINGNEWS:
-                disp = new model.test.DisplayZingNews();
+                disp = new ZingNewsExtraction();
                 break;
             case NHANDAN:
-                disp = new model.test.DisplayNhanDan();
+                disp = new NhanDanExtraction();
                 break;
             case THANHNIEN:
-                disp = new model.test.DisplayThanhNien();
+                disp = new ThanhNienExtraction();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " +article.getSource() );
         }
 //        System.out.println(source.getUrl());
-        List<Content> contentList = disp.getContent(CardController.websiteLink);
-        return contentList;
+        List<ArticleFactory> articleFactoryList = disp.getContent(CardController.websiteLink);
+        return articleFactoryList;
     }
 
     //Add everythinf to vbox
-    public static ScrollPane dispArt(List<Content> contentList) {
+    public static ScrollPane dispArt(List<ArticleFactory> articleFactoryList) {
         final double PAD = 100;
         System.out.println("Working");
         ScrollPane scroll = new ScrollPane();
@@ -73,7 +73,7 @@ public class Content {
         articleVbox.setAlignment(Pos.CENTER);
         articleVbox.setSpacing(20);
         articleVbox.setPadding(new Insets(10, 10, 10, 10));
-        for (Content cnt : contentList) {
+        for (ArticleFactory cnt : articleFactoryList) {
             if (cnt.getType().equals("p")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 20pt");

@@ -20,9 +20,6 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
     @Override
     public void scrapeArticle(String url, ArrayList<Article> articles) {
         try {
-//            if(url.contains("javascript")) {
-//                throw   ;
-//            }
             Document doc;
             if (url.contains("https")) {
                 doc = Jsoup.connect(url).get();

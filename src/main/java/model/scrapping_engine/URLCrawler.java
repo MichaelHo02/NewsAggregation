@@ -44,9 +44,9 @@ public class URLCrawler implements Runnable {
                         executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
                     } else if (url.contains("tuoitre")) {
                         if (folder.contains("https")) {
-                            executorService.execute(new GetTuoiTre(folder));
+                            executorService.execute(new GetWithRSS(folder));
                         } else {
-                            executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder));
+                            executorService.execute(new GetWithRSS("https://tuoitre.vn" + folder));
                         }
                     } else if (url.contains("nhandan")) {
                         executorService.execute(new GetNhanDan("https://nhandan.vn" + folder));
