@@ -58,6 +58,7 @@ public class InitScraper {
 //            System.out.println(articles.get(i).getTitlePage());
 //        }
         System.out.println("Scraping done in: " + elap);
+        System.out.println(InitScraper.catCounter);
 
     }
 

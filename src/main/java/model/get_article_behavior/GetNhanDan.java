@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Pattern;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
@@ -40,7 +41,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String date = element.select("div[class*=box-meta]").text();
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
-                    String category = "";
+                    String category = title + " " + scrapeCat(url, 3); // concatenate category + title
 
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
@@ -57,6 +58,9 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
             System.out.println("Failed to connect");
         }
     }
+
+
+
 
     @Override
     public void run() {
