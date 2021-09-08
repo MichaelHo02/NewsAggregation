@@ -20,6 +20,7 @@ public class URLCrawler implements Runnable {
 
     private String url;
 
+    // Constructor
     public URLCrawler(String url) {
         this.url = url;
     }
@@ -28,9 +29,9 @@ public class URLCrawler implements Runnable {
         ExecutorService executorService = Executors.newCachedThreadPool();
         try {
             Document doc = Jsoup.connect(url).get();
-            Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href], .menu-ul li a[href]");
+            Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href], .menu-ul li a[href]"); // Select all categories
             for (Element element : elements) {
-                if (Thread.interrupted()) {
+                if (Thread.interrupted()) { // Check for interrupted thread
                     System.out.println("Is Interrupt");
                     if (!executorService.isTerminated()) {
                         executorService.shutdownNow();
@@ -38,8 +39,9 @@ public class URLCrawler implements Runnable {
                     return;
                 }
                 String folder = element.attr("href");
-                if (ArticleFilter.filterArticle(folder)) {
+                if (ArticleFilter.filterArticle(folder)) { // Filter links
                     System.out.println("This is the folder: " + folder);
+                    // Call appropriate scraper depending on the current link
                     if (url.contains("vnexpress")) {
                         executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
                     } else if (url.contains("tuoitre")) {
@@ -57,6 +59,7 @@ public class URLCrawler implements Runnable {
                     }
                 }
             }
+            // Shut down thread pool
             executorService.shutdown();
             executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Exception e) {

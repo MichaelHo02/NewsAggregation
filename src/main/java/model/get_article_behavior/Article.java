@@ -6,16 +6,18 @@ import java.util.Date;
 import java.util.List;
 
 public class Article {
-    public Article() {
-    }
 
     private String titlePage;
     private String linkPage;
     private Date date;
     private String imageURL;
     private WebsiteURL source;
-    private String category; // raw category data
+    private String category; // Raw category data
     private List<Integer> categories;
+
+    // Constructor
+    public Article() {
+    }
 
     public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
         this.titlePage = titlePage;
@@ -58,7 +60,7 @@ public class Article {
         for(int i : categories) {
             sum += i;
         }
-        return sum == 0 ? true : false;
+        return sum == 0;
     }
 
     public List<Integer> getCategories() {

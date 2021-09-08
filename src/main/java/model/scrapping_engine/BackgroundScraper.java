@@ -5,20 +5,17 @@ import model.get_article_behavior.Article;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BackgroundScraper implements Runnable {
 
     private boolean stopThread;
-
     private PropertyChangeSupport propertyChangeSupport;
 
+    // Constructor
     public BackgroundScraper() {
         stopThread = false;
         propertyChangeSupport = new PropertyChangeSupport(this);
@@ -27,6 +24,7 @@ public class BackgroundScraper implements Runnable {
     public void backgroundScrape() {
         while (true) {
             try {
+                // Perform scraping new articles
                 Thread.sleep(30_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
@@ -39,7 +37,7 @@ public class BackgroundScraper implements Runnable {
                     executorService.shutdownNow();
                     return;
                 } else {
-                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed());
+                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
 
                     // Remove duplicate articles
                     HashSet<String> articlesCheck = new HashSet<>();
@@ -58,7 +56,6 @@ public class BackgroundScraper implements Runnable {
                 System.out.println("Success!");
                 doNotify(true);
             } catch (Exception e) {
-                System.out.println(e.toString());
                 System.out.println("Cannot perform background scraping");
             }
         }
