@@ -73,7 +73,7 @@ public class Content {
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
             } else if (cnt.getType().equals("caption")) {
                 Text text = new Text(cnt.getContext());
-                text.setStyle("-fx-font-size: 20pt; -fx-font-style: italic;");
+                text.setStyle("-fx-font-size: 18pt; -fx-font-style: italic;");
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
                StackPane stackPane = new StackPane();
                stackPane.getChildren().add(text);
@@ -97,6 +97,11 @@ public class Content {
             }else if (cnt.getType().equals("author")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 17pt; -fx-font-weight: bold;");
+                articleVbox.getChildren().add(text);
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+            } else if (cnt.getType().equals("h")) {
+                Text text = new Text(cnt.getContext());
+                text.setStyle("-fx-font-size: 18pt; -fx-font-weight: bold;");
                 articleVbox.getChildren().add(text);
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
             }

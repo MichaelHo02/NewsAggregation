@@ -61,14 +61,15 @@ public class SecondaryController implements Initializable {
 
         //Add the new article
         borderPane.setCenter(Content.dispArt(Content.articleSwitcher(article)));
-        title.setFont(new Font(20));
+        title.setFont(new Font(18));
+        title.setStyle("-fx-font-weight: bold");
         title.setText(article.getTitlePage());
     }
 
     @FXML
     public void zoomIn(MouseEvent e) {
-        title.setScaleX(1.5);
-        title.setScaleY(1.5);
+        title.setScaleX(1.2);
+        title.setScaleY(1.2);
         System.out.println("Mouse in");
     }
 

@@ -65,6 +65,7 @@ public class DisplayZingNews extends JsoupArticleDisplay {
                     addZingArt(ele.select("> *"));
                 }
             } catch (Exception e) {
+                System.out.println("Error displaying the article");
                 continue;
             }
         }

@@ -98,7 +98,10 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
                     break;
                 }
             }
-            catch (Exception ignored) { continue; }
+            catch (Exception ignored) {
+                System.out.println("Error display Thanh Nien");
+                continue;
+            }
         }
     }
 

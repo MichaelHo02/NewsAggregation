@@ -1,7 +1,7 @@
 package model.display;
 
 import model.get_article_behavior.Article;
-
+//Depreciate díplay engine
 public abstract class DisplayArticle {
     //TODO:Implement a way to interact with webview
     private String tmpTemplate;

@@ -14,21 +14,16 @@ public class DisplayTuoiTre extends JsoupArticleDisplay {
         try {
             CONTENT.clear();
             Document doc = Jsoup.connect(linkPage).get();
-            Elements elements = doc.select("div#main-detail-body.content.fck:nth-child(3) *");
-
-            System.out.println(elements.size());
-            for (Element element : elements) {
-                if (element.tagName().equals("img")) {
-                    Content tempImg = new Content(element.attr("src"),"img");
-                    CONTENT.add(tempImg);
-                } else if (element.tagName().equals("p")) {
-                    Content tempP = new Content(element.text(), "p");
-                    CONTENT.add(tempP);
-                } else if (element.tagName().matches("h\\d")) {
-                    Content tempH = new Content(element.text(), "h");
-                    CONTENT.add(tempH);
-                    System.out.println(tempH.getContext());
-                }
+            Elements elements = doc.select("div#mainContentDetail");
+            //Add Description
+            Content des = new Content(elements.select("h2").text(), "p");
+            CONTENT.add(des);
+            //Get the main body of the article
+            articleBody( doc.select("div#main-detail-body > *"));
+            //Get tauthor
+            if (elements.select("div.author").size() > 0) {
+                Content author = new Content(elements.select("div.author").text(), "author");
+                CONTENT.add(author);
             }
 
         } catch (Exception e) {
@@ -37,8 +32,32 @@ public class DisplayTuoiTre extends JsoupArticleDisplay {
         return CONTENT;
     }
 
-    public static void main(String[] args) throws Exception {
-        DisplayTuoiTre test = new DisplayTuoiTre();
-        test.getContent("https://congnghe.tuoitre.vn/ve-tinh-nanodragon-made-in-vietnam-len-duong-sang-nhat-20210811195434019.htm");
+    public void articleBody(Elements div) {
+        for (Element ele : div) {
+            try {
+                if (ele.is("p") && ele.hasText()) { //If element is a ordinary p element
+                    Content tmp = new Content(ele.text(), "p");
+                    CONTENT.add(tmp);
+                } else if (ele.is("div")) { //If element is a p tag
+                    // Add image if element is image
+                    if (ele.attr("type").equals("Photo")) {
+                        String address = ele.select("img").attr("src");
+                        try {
+                            //Clean up image url
+                            address = address.replace("thumb_w/586/", "");
+                        } catch (Exception ignored) {}
+                        Content img = new Content(address, "img");
+                        CONTENT.add(img);
+                        Content cap = new Content(ele.select("p").text(), "caption");
+                        CONTENT.add(cap);
+                    } else if (ele.attr("type").equals("wrapnote")) {
+                        articleBody(ele.select("> *"));
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error display tuoitre");
+                continue;
+            }
+        }
     }
 }
