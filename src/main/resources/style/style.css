@@ -57,3 +57,17 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 0em;
 }
+.category {
+    -fx-border-style: none none none solid;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 5 0 5;
+}
+
+
+.button:hover {
+    -fx-background-color: #EFEFEF;
+}
+
+.selected {
+    -fx-background-color: #EFEFEF;
+}

@@ -17,7 +17,7 @@
             </children></AnchorPane>
       </left>
    </BorderPane>
-   <AnchorPane AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <AnchorPane AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <ProgressBar fx:id="progressBar" prefHeight="10.0" progress="0.0" styleClass="progress-bar" stylesheets="@style/style.css" visible="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">
             <opaqueInsets>
@@ -29,5 +29,5 @@
          </ProgressBar>
       </children>
    </AnchorPane>
-   <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="0.0" />
+   <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>

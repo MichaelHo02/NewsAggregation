@@ -156,14 +156,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         inputArticle();
     }
 
-    void setSidebarOut() {
-        sidebarController.toggleExtendedSidebarOut();
-    }
-
-    void setSidebarIn() {
-        sidebarController.toggleExtendedSidebarIn();
-    }
-
     boolean updateSideBar() {
         return sidebarController.getSidebar().isVisible();
     }
