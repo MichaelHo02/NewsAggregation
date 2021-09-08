@@ -8,17 +8,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SidebarController implements Initializable {
-    private PrimaryController primaryController;
 
     @FXML
     private VBox sidebar;
 
     @FXML
     private Button menuBar, newBar, covidBar, politicsBar, businessBar, technologyBar, healthBar, sportsBar, entertainmentBar, worldBar, othersBar;
-
-    void injectMainController(PrimaryController primaryController) {
-        this.primaryController = primaryController;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,10 +29,6 @@ public class SidebarController implements Initializable {
         entertainmentBar.setVisible(false);
         worldBar.setVisible(false);
         othersBar.setVisible(false);
-    }
-
-    public VBox getSidebar() {
-        return sidebar;
     }
 
     public void cleanEffect(int n) {

@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NavigationController implements Initializable, PropertyChangeListener {
-    private PrimaryController primaryController;
 
     private int currentPage;
 
@@ -28,11 +27,6 @@ public class NavigationController implements Initializable, PropertyChangeListen
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentButton();
         propertyChangeSupport = new PropertyChangeSupport(this);
-    }
-
-    void injectMainController(PrimaryController primaryController) {
-        this.primaryController = primaryController;
-        this.primaryController.addPropertyChangeListener(this);
     }
 
     private void cleanEffect() {

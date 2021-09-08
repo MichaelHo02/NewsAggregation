@@ -68,6 +68,8 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private boolean[] haveClick = new boolean[5];
 
+    private Thread backgroundEngine;
+
     private BackgroundScraper backgroundScraper;
 
     private ConnectionTest connectionTest;
@@ -88,16 +90,19 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         connectionTest = new ConnectionTest();
         connectionTest.addPropertyChangeListener(this);
         Thread backgroundConnectionTest = new Thread(connectionTest);
+        backgroundConnectionTest.setDaemon(true);
         backgroundConnectionTest.start();
 
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
         Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
+        databaseThread.setDaemon(true);
         databaseThread.start();
 
         backgroundScraper = new BackgroundScraper();
         backgroundScraper.addPropertyChangeListener(this);
-        Thread backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine.setDaemon(true);
         backgroundEngine.start();
 
         service = new Service<>() {
@@ -125,7 +130,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                         CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
                                         cardController.setData(article);
                                         updateProgress((i % 10) + 1, 10);
-                                        System.out.println(progressBar.getProgress());
                                     }
                                     i++;
                                 }
@@ -144,10 +148,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         };
         progressBar.progressProperty().bind(service.progressProperty());
         navigationController.addPropertyChangeListener(this);
-        navigationController.injectMainController(this);
         categoryController.addPropertyChangeListener(this);
-        categoryController.injectMainController(this);
-        sidebarController.injectMainController(this);
         resetHaveClick();
         pageList = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
@@ -197,7 +198,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         if (evt.getPropertyName().equals("currentCategory")) {
             currentCategory = (int) evt.getNewValue();
             currentPage = 0;
-            // Send currentpage back to navigation
             resetHaveClick();
             propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
             inputArticle();
@@ -206,17 +206,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             System.out.println("Get here");
             if ((boolean) evt.getNewValue()) {
                 System.out.println("Bad internet connection");
-                connectionAlert();
+                Platform.runLater(() -> connectionCircle.setFill(Color.RED));
             } else if (connectionCircle.getFill().equals(Color.RED) && !((boolean) evt.getNewValue())) {
                 Platform.runLater(() -> connectionCircle.setFill(Color.GREEN));
             }
         }
-    }
-
-    public void connectionAlert() {
-//        statusLabel.setText("Connection status: Disconnected");
-        Platform.runLater(() -> connectionCircle.setFill(Color.RED));
-//        System.out.println("This is a text for changing connection status");
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

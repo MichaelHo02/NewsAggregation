@@ -36,6 +36,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
             in.scrapeLinks();
         } catch (Exception e) {
             System.out.println("failed");
+            return;
         }
         if (stopThread) {
             in.stopThread();

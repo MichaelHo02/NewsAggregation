@@ -36,7 +36,7 @@ public class InitScraper {
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public void scrapeLinks() {
+    public void scrapeLinks() throws InterruptedException {
         long startTime = System.currentTimeMillis();
 
         executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
@@ -45,7 +45,7 @@ public class InitScraper {
         executorService.execute(new URLCrawler("https://nhandan.vn/"));
         executorService.execute(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
-//        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
         while (!executorService.isTerminated()) {
 //            System.out.println("Scraping in InitScraper...");
         }

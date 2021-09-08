@@ -48,11 +48,6 @@ public class CategoryController implements Initializable {
         setCurrentButton();
     }
 
-    void injectMainController(PrimaryController primaryController) {
-        this.primaryController = primaryController;
-        sidebarController = primaryController.getSidebarController();
-    }
-
     private void setCurrentButton() {
         currentCategory = 0;
         selectedButton();
