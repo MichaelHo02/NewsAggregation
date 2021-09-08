@@ -62,7 +62,6 @@ public class Article {
     }
 
     public List<Integer> getCategories() {
-//        System.out.println(categories);
         return categories;
     }
 }

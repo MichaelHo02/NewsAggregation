@@ -148,7 +148,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         };
         progressBar.progressProperty().bind(service.progressProperty());
         navigationController.addPropertyChangeListener(this);
+        navigationController.injectController(this);
         categoryController.addPropertyChangeListener(this);
+        categoryController.injectController(this);
         resetHaveClick();
         pageList = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {

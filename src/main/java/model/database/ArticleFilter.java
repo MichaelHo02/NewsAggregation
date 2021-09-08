@@ -64,9 +64,9 @@ public class ArticleFilter {
                     article.addCategory(i + 1); // if yes then update category list + update counter
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                 }
-                else { // if no then print out the storage is full
-                    System.out.println("Category " + category[i] + " is full");
-                }
+//                else { // if no then print out the storage is full
+//                    System.out.println("Category " + category[i] + " is full");
+//                }
             }
         }
 

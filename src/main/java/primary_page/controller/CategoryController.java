@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CategoryController implements Initializable {
-    private PrimaryController primaryController;
 
     private int currentCategory;
 
@@ -185,5 +184,9 @@ public class CategoryController implements Initializable {
                 sidebarController.cleanEffect(n);
             }
         };
+    }
+
+    public void injectController(PrimaryController primaryController) {
+        sidebarController = primaryController.getSidebarController();
     }
 }

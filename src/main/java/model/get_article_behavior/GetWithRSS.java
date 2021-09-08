@@ -43,7 +43,6 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                     if (ArticleFilter.filterArticle(article)) {
                         articles.add(article);
                     }
-                    System.out.println("This is the list for article category" + article.getCategories());
                 }
             }
         } catch (MalformedURLException e) {

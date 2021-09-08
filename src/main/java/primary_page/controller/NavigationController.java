@@ -18,6 +18,8 @@ public class NavigationController implements Initializable, PropertyChangeListen
 
     private int currentPage;
 
+    private PrimaryController primaryController;
+
     @FXML
     private Button page1, page2, page3, page4, page5, prevPage, nextPage;
 
@@ -27,6 +29,11 @@ public class NavigationController implements Initializable, PropertyChangeListen
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setCurrentButton();
         propertyChangeSupport = new PropertyChangeSupport(this);
+    }
+
+    public void injectController(PrimaryController primaryController) {
+        this.primaryController = primaryController;
+        this.primaryController.addPropertyChangeListener(this);
     }
 
     private void cleanEffect() {
