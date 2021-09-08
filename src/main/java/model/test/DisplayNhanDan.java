@@ -38,6 +38,10 @@ public class DisplayNhanDan extends JsoupArticleDisplay {
                 }
             }
 
+            //Add the author element
+            Content author = new Content(doc.select("div.box-author strong").text(),"author");
+            CONTENT.add(author);
+
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayNhanDan");
 

@@ -48,7 +48,7 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
             }
 
             //Add author
-            Content cont= new Content(doc.select("div.left h4").text(),"p");
+            Content cont= new Content(doc.select("div.left h4").text(),"author");
             CONTENT.add(cont);
 
         } catch (Exception e) {
@@ -66,41 +66,39 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
         }
 
         // Loop through div elements
-        for (Element e : div.select("> *")) {
+        for (Element ele : div.select("> *")) {
             try {
-                // Recursion call if child is div
-                if (e.is("div") && !e.attr("class").contains("image")) {
-                    checkDivTN(e);
+                if (ele.is("div") && !ele.attr("class").contains("image")) {
+                    checkDivTN(ele);
                 }
-                else if (e.is("p")) {
-                    Content ptmp = new Content(e.text(),"p");
-                } else if (e.attr("class").contains("image")) {
-                    Content tmpimg = new Content(e.select("img").attr("data-src"), "img");
-                    Content labimg = new Content(e.select("p").text(),"p");
+                else if (ele.is("p")) {
+                    Content ptmp = new Content(ele.text(),"p");
+                } else if (ele.attr("class").contains("image")) {
+                    //Extract image and Caption
+                    Content tmpimg = new Content(ele.select("img").attr("data-src"), "img");
+                    Content labimg = new Content(ele.select("p").text(),"caption");
                     CONTENT.add(tmpimg);
                     CONTENT.add(labimg);
-                } else if (e.is("figure") && e.attr("class").equals("picture")) {
-                    if (e.select("img").size() > 0) {
-                      Content cont = new Content(e.select("img").attr("data-src"), "img");
-                      Content lab = new Content(e.select("figcaption").text(),"p");
+                } else if (ele.is("figure") && ele.attr("class").equals("picture")) {
+                    if (ele.select("img").size() > 0) {
+                      Content cont = new Content(ele.select("img").attr("data-src"), "img");
+                      Content lab = new Content(ele.select("figcaption").text(),"caption");
                       CONTENT.add(cont);
                       CONTENT.add(lab);
                     }
-                    else if (e.hasText()) {
-                        Content txt =new Content(e.text(),"p");
+                    else if (ele.hasText()) {
+                        Content txt =new Content(ele.text(),"caption");
                     }
                 }
-                // Add header if child is header
-                else if (e.is("h2") || e.is("h3")) {
-                    Content cont = new Content(e.text(), "h");
+                else if (ele.is("h2") || ele.is("h3")) {
+                    Content cont = new Content(ele.text(), "h");
                 }
-                // Add text label if child is neither image nor video and has text
-                else if (e.hasText()) {
+                else if (ele.hasText()) {
                    Content cont = new Content(div.text(),"div");
                     break;
                 }
             }
-            catch (IllegalArgumentException ex) { continue; }
+            catch (Exception ignored) { continue; }
         }
     }
 

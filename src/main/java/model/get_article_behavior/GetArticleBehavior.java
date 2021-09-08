@@ -51,6 +51,8 @@ public abstract class GetArticleBehavior {
         for (Element image : images) {
             if (image.hasAttr("src") && !image.attr("src").isBlank() && image.attr("src").matches(urlForm)) {
                 return image.attr("src");
+            } else if(image.hasAttr("data-src")) {
+                return image.attr("data-src");
             }
         }
         return null;

@@ -4,59 +4,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sidebar" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="658.0" minWidth="-Infinity" prefWidth="200.0" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.SidebarController">
+<VBox fx:id="sidebar" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="658.0" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.SidebarController">
    <children>
-      <Button fx:id="menuBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Menu" textFill="BLACK">
+      <Button fx:id="menuBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Menu" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="newBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Latest" textFill="BLACK">
+      <Button fx:id="newBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Latest" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="covidBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="COVID" textFill="BLACK">
+      <Button fx:id="covidBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="COVID" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="politicsBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Politics" textFill="BLACK">
+      <Button fx:id="politicsBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Politics" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="businessBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Business" textFill="BLACK">
+      <Button fx:id="businessBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Business" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="technologyBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Technology" textFill="BLACK">
+      <Button fx:id="technologyBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Technology" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="healthBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Health" textFill="BLACK">
+      <Button fx:id="healthBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Health" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="sportsBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Sport" textFill="BLACK">
+      <Button fx:id="sportsBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Sport" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="entertainmentBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Entertainment" textFill="BLACK">
+      <Button fx:id="entertainmentBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Entertainment" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="worldBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="World" textFill="BLACK">
+      <Button fx:id="worldBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="World" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
-      <Button fx:id="othersBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#toggleExtendedSidebarIn" prefHeight="58.0" style="-fx-background-color: rgba(0,0,0,0);" text="Other" textFill="BLACK">
+      <Button fx:id="othersBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Other" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>

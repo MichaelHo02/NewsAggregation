@@ -93,8 +93,8 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
 
-        Thread thread = new Thread(() -> articleDatabase.performGetArticle());
-        thread.start();
+        Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
+        databaseThread.start();
 
         backgroundScraper = new BackgroundScraper();
         backgroundScraper.addPropertyChangeListener(this);
@@ -107,15 +107,17 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                 return new Task<>() {
                     @Override
                     protected Integer call() {
-                        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                         if (!haveClick[currentPage]) {
                             Platform.runLater(() -> {
+                                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                                 fadeTransition.setToValue(1);
                                 fadeTransition.play();
                             });
                             int i = 0;
-                            System.out.println("This is the size: " + articleDatabase.getArticles().size());
                             for (Article article : articleDatabase.getArticles()) {
+                                if (isCancelled()) {
+                                    return 0;
+                                }
                                 if (i > (currentPage + 1) * 10 - 1) {
                                     break;
                                 }
@@ -124,12 +126,14 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                         CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
                                         cardController.setData(article);
                                         updateProgress((i % 10) + 1, 10);
+                                        System.out.println(progressBar.getProgress());
                                     }
                                     i++;
                                 }
                             }
                             haveClick[currentPage] = true;
                             Platform.runLater(() -> {
+                                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                                 fadeTransition.setToValue(0);
                                 fadeTransition.play();
                             });
@@ -171,14 +175,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         inputArticle();
     }
 
-    void setSidebarOut() {
-        sidebarController.toggleExtendedSidebarOut();
-    }
-
-    void setSidebarIn() {
-        sidebarController.toggleExtendedSidebarIn();
-    }
-
     boolean updateSideBar() {
         return sidebarController.getSidebar().isVisible();
     }
@@ -196,7 +192,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         this.stage = stage;
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
+            articleDatabase.end();
             backgroundScraper.end();
+            service.cancel();
         });
     }
 

@@ -64,14 +64,22 @@ public class Content {
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
+        articleVbox.setSpacing(20);
         articleVbox.setPadding(new Insets(10, 10, 10, 10));
         for (Content cnt : contentList) {
             if (cnt.getType().equals("p")) {
                 Text text = new Text(cnt.getContext());
-                text.setStyle("-fx-font: 24 Helvetica");
+                text.setStyle("-fx-font-size: 20pt");
                 articleVbox.getChildren().add(text);
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
-            } else if (cnt.getType().equals("video")) {
+            } else if (cnt.getType().equals("caption")) {
+                Text text = new Text(cnt.getContext());
+                text.setStyle("-fx-font-size: 20pt; -fx-font-style: italic;");
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+               StackPane stackPane = new StackPane();
+               stackPane.getChildren().add(text);
+               stackPane.setPadding(new Insets(10, 0, 10, 0));
+               articleVbox.getChildren().add(stackPane);
             } else if (cnt.getType().equals("img")) {
                 try {
                     ImageView imageView = new ImageView();
@@ -79,10 +87,19 @@ public class Content {
                     imageView.setPreserveRatio(true);
                     imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(24));
                     imageView.setImage(new Image(cnt.getContext()));
-                    articleVbox.getChildren().add(imageView);
+                    imageView.setStyle("-fx-padding: 10px");
+                    StackPane stackPane = new StackPane();
+                    stackPane.getChildren().add(imageView);
+                    stackPane.setPadding(new Insets(20, 0,20,0));
+                    articleVbox.getChildren().add(stackPane);
                 } catch (Exception e) {
                     System.out.println("Failed to load img");
                 }
+            }else if (cnt.getType().equals("author")) {
+                Text text = new Text(cnt.getContext());
+                text.setStyle("-fx-font-size: 17pt; -fx-font-weight: bold;");
+                articleVbox.getChildren().add(text);
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
             }
         }
         scroll.setContent(articleVbox);
