@@ -62,5 +62,20 @@ public class SecondaryController implements Initializable {
         //Add the new article
         borderPane.setCenter(Content.dispArt(Content.articleSwitcher(article)));
         title.setFont(new Font(20));
-        title.setText(article.getTitlePage());}
+        title.setText(article.getTitlePage());
+    }
+
+    @FXML
+    public void zoomIn(MouseEvent e) {
+        title.setScaleX(1.5);
+        title.setScaleY(1.5);
+        System.out.println("Mouse in");
+    }
+
+    @FXML
+    public void  zoomOut(MouseEvent e) {
+        title.setScaleX(1);
+        title.setScaleY(1);
+        System.out.println("Mouse out");
+    }
 }
