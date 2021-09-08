@@ -21,7 +21,7 @@ public class DisplayZingNews extends JsoupArticleDisplay {
             CONTENT.add(tmp);
             addZingArt(elements);
             //Get author info
-            Content author = new Content(doc.getElementsByClass("author").text(), "p");
+            Content author = new Content(doc.getElementsByClass("author").text(), "author");
             CONTENT.add(author);
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayZingNews");
@@ -42,11 +42,13 @@ public class DisplayZingNews extends JsoupArticleDisplay {
                     CONTENT.add(tmp);
                 } else if (ele.is("table") && ele.attr("class").contains("picture")) { //For full picture post
                     for (Element inner : ele.select("td.pic > *")) {
+                        //Extract the URL
                         String imageURL = inner.select("img").attr("data-src");
                         if (imageURL.equals("")) imageURL = inner.select("img").attr("src");
                         Content img = new Content(imageURL, "img");
                         CONTENT.add(img);
-                        Content tmp = new Content(ele.select("td[class=\"pCaption caption\"]").text(), "p");
+                        //Image catption
+                        Content tmp = new Content(ele.select("td[class=\"pCaption caption\"]").text(), "caption");
                         CONTENT.add(tmp);
                     }
                 } else if (ele.is("h1") && ele.select("img").size() > 0) {
