@@ -31,7 +31,10 @@ public class URLCrawler implements Runnable {
             Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href], .menu-ul li a[href]");
             for (Element element : elements) {
                 if (Thread.interrupted()) {
-                    System.out.println("Is Interup");
+                    System.out.println("Is Interrupt");
+                    if (!executorService.isTerminated()) {
+                        executorService.shutdownNow();
+                    }
                     return;
                 }
                 String folder = element.attr("href");
