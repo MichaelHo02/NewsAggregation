@@ -1,6 +1,7 @@
 package model.test;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,12 +59,18 @@ public class Content {
 
     //Add everythinf to vbox
     public static ScrollPane dispArt(List<Content> contentList) {
+        final double PAD = 100;
         System.out.println("Working");
         ScrollPane scroll = new ScrollPane();
+        scroll.getStylesheets().add("style/style.css");
+        scroll.getStyleClass().add("edge-to-edge");
         scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
+        articleVbox.getStylesheets().add("style/style.css");
+        articleVbox.getStyleClass().add("dark_background");
+        articleVbox.setAlignment(Pos.CENTER);
         articleVbox.setSpacing(20);
         articleVbox.setPadding(new Insets(10, 10, 10, 10));
         for (Content cnt : contentList) {
@@ -71,11 +78,11 @@ public class Content {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 20pt");
                 articleVbox.getChildren().add(text);
-                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             } else if (cnt.getType().equals("caption")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 18pt; -fx-font-style: italic;");
-                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
                StackPane stackPane = new StackPane();
                stackPane.getChildren().add(text);
                stackPane.setPadding(new Insets(10, 0, 10, 0));
@@ -85,12 +92,12 @@ public class Content {
                     ImageView imageView = new ImageView();
                     imageView.setSmooth(true);
                     imageView.setPreserveRatio(true);
-                    imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(24));
+                    imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(PAD));
                     imageView.setImage(new Image(cnt.getContext()));
                     imageView.setStyle("-fx-padding: 10px");
                     StackPane stackPane = new StackPane();
                     stackPane.getChildren().add(imageView);
-                    stackPane.setPadding(new Insets(20, 0,20,0));
+                    stackPane.setPadding(new Insets(20, 0,10,0));
                     articleVbox.getChildren().add(stackPane);
                 } catch (Exception e) {
                     System.out.println("Failed to load img");
@@ -99,12 +106,12 @@ public class Content {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 17pt; -fx-font-weight: bold;");
                 articleVbox.getChildren().add(text);
-                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             } else if (cnt.getType().equals("h")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 18pt; -fx-font-weight: bold;");
                 articleVbox.getChildren().add(text);
-                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(24));
+                text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             }
         }
         scroll.setContent(articleVbox);

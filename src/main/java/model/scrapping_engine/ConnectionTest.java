@@ -9,14 +9,23 @@ public class ConnectionTest implements Runnable {
 
     private PropertyChangeSupport propertyChangeSupport;
 
+    private boolean stopThread;
+
+    private boolean newValue;
+
     public ConnectionTest() {
+        stopThread = false;
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     public void checkConnection() {
-        try {
-            while (true) {
-                Thread.sleep(2000);
+        while (true) {
+            try {
+                if (stopThread) {
+                    return;
+                }
+                System.out.println("Test");
+                Thread.sleep(10000);
                 URL url1 = new URL("https://vnexpress.net/rss");
                 URL url2 = new URL("https://tuoitre.vn/");
                 URL url3 = new URL("https://thanhnien.vn/rss.html");
@@ -32,11 +41,10 @@ public class ConnectionTest implements Runnable {
                 url4Connection.connect();
                 URLConnection url5Connection = url5.openConnection();
                 url5Connection.connect();
+                doNotify(false);
+            } catch (Exception e) {
+                doNotify(true);
             }
-
-
-        } catch (Exception e) {
-            doNotify(true);
         }
     }
 
@@ -53,7 +61,11 @@ public class ConnectionTest implements Runnable {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
-    private void doNotify(Boolean boo) {
-        propertyChangeSupport.firePropertyChange("Bad internet connection", null, boo);
+    private void doNotify(boolean newValue) {
+        propertyChangeSupport.firePropertyChange("Bad internet connection", null, newValue);
+    }
+
+    public void end() {
+        stopThread = true;
     }
 }

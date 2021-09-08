@@ -92,7 +92,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
-
         Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
         databaseThread.start();
 
@@ -167,31 +166,15 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     }
 
-    public void setCurrentCategory(int currentCategory) {
-        this.currentCategory = currentCategory;
-        currentPage = 0;
-        navigationController.setCurrentButton();
-        resetHaveClick();
-        inputArticle();
-    }
-
-    boolean updateSideBar() {
-        return sidebarController.getSidebar().isVisible();
-    }
-
     SidebarController getSidebarController() {
         return sidebarController;
     }
-
-    public CategoryController getCategoryController() {
-        return categoryController;
-    }
-
 
     public void ready(Stage stage) {
         this.stage = stage;
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
+            connectionTest.end();
             articleDatabase.end();
             backgroundScraper.end();
             service.cancel();
@@ -204,7 +187,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             inputArticle();
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
-            System.out.println("Category in Main");
             resetHaveClick();
             inputArticle();
         }
@@ -221,14 +203,19 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             inputArticle();
         }
         if (evt.getPropertyName().equals("Bad internet connection")) {
-            System.out.println("Bad internet connection");
-            connectionAlert();
+            System.out.println("Get here");
+            if ((boolean) evt.getNewValue()) {
+                System.out.println("Bad internet connection");
+                connectionAlert();
+            } else if (connectionCircle.getFill().equals(Color.RED) && !((boolean) evt.getNewValue())) {
+                Platform.runLater(() -> connectionCircle.setFill(Color.GREEN));
+            }
         }
     }
 
     public void connectionAlert() {
 //        statusLabel.setText("Connection status: Disconnected");
-        connectionCircle.setFill(Color.RED);
+        Platform.runLater(() -> connectionCircle.setFill(Color.RED));
 //        System.out.println("This is a text for changing connection status");
     }
 
