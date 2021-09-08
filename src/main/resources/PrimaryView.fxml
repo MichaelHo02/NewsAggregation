@@ -33,10 +33,14 @@
       </children>
    </AnchorPane>
    <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="0.0" />
-   <Label fx:id="statusLabel" layoutX="1085.0" maxHeight="50.0" prefHeight="17.0" prefWidth="166.0" text="Connection status" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1085.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="770.0">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Label>
-   <Circle fx:id="connectionCircle" fill="#1fff39" layoutY="230.0" radius="12.0" stroke="WHITE" strokeType="INSIDE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="1200.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="770.0" />
+   <AnchorPane layoutX="1085.0" layoutY="770.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="20.0">
+      <children>
+         <Label fx:id="statusLabel" maxHeight="50.0" prefHeight="17.0" prefWidth="166.0" text="Connection status">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Circle fx:id="connectionCircle" fill="#1fff39" layoutX="134.0" layoutY="9.0" radius="12.0" stroke="WHITE" strokeType="INSIDE" />
+      </children>
+   </AnchorPane>
 </AnchorPane>
