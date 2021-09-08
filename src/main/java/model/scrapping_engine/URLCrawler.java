@@ -39,7 +39,6 @@ public class URLCrawler implements Runnable {
                 }
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
-                    System.out.println("This is the folder: " + folder);
                     if (url.contains("vnexpress")) {
                         executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
                     } else if (url.contains("tuoitre")) {
