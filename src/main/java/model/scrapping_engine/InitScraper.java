@@ -62,6 +62,10 @@ public class InitScraper {
 
     }
 
+    public void stopThread() {
+        executorService.shutdownNow();
+    }
+
     public static void main(String[] args) throws InterruptedException {
         long startTime = System.currentTimeMillis();
         InitScraper in = new InitScraper();

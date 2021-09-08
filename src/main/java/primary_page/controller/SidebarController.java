@@ -1,15 +1,9 @@
 package primary_page.controller;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,41 +23,17 @@ public class SidebarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sidebar.setVisible(false);
-        sidebar.hoverProperty().addListener(toggleHover(10));
-        menuBar.hoverProperty().addListener(toggleHover(-1));
-        newBar.hoverProperty().addListener(toggleHover(0));
-        covidBar.hoverProperty().addListener(toggleHover(1));
-        politicsBar.hoverProperty().addListener(toggleHover(2));
-        businessBar.hoverProperty().addListener(toggleHover(3));
-        technologyBar.hoverProperty().addListener(toggleHover(4));
-        healthBar.hoverProperty().addListener(toggleHover(5));
-        sportsBar.hoverProperty().addListener(toggleHover(6));
-        entertainmentBar.hoverProperty().addListener(toggleHover(7));
-        worldBar.hoverProperty().addListener(toggleHover(8));
-        othersBar.hoverProperty().addListener(toggleHover(9));
-    }
-
-    @FXML
-    void toggleExtendedSidebarIn() {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), sidebar);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), sidebar);
-        translateTransition.play();
-        translateTransition.setOnFinished(actionEvent -> {
-            sidebar.setVisible(false);
-        });
-    }
-
-    void toggleExtendedSidebarOut() {
-        sidebar.setVisible(true);
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), sidebar);
-        fadeTransition.setFromValue(0);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), sidebar);
-        translateTransition.play();
+        menuBar.setVisible(false);
+        newBar.setVisible(false);
+        covidBar.setVisible(false);
+        politicsBar.setVisible(false);
+        businessBar.setVisible(false);
+        technologyBar.setVisible(false);
+        healthBar.setVisible(false);
+        sportsBar.setVisible(false);
+        entertainmentBar.setVisible(false);
+        worldBar.setVisible(false);
+        othersBar.setVisible(false);
     }
 
     public VBox getSidebar() {
@@ -71,98 +41,80 @@ public class SidebarController implements Initializable {
     }
 
     public void cleanEffect(int n) {
-        String style = "-fx-background-color:  rgba(0,0,0,0)";
+        sidebar.setVisible(false);
         switch (n) {
             case -1:
-                menuBar.setStyle(style);
+                menuBar.setVisible(false);
                 break;
             case 0:
-                newBar.setStyle(style);
+                newBar.setVisible(false);
                 break;
             case 1:
-                covidBar.setStyle(style);
+                covidBar.setVisible(false);
                 break;
             case 2:
-                politicsBar.setStyle(style);
+                politicsBar.setVisible(false);
                 break;
             case 3:
-                businessBar.setStyle(style);
+                businessBar.setVisible(false);
                 break;
             case 4:
-                technologyBar.setStyle(style);
+                technologyBar.setVisible(false);
                 break;
             case 5:
-                healthBar.setStyle(style);
+                healthBar.setVisible(false);
                 break;
             case 6:
-                sportsBar.setStyle(style);
+                sportsBar.setVisible(false);
                 break;
             case 7:
-                entertainmentBar.setStyle(style);
+                entertainmentBar.setVisible(false);
                 break;
             case 8:
-                worldBar.setStyle(style);
+                worldBar.setVisible(false);
                 break;
             case 9:
-                othersBar.setStyle(style);
+                othersBar.setVisible(false);
                 break;
         }
     }
 
     public void setButtonEffect(int n) {
-        String style = "-fx-background-color: #EFEFEF";
+        sidebar.setVisible(true);
         switch (n) {
             case -1:
-                menuBar.setStyle(style);
+                menuBar.setVisible(true);
                 break;
             case 0:
-                newBar.setStyle(style);
+                newBar.setVisible(true);
                 break;
             case 1:
-                covidBar.setStyle(style);
+                covidBar.setVisible(true);
                 break;
             case 2:
-                politicsBar.setStyle(style);
+                politicsBar.setVisible(true);
                 break;
             case 3:
-                businessBar.setStyle(style);
+                businessBar.setVisible(true);
                 break;
             case 4:
-                technologyBar.setStyle(style);
+                technologyBar.setVisible(true);
                 break;
             case 5:
-                healthBar.setStyle(style);
+                healthBar.setVisible(true);
                 break;
             case 6:
-                sportsBar.setStyle(style);
+                sportsBar.setVisible(true);
                 break;
             case 7:
-                entertainmentBar.setStyle(style);
+                entertainmentBar.setVisible(true);
                 break;
             case 8:
-                worldBar.setStyle(style);
+                worldBar.setVisible(true);
                 break;
             case 9:
-                othersBar.setStyle(style);
+                othersBar.setVisible(true);
                 break;
         }
     }
-
-    private ChangeListener<Boolean> toggleHover(int n) {
-        return (observableValue, oldValue, newValue) -> {
-            if (n == 10 && !newValue && oldValue && sidebar.isVisible() && primaryController.updateSideBar()) {
-                toggleExtendedSidebarIn();
-            }
-
-            CategoryController categoryController = primaryController.getCategoryController();
-            if (newValue) {
-                setButtonEffect(n);
-                categoryController.setButtonEffect(n);
-            } else {
-                cleanEffect(n);
-                categoryController.cleanEffect(n);
-            }
-        };
-    }
-
 }
