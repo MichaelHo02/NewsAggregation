@@ -159,10 +159,12 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         }
     }
 
-    void inputArticle() {
+    private void inputArticle(int scrollValue) {
         Platform.runLater(() -> {
             ScrollPane scrollPane = pageList.get(currentPage);
-            scrollPane.setVvalue(0);
+            if (scrollValue == 0) {
+                scrollPane.setVvalue(scrollValue);
+            }
             borderPane.setCenter(scrollPane);
             service.restart();
         });
@@ -187,22 +189,22 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
-            inputArticle();
+            inputArticle(0);
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
             resetHaveClick();
-            inputArticle();
+            inputArticle(1);
         }
         if (evt.getPropertyName().equals("currentPage")) {
             currentPage = (int) evt.getNewValue();
-            inputArticle();
+            inputArticle(0);
         }
         if (evt.getPropertyName().equals("currentCategory")) {
             currentCategory = (int) evt.getNewValue();
             currentPage = 0;
             resetHaveClick();
             propertyChangeSupport.firePropertyChange("currentPage", null, currentPage);
-            inputArticle();
+            inputArticle(currentPage);
         }
         if (evt.getPropertyName().equals("Bad internet connection")) {
             System.out.println("Get here");
@@ -211,6 +213,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                 Platform.runLater(() -> connectionCircle.setFill(Color.RED));
             } else if (connectionCircle.getFill().equals(Color.RED) && !((boolean) evt.getNewValue())) {
                 Platform.runLater(() -> connectionCircle.setFill(Color.GREEN));
+                inputArticle(0);
             }
         }
     }
