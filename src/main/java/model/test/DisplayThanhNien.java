@@ -68,7 +68,6 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
         // Loop through div elements
         for (Element e : div.select("> *")) {
             try {
-                // Recursion call if child is div
                 if (e.is("div") && !e.attr("class").contains("image")) {
                     checkDivTN(e);
                 }
@@ -90,17 +89,15 @@ public class DisplayThanhNien extends JsoupArticleDisplay {
                         Content txt =new Content(e.text(),"p");
                     }
                 }
-                // Add header if child is header
                 else if (e.is("h2") || e.is("h3")) {
                     Content cont = new Content(e.text(), "h");
                 }
-                // Add text label if child is neither image nor video and has text
                 else if (e.hasText()) {
                    Content cont = new Content(div.text(),"div");
                     break;
                 }
             }
-            catch (IllegalArgumentException ex) { continue; }
+            catch (Exception ignored) { continue; }
         }
     }
 

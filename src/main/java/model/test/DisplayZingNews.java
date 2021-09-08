@@ -62,7 +62,7 @@ public class DisplayZingNews extends JsoupArticleDisplay {
                 } else if (ele.is("blockquote")) {
                     addZingArt(ele.select("> *"));
                 }
-            } catch (Exception ex) {
+            } catch (Exception e) {
                 continue;
             }
         }
