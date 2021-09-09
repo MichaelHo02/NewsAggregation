@@ -87,10 +87,15 @@ public class ArticleFilter {
 
     public static boolean filterArticle(String folderUrl) {
         //            System.out.println("Get filter");
+        //Filterout video article
         if (isWordMatches(folderUrl, "video")) {
             return false;
         }
 
-        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") && !folderUrl.contains("video") && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
+        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isWordMatches("https://thanhnien.vn/video/the-gioi/con-lai-gi-trong-can-cu-quan-su-my-o-afghanistan-166153v.html","video"));
     }
 }
