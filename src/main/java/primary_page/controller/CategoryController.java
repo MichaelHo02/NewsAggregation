@@ -17,9 +17,6 @@ public class CategoryController implements Initializable {
     private int currentCategory;
 
     @FXML
-    Button menuIcon;
-
-    @FXML
     private Button newButton, covidButton, politicsButton, businessButton, technologyButton, healthButton, sportsButton, entertainmentButton, worldButton, othersButton;
 
     @FXML
@@ -33,7 +30,6 @@ public class CategoryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         propertyChangeSupport = new PropertyChangeSupport(this);
 
-        menuIcon.hoverProperty().addListener(toggleHover(-1));
         newButton.hoverProperty().addListener(toggleHover(0));
         covidButton.hoverProperty().addListener(toggleHover(1));
         politicsButton.hoverProperty().addListener(toggleHover(2));

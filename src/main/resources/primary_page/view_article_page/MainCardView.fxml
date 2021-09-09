@@ -11,17 +11,17 @@
       <ImageView fx:id="imageView" fitHeight="380.0" fitWidth="560.0" pickOnBounds="true" />
       <AnchorPane styleClass="bar" stylesheets="@../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0">
          <children>
-            <Text fx:id="title" onMouseClicked="#clickTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="500.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Text fx:id="title" onMouseClicked="#clickTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." wrappingWidth="500.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="time" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+            <Text fx:id="time" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text fx:id="source" strokeType="OUTSIDE" strokeWidth="0.0" text="Source" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <Text fx:id="source" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -31,6 +31,6 @@
    </children>
    <styleClass>
       <String fx:value="shadow" />
-      <String fx:value="dark_background" />
+      <String fx:value="light_background" />
    </styleClass>
 </AnchorPane>

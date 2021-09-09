@@ -6,17 +6,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="categoryBox" alignment="TOP_CENTER" minHeight="650.0" minWidth="-Infinity" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CategoryController">
+<VBox fx:id="categoryBox" alignment="TOP_CENTER" minHeight="80.0" minWidth="-Infinity" styleClass="column_row_background" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CategoryController">
    <children>
-      <Button fx:id="menuIcon" contentDisplay="CENTER" mnemonicParsing="false" styleClass="category" stylesheets="@../style/style.css">
-         <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/menu.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <Button fx:id="newButton" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#setCurrentCategory" styleClass="category" stylesheets="@../style/style.css" VBox.vgrow="ALWAYS">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">

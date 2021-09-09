@@ -14,12 +14,11 @@ public class SidebarController implements Initializable {
     private VBox sidebar;
 
     @FXML
-    private Button menuBar, newBar, covidBar, politicsBar, businessBar, technologyBar, healthBar, sportsBar, entertainmentBar, worldBar, othersBar;
+    private Button newBar, covidBar, politicsBar, businessBar, technologyBar, healthBar, sportsBar, entertainmentBar, worldBar, othersBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sidebar.setVisible(false);
-        menuBar.setVisible(false);
         newBar.setVisible(false);
         covidBar.setVisible(false);
         politicsBar.setVisible(false);
@@ -35,9 +34,6 @@ public class SidebarController implements Initializable {
     public void cleanEffect(int n) {
         sidebar.setVisible(false);
         switch (n) {
-            case -1:
-                menuBar.setVisible(false);
-                break;
             case 0:
                 newBar.setVisible(false);
                 break;
@@ -74,9 +70,6 @@ public class SidebarController implements Initializable {
     public void setButtonEffect(int n) {
         sidebar.setVisible(true);
         switch (n) {
-            case -1:
-                menuBar.setVisible(true);
-                break;
             case 0:
                 newBar.setVisible(true);
                 break;
