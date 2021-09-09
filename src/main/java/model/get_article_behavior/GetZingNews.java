@@ -1,20 +1,21 @@
 package model.get_article_behavior;
+
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+
 import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetZingNews extends GetArticleBehavior implements Runnable{
 

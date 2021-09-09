@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+
 import main.Main;
 import model.get_article_behavior.Article;
 import model.get_article_behavior.GetArticleBehavior;

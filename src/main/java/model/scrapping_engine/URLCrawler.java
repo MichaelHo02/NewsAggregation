@@ -5,6 +5,7 @@ import model.get_article_behavior.GetNhanDan;
 import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetZingNews;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

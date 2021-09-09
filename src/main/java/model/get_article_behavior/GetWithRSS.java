@@ -3,6 +3,7 @@ package model.get_article_behavior;
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
+
 import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
 
@@ -10,7 +11,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,6 +40,8 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 // Stop all thread to write the array
                 synchronized(this) {
                     if (ArticleFilter.filterArticle(article)) {
+                        System.out.println(article.getTitlePage());
+                        System.out.println(article.getCategories());
                         articles.add(article);
                     }
                 }

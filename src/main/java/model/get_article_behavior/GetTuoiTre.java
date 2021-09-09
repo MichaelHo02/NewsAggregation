@@ -1,14 +1,15 @@
 package model.get_article_behavior;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
+
 import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetTuoiTre extends GetArticleBehavior implements Runnable {
     private String url;

@@ -5,6 +5,7 @@ import model.get_article_behavior.Article;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
