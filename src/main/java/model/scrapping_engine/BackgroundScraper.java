@@ -29,7 +29,7 @@ public class BackgroundScraper implements Runnable {
                 Thread.sleep(30_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
-                executorService.execute(new URLCrawler("https://tuoitre.vn/rss.htm"));
+                executorService.execute(new URLCrawler("https://tuoitre.vn/"));
                 executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
                 executorService.execute(new URLCrawler("https://nhandan.vn/"));
                 executorService.execute(new URLCrawler("https://zingnews.vn/"));

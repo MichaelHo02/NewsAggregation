@@ -94,12 +94,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         databaseThread.setDaemon(true);
         databaseThread.start();
 
-        backgroundScraper = new BackgroundScraper();
-        backgroundScraper.addPropertyChangeListener(this);
-        backgroundEngine = new Thread(backgroundScraper);
-        backgroundEngine.setDaemon(true);
-        backgroundEngine.start();
-
         service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
@@ -113,6 +107,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 fadeTransition.play();
                             });
                             int i = 0;
+                            for (Article article : articleDatabase.getArticles()) {
+                                System.out.println(article.getSource());
+                            }
                             for (Article article : articleDatabase.getArticles()) {
                                 if (isCancelled()) {
                                     return 0;
@@ -152,6 +149,12 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
+
+        backgroundScraper = new BackgroundScraper();
+        backgroundScraper.addPropertyChangeListener(this);
+        backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine.setDaemon(true);
+        backgroundEngine.start();
     }
 
     private void inputArticle(int scrollValue) {
