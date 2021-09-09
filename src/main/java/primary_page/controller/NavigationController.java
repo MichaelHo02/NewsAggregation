@@ -29,7 +29,7 @@ public class NavigationController implements Initializable, PropertyChangeListen
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    public void injectController(PrimaryController primaryController) {
+    void injectController(PrimaryController primaryController) {
         this.primaryController = primaryController;
         this.primaryController.addPropertyChangeListener(this);
     }

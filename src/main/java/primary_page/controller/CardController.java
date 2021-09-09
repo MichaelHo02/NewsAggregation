@@ -82,7 +82,7 @@ public class CardController {
         });
     }
 
-    public void clickTitle() {
+    public void clickCard() {
         websiteLink = this.cardArticle.getLinkPage();
         websiteSource = this.cardArticle.getSource();
         Main.setRoot(cardArticle);
