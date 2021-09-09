@@ -35,7 +35,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
         try {
             in.scrapeLinks();
         } catch (Exception e) {
-            System.out.println("failed");
+            System.out.println("Failed to load data in ArticleDatabase");
             return;
         }
         if (stopThread) {
@@ -43,7 +43,6 @@ public class ArticleDatabase { // database contains category dictionary + articl
             return;
         }
         // Remove duplicate articles
-        System.out.println("Before remove: " + InitScraper.articles.size());
         HashSet<String> articlesCheck = new HashSet<>();
         for (int i = 0; i < InitScraper.articles.size(); i++) {
             if (stopThread) {

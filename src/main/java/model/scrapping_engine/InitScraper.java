@@ -59,6 +59,7 @@ public class InitScraper {
         System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape
         System.out.println(catCounter);
 
+
     }
 
     public void stopThread() {
