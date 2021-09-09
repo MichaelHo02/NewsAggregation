@@ -159,12 +159,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
-
-        backgroundScraper = new BackgroundScraper();
-        backgroundScraper.addPropertyChangeListener(this);
-        Thread backgroundEngine = new Thread(backgroundScraper);
-        backgroundEngine.setDaemon(true);
-        backgroundEngine.start();
     }
 
     private void inputArticle(int scrollValue) {
@@ -197,6 +191,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
             inputArticle(0);
+            backgroundScraper = new BackgroundScraper();
+            backgroundScraper.addPropertyChangeListener(this);
+            Thread backgroundEngine = new Thread(backgroundScraper);
+            backgroundEngine.setDaemon(true);
+            backgroundEngine.start();
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
             resetHaveClick();
