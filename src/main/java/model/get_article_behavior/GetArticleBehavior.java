@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat_s3878174
+        Acknowledgement:
+https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
+https://jsoup.org/cookbook/extracting-data/dom-navigation
+ */
 package model.get_article_behavior;
 
 

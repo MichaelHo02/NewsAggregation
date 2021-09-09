@@ -1,3 +1,15 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat s3878174
+        Acknowledgement:
+        h
+ */
 package primary_page.controller;
 
 import javafx.animation.FadeTransition;

@@ -1,3 +1,20 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Bui Minh Nhat
+        Last modified date: 10/09/2021
+        Contributor: Student name, Student ID
+        Acknowledgement:
+        https://www.w3schools.com/cssref/css_selectors.asp
+        https://openplanning.net/10399/jsoup-java-html-parser
+        https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
+        https://jsoup.org/cookbook/extracting-data/selector-syntax
+        https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+ */
+
 package model.article_extraction;
 
 import org.jsoup.Jsoup;
@@ -16,18 +33,18 @@ public class ThanhNienExtraction extends ArticleExtractor {
             Document doc = Jsoup.connect(linkPage).get();
 //          // TODO: Scrap sapo
             String firstImage = doc.select("#contentAvatar img").attr("src");
-            Elements body = doc.select("div[class~=.*content]");
+            Elements articleBody = doc.select("div[class~=.*content]");
             Elements elements = doc.select("div[id=abody] > *");
 //            System.out.println(doc.select("div[id=abody] > *").toString());
-            if (body.select("div.sapo").size() > 0) {
-                ArticleFactory cont = new ArticleFactory(body.select("div.sapo").text(),"p");
+            if (articleBody.select("div.sapo").size() > 0) {
+                ArticleFactory cont = new ArticleFactory(articleBody.select("div.sapo").text(),"p");
                 ARTICLE_FACTORY.add(cont);
             }
             else {
                 ArticleFactory cont = new ArticleFactory(doc.select("div.summary").text(),"p");
                 ARTICLE_FACTORY.add(cont);
             }
-
+//Scrape the image element
             for (Element element : elements) {
                 if (element.tagName().equals("img")) {
                     ArticleFactory tempImg = new ArticleFactory(element.select("div[id=contentAvatar] img").attr("src"),"img");
@@ -40,7 +57,8 @@ public class ThanhNienExtraction extends ArticleExtractor {
                     ARTICLE_FACTORY.add(tempH);
                     System.out.println(tempH.getContext());
                 } else  if (element.is("div") && !element.className().equals("details__morenews")){
-                    checkDivTN(element);
+                    //Check the div part of Thanh Nien
+                    divChecker(element);
                 }
             }
 
@@ -54,7 +72,7 @@ public class ThanhNienExtraction extends ArticleExtractor {
         return ARTICLE_FACTORY;
     }
 
-    private void checkDivTN(Element div) {
+    private void divChecker(Element div) {
         // If element has 0 children and is not an ad div
         if (div.select("> *").size() == 0 && !div.className().contains("ads") && div.hasText()){
             ArticleFactory tmpdiv = new ArticleFactory(div.text(),"div");
@@ -66,10 +84,10 @@ public class ThanhNienExtraction extends ArticleExtractor {
         for (Element ele : div.select("> *")) {
             try {
                 if (ele.is("div") && !ele.attr("class").contains("image")) {
-                    checkDivTN(ele);
+                    divChecker(ele);
                 }
                 else if (ele.is("p")) {
-                    ArticleFactory ptmp = new ArticleFactory(ele.text(),"p");
+                    ARTICLE_FACTORY.add(new ArticleFactory(ele.text(),"p"));
                 } else if (ele.attr("class").contains("image")) {
                     //Extract image and Caption
                     ArticleFactory tmpimg = new ArticleFactory(ele.select("img").attr("data-src"), "img");

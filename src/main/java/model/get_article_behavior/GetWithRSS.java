@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat s3878174
+        Acknowledgement:
+        https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+        https://www.baeldung.com/java-synchronized
+ */
 package model.get_article_behavior;
 
 import com.apptastic.rssreader.Item;

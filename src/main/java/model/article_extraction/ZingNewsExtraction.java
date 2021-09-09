@@ -1,3 +1,19 @@
+/*
+  RMIT University Vietnam
+  Course: INTE2512 Object-Oriented Programming
+  Semester: 2021B
+  Assessment: Final Project
+  Created  date: 07/08/2021
+  Author: Bui Minh Nhat
+  Last modified date: 10/09/2021
+  Contributor: Student name, Student ID
+  Acknowledgement:
+  https://www.w3schools.com/cssref/css_selectors.asp
+  https://openplanning.net/10399/jsoup-java-html-parser
+  https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
+  https://jsoup.org/cookbook/extracting-data/selector-syntax
+  https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+*/
 package model.article_extraction;
 
 import org.jsoup.Jsoup;
@@ -16,10 +32,10 @@ public class ZingNewsExtraction extends ArticleExtractor {
             Document doc = Jsoup.connect(linkPage).get();
             Elements elements = doc.select("div.the-article-body > *");
 
-            //Conntet
+            //Extract the summary
             ArticleFactory tmp = new ArticleFactory(doc.select("p.the-article-summary").text(), "h");
             ARTICLE_FACTORY.add(tmp);
-            addZingArt(elements);
+            zingDivChecker(elements);
             //Get author info
             ArticleFactory author = new ArticleFactory(doc.getElementsByClass("author").text(), "author");
             ARTICLE_FACTORY.add(author);
@@ -29,14 +45,14 @@ public class ZingNewsExtraction extends ArticleExtractor {
         return ARTICLE_FACTORY;
     }
 //Scrape content of ZingNews
-    private void addZingArt(Elements elements) {
+    private void zingDivChecker(Elements elements) {
         for (Element ele : elements) {
             try {
                 if (ele.is("p")) { //Check if element not author
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "p");
                     ARTICLE_FACTORY.add(tmp);
                 } else if (ele.is("div") && ele.attr("class").equals("notebox ncenter")) {
-                    addZingArt(ele.select("> *"));
+                    zingDivChecker(ele.select("> *"));
                 } else if (ele.is("h3")) { //Check header
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "h");
                     ARTICLE_FACTORY.add(tmp);
@@ -47,7 +63,7 @@ public class ZingNewsExtraction extends ArticleExtractor {
                         if (imageURL.equals("")) imageURL = inner.select("img").attr("src");
                         ArticleFactory img = new ArticleFactory(imageURL, "img");
                         ARTICLE_FACTORY.add(img);
-                        //Image catption
+                        //Image caption
                         ArticleFactory tmp = new ArticleFactory(ele.select("td[class=\"pCaption caption\"]").text(), "caption");
                         ARTICLE_FACTORY.add(tmp);
                     }
@@ -58,11 +74,11 @@ public class ZingNewsExtraction extends ArticleExtractor {
                     ArticleFactory tmp = new ArticleFactory(ele.attr("data-src"), "img");
                     ARTICLE_FACTORY.add(tmp);
                 } else if (ele.is("ul") || ele.is("div")) { //If see a block of tag
-                    addZingArt(ele.select("> *"));
+                    zingDivChecker(ele.select("> *"));
                 } else if (ele.hasText() && ele.is("li")) {
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "p");
                 } else if (ele.is("blockquote")) {
-                    addZingArt(ele.select("> *"));
+                    zingDivChecker(ele.select("> *"));
                 }
             } catch (Exception e) {
                 System.out.println("Error displaying the article");

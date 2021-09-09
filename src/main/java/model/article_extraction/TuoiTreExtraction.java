@@ -1,3 +1,20 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Bui Minh Nhat
+        Last modified date: 10/09/2021
+        Contributor: Student name, Student ID
+        Acknowledgement:
+        https://www.w3schools.com/cssref/css_selectors.asp
+        https://openplanning.net/10399/jsoup-java-html-parser
+        https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
+        https://jsoup.org/cookbook/extracting-data/selector-syntax
+        https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+ */
+
 package model.article_extraction;
 
 import org.jsoup.Jsoup;
@@ -13,13 +30,13 @@ public class TuoiTreExtraction extends ArticleExtractor {
     public List<ArticleFactory> getContent(String linkPage) {
         try {
             ARTICLE_FACTORY.clear();
-            Document doc = Jsoup.connect(linkPage).get();
-            Elements elements = doc.select("div#mainContentDetail");
+            Document document = Jsoup.connect(linkPage).get();
+            Elements elements = document.select("div#mainContentDetail");
             //Add Description
             ArticleFactory des = new ArticleFactory(elements.select("h2").text(), "p");
             ARTICLE_FACTORY.add(des);
             //Get the main body of the article
-            articleBody( doc.select("div#main-detail-body > *"));
+            divChecker( document.select("div#main-detail-body > *"));
             //Get tauthor
             if (elements.select("div.author").size() > 0) {
                 ArticleFactory author = new ArticleFactory(elements.select("div.author").text(), "author");
@@ -32,26 +49,26 @@ public class TuoiTreExtraction extends ArticleExtractor {
         return ARTICLE_FACTORY;
     }
 
-    public void articleBody(Elements div) {
-        for (Element ele : div) {
+    public void divChecker(Elements div) {
+        for (Element element : div) {
             try {
-                if (ele.is("p") && ele.hasText()) { //If element is a ordinary p element
-                    ArticleFactory tmp = new ArticleFactory(ele.text(), "p");
+                if (element.is("p") && element.hasText()) { //If element is a ordinary p element
+                    ArticleFactory tmp = new ArticleFactory(element.text(), "p");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("div")) { //If element is a p tag
+                } else if (element.is("div")) { //If element is a p tag
                     // Add image if element is image
-                    if (ele.attr("type").equals("Photo")) {
-                        String address = ele.select("img").attr("src");
+                    if (element.attr("type").equals("Photo")) {
+                        String address = element.select("img").attr("src");
                         try {
                             //Clean up image url
                             address = address.replace("thumb_w/586/", "");
                         } catch (Exception ignored) {}
                         ArticleFactory img = new ArticleFactory(address, "img");
                         ARTICLE_FACTORY.add(img);
-                        ArticleFactory cap = new ArticleFactory(ele.select("p").text(), "caption");
+                        ArticleFactory cap = new ArticleFactory(element.select("p").text(), "caption");
                         ARTICLE_FACTORY.add(cap);
-                    } else if (ele.attr("type").equals("wrapnote")) {
-                        articleBody(ele.select("> *"));
+                    } else if (element.attr("type").equals("wrapnote")) {
+                        divChecker(element.select("> *"));
                     }
                 }
             } catch (Exception e) {

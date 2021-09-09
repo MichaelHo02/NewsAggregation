@@ -1,3 +1,15 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat s3878174
+        Acknowledgement:
+       https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/FXMLLoader.html
+ */
 package main;
 
 import javafx.application.Application;
@@ -25,6 +37,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(720);
         stage.setMinHeight(730);
+        stage.setTitle("Remarkable News Aggregator");
         stage.show();
     }
 

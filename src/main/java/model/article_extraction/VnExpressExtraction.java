@@ -1,3 +1,20 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Bui Minh Nhat
+        Last modified date: 10/09/2021
+        Contributor: Student name, Student ID
+        Acknowledgement:
+        https://www.w3schools.com/cssref/css_selectors.asp
+        https://openplanning.net/10399/jsoup-java-html-parser
+        https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
+        https://jsoup.org/cookbook/extracting-data/selector-syntax
+        https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+ */
+
 package model.article_extraction;
 
 import org.jsoup.Jsoup;
@@ -37,46 +54,46 @@ public class VnExpressExtraction extends ArticleExtractor {
     }
 
     private void checkBody(Element div) {
-        for (Element ele : div.select("> *")) {
+        for (Element element : div.select("> *")) {
             // If element is text not author
-            if (ele.is("p") && !ele.attr("style").contains("text-align:right;") && !ele.attr("class").contains("author")) {
+            if (element.is("p") && !element.attr("style").contains("text-align:right;") && !element.attr("class").contains("author")) {
                 String type = "p";
-                if (ele.select("strong").size() > 0)
+                if (element.select("strong").size() > 0)
                     type = "h";
-                ARTICLE_FACTORY.add(new ArticleFactory(ele.text(), type));
+                ARTICLE_FACTORY.add(new ArticleFactory(element.text(), type));
 
-            } else if (ele.is("h2")) {
-                ARTICLE_FACTORY.add(new ArticleFactory(ele.text(), "h"));
+            } else if (element.is("h2")) {
+                ARTICLE_FACTORY.add(new ArticleFactory(element.text(), "h"));
             }
             // If element is image
-            else if (ele.is("figure") && ele.select("img").size() > 0) {
-                String imgTmp = ele.select("img").attr("data-src");
+            else if (element.is("figure") && element.select("img").size() > 0) {
+                String imgTmp = element.select("img").attr("data-src");
                 if (imgTmp.equals("")) {
-                    imgTmp = ele.select("img").attr("src");
+                    imgTmp = element.select("img").attr("src");
                 }
                 ARTICLE_FACTORY.add(new ArticleFactory(imgTmp, "img"));
                 //Image Caption
-                ARTICLE_FACTORY.add(new ArticleFactory(ele.select("figcaption").text(), "caption"));
+                ARTICLE_FACTORY.add(new ArticleFactory(element.select("figcaption").text(), "caption"));
             }
             // If element is gallery
-            else if (ele.attr("class").contains("clearfix")) {
-                if (ele.select("img").size() > 0) {
-                    String imagTmp = ele.select("img").attr("data-src");
+            else if (element.attr("class").contains("clearfix")) {
+                if (element.select("img").size() > 0) {
+                    String imagTmp = element.select("img").attr("data-src");
                     if (imagTmp.equals("")) {
-                        imagTmp = ele.select("img").attr("src");
+                        imagTmp = element.select("img").attr("src");
                     }
                     ARTICLE_FACTORY.add(new ArticleFactory(imagTmp, "img"));
                     //Image Caption
-                    ARTICLE_FACTORY.add(new ArticleFactory(ele.select("p").text(), "caption"));
+                    ARTICLE_FACTORY.add(new ArticleFactory(element.select("p").text(), "caption"));
                 }
-            } else if (ele.is("div") && ele.attr("class").equals("box_brief_info")) {
-                for (Element innerEle : ele.select("> *")) {
+            } else if (element.is("div") && element.attr("class").equals("box_brief_info")) {
+                for (Element innerEle : element.select("> *")) {
                     if (innerEle.is("p")) {
                         ARTICLE_FACTORY.add(new ArticleFactory(innerEle.text(), "p"));
                     }
                 }
-            } else if (ele.is("div")) {
-                checkBody(ele);
+            } else if (element.is("div")) {
+                checkBody(element);
             }
         }
     }

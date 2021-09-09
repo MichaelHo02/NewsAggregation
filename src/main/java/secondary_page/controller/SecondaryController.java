@@ -1,5 +1,18 @@
 package secondary_page.controller;
-
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat s3878174
+        Acknowledgement:
+       https://stackoverflow.com/questions/29506156/javafx-8-zooming-relative-to-mouse-pointer
+       https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+       https://www.howkteam.vn/course/lap-trinh-javafx-co-ban/dinh-dang-bang-css-trong-javafx-2648
+ */
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Bui Minh Nhat s3878174
+        Acknowledgement:
+        https://www.baeldung.com/java-executor-service-tutorial
+        https://stackoverflow.com/questions/7351073/java-how-to-synchronize-array-accesses-and-what-are-the-limitations-on-what-goe
+ */
 package model.scrapping_engine;
 
 import model.get_article_behavior.Article;

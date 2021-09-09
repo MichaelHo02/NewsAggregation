@@ -1,3 +1,18 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Bui Minh Nhat s3878174
+        Last modified date: 10/09/2021
+        Contributor: Student name, Student ID
+        Acknowledgement:
+        https://webfocusinfocenter.informationbuilders.com/wfappent/TLs/TL_srv_dm/source/regex.htm
+        https://www.tutorialspoint.com/java/java_files_io.htm
+        https://www.javatpoint.com/java-io
+ */
+
 package model.database;
 
 import model.get_article_behavior.Article;
