@@ -13,34 +13,26 @@ public class NhanDanExtraction extends ArticleExtractor {
     public List<ArticleFactory> getContent(String linkPage) {
         try {
             ARTICLE_FACTORY.clear();
-            Document doc = Jsoup.connect(linkPage).get();
-            String firstImage = doc.getElementsByClass("box-detail-thumb uk-text-center").select("img").attr("src");
-            ArticleFactory firstImg = new ArticleFactory(firstImage, "img");
-            ARTICLE_FACTORY.add(firstImg);
+            Document document = Jsoup.connect(linkPage).get();
+            String firstImage = document.getElementsByClass("box-detail-thumb uk-text-center").select("img").attr("src");
+            ARTICLE_FACTORY.add(new ArticleFactory(firstImage, "img"));
 
-            Elements elements = doc.getElementsByClass("detail-content-body").select("*");
+            Elements elements = document.getElementsByClass("detail-content-body").select("*");
 
             System.out.println(elements.size());
 
             for (Element element: elements) {
                 if (element.tagName().equals("img")) {
-                    ArticleFactory tempImg = new ArticleFactory(element.attr("src"),"img");
-                    ARTICLE_FACTORY.add(tempImg);
+                    ARTICLE_FACTORY.add( new ArticleFactory(element.attr("src"),"img"));
                     System.out.println(element.attr("src"));
                 } else if (element.tagName().equals("p")) {
-                    ArticleFactory tempP = new ArticleFactory(element.text(), "p");
-                    ARTICLE_FACTORY.add(tempP);
-                    System.out.println(element.text());
+                    ARTICLE_FACTORY.add(new ArticleFactory(element.text(), "p"));
                 } else if (element.tagName().matches("h\\d")) {
-                    ArticleFactory tempH = new ArticleFactory(element.text(), "h");
-                    ARTICLE_FACTORY.add(tempH);
-                    System.out.println(tempH.getContext());
+                    ARTICLE_FACTORY.add(new ArticleFactory(element.text(), "h"));
                 }
             }
-
             //Add the author element
-            ArticleFactory author = new ArticleFactory(doc.select("div.box-author strong").text(),"author");
-            ARTICLE_FACTORY.add(author);
+            ARTICLE_FACTORY.add(new ArticleFactory(document.select("div.box-author strong").text(),"author"));
 
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayNhanDan");

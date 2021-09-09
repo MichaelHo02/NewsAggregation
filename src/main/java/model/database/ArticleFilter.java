@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.regex.Pattern;
 
+import static model.database.ArticleFilter.isWordMatches;
+
 
 public class ArticleFilter {
 
@@ -30,22 +32,29 @@ public class ArticleFilter {
         }
     }
 
-
-    public static boolean isMatch(String rawCategory, String dictionaryFile) { // check if articles's raw category data matches this database
+    public static boolean isMatch(String rawCategory, String dictionaryFile) {
         String[] dictionary = loadDictionary(dictionaryFile);
         // If have problem with any of the dictionary
+        boolean res = false;
+        //  Check if the dictionary is false
         if (dictionary == null) {
-            return false;
+            return res;
         }
-
         for (int i = 0; i < dictionary.length; i++) {
-            //Don't need t worry about the case of the file
-            Pattern key = Pattern.compile(dictionary[i], Pattern.CASE_INSENSITIVE);
-            //We only need to matches 1 time
-            String tmp = rawCategory.toLowerCase();
-            if (key.matcher(tmp).find()) {
+            if (isWordMatches(rawCategory, dictionary[i])) {
                 return true;
             }
+        }
+        return res;
+    }
+
+    public static boolean isWordMatches(String rawCategory, String words) { // check if articles's raw category data matches this database
+        //Don't need t worry about the case of the file
+        Pattern key = Pattern.compile(words, Pattern.CASE_INSENSITIVE);
+        //We only need to matches 1 time
+        String tmp = rawCategory.toLowerCase();
+        if (key.matcher(tmp).find()) {
+            return true;
         }
         //Don't found any matches
         return false;
@@ -64,9 +73,6 @@ public class ArticleFilter {
                     article.addCategory(i + 1); // if yes then update category list + update counter
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                 }
-//                else { // if no then print out the storage is full
-//                    System.out.println("Category " + category[i] + " is full");
-//                }
             }
         }
 
@@ -81,6 +87,10 @@ public class ArticleFilter {
 
     public static boolean filterArticle(String folderUrl) {
         //            System.out.println("Get filter");
+        if (isWordMatches(folderUrl, "video")) {
+            return false;
+        }
+
         return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") && !folderUrl.contains("video") && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 }
