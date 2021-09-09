@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -24,6 +26,7 @@ import javafx.scene.text.Font;
 import main.Main;
 import model.get_article_behavior.Article;
 import model.article_extraction.ArticleFactory;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -62,7 +65,8 @@ public class SecondaryController implements Initializable {
 //        webEngine.loadContent(displayEngine.getHTML(article));
 //        articleVbox.getChildren().add(webView)
 
-        //Add the new article
+;
+        //Setup title
         borderPane.setCenter(ArticleFactory.dispArt(ArticleFactory.articleSwitcher(article)));
         title.setFont(new Font(18));
         title.setStyle("-fx-font-weight: bold");
