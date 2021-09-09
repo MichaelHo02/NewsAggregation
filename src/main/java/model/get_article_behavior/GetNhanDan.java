@@ -37,7 +37,6 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String title = element.getElementsByClass("box-title").text();
                     if (title == null) { continue; }
                     // get article date and img
-                    // TODO: cannot scrape date + category
                     String date = element.select("div[class*=box-meta]").text();
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
@@ -50,26 +49,17 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                         }
                     }
                 } catch (Exception e) {
-//                    System.out.println("Cannot parse date");
+                    System.out.println("Cannot parse date in GetNhanDan");
                 }
             }
         } catch (Exception e) {
-            System.out.println("Failed to connect");
+            System.out.println("Failed to connect in GetNhanDan");
         }
     }
-
-
-
 
     @Override
     public void run() {
         scrapeArticle(this.url, InitScraper.articles);
     }
-
-    synchronized void addArticle(Article article) {
-        InitScraper.articles.add(article);
-    }
-
-
 
 }

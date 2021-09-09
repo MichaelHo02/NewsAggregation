@@ -8,11 +8,10 @@ import java.net.URLConnection;
 public class ConnectionTest implements Runnable {
 
     private PropertyChangeSupport propertyChangeSupport;
-
     private boolean stopThread;
-
     private boolean newValue;
 
+    // Constructor
     public ConnectionTest() {
         stopThread = false;
         propertyChangeSupport = new PropertyChangeSupport(this);
@@ -21,10 +20,11 @@ public class ConnectionTest implements Runnable {
     public void checkConnection() {
         while (true) {
             try {
-                if (stopThread) {
+                if (stopThread) { // To stop thread
                     return;
                 }
-                System.out.println("Test");
+
+                // Check the connection for every 10 seconds
                 Thread.sleep(10000);
                 URL url1 = new URL("https://vnexpress.net/rss");
                 URL url2 = new URL("https://tuoitre.vn/");
@@ -43,6 +43,7 @@ public class ConnectionTest implements Runnable {
                 url5Connection.connect();
                 doNotify(false);
             } catch (Exception e) {
+                // If the connection is bad
                 doNotify(true);
             }
         }

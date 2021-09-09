@@ -1,44 +1,34 @@
 package model.scrapping_engine;
 
 import model.get_article_behavior.Article;
-import model.get_article_behavior.GetNhanDan;
-import model.get_article_behavior.GetWithRSS;
-import model.get_article_behavior.GetZingNews;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static primary_page.controller.PrimaryController.*;
-
 public class InitScraper {
-    // Loop qua tat ca cac links, neu dung tag thi goi thread de tim
-    //Order in array are as following
-//    1 numCovid
-//    2 numPolitics
-//    3 numBusiness
-//    4 numTechnology
-//    5 numHealth
-//    6 numSport
-//    7 numEntertainment
-//    8 numWorld
-//    9 numOthers
 
-    public static int tempSize = 0;
-    public static ArrayList<Integer> catCounter = new ArrayList<Integer>(Collections.nCopies(9, 0));
-    public static ArrayList<String> urlList = new ArrayList<String>();
+    //    Order in catCounter are as following
+    //    1 numCovid
+    //    2 numPolitics
+    //    3 numBusiness
+    //    4 numTechnology
+    //    5 numHealth
+    //    6 numSport
+    //    7 numEntertainment
+    //    8 numWorld
+    //    9 numOthers
 
+    public static ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
     public void scrapeLinks() throws InterruptedException {
         long startTime = System.currentTimeMillis();
 
+        // Call URLCrawler for each article center
         executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
         executorService.execute(new URLCrawler("https://tuoitre.vn/"));
         executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
@@ -46,35 +36,19 @@ public class InitScraper {
         executorService.execute(new URLCrawler("https://zingnews.vn/"));
         executorService.shutdown();
         executorService.awaitTermination(10, TimeUnit.SECONDS);
-        while (!executorService.isTerminated()) {
-//            System.out.println("Scraping in InitScraper...");
-        }
-        articles.sort(Comparator.comparing(Article::getDuration).reversed());
+
+
+        articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the data by release time
+
         long endTime = System.currentTimeMillis();
         long elap = endTime - startTime;
+        System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape
 
-//        articles.remove(2);
-//        for (int i = 0; i < 20; i++) {
-//            System.out.println(articles.get(i).getTitlePage());
-//        }
-        System.out.println("Scraping done in: " + elap);
-        System.out.println(InitScraper.catCounter);
 
     }
 
     public void stopThread() {
         executorService.shutdownNow();
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        long startTime = System.currentTimeMillis();
-        InitScraper in = new InitScraper();
-
-        in.scrapeLinks();
-        System.out.println(articles.size());
-        long endTime = System.currentTimeMillis();
-        long elap = endTime - startTime;
-        System.out.println("Program done in: " + elap);
     }
 
     //Array accessor

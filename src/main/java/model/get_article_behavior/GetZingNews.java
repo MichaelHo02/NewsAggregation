@@ -54,7 +54,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
                 }
             }
         } catch (IOException | ParseException e) {
-            System.out.println("URL error");
+            System.out.println("URL error in GetZingNews");
         }
     }
 
