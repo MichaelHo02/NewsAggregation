@@ -53,7 +53,7 @@ public class URLCrawler implements Runnable {
             executorService.shutdown();
             executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (Exception e) {
-            System.out.println("cannot connect to page");
+            System.out.println("URLCrawler Exception");
         }
     }
 
