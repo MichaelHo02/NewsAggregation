@@ -8,10 +8,10 @@
 
 <AnchorPane prefHeight="380.0" prefWidth="560.0" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CardController">
    <children>
-      <ImageView fx:id="imageView" fitHeight="380.0" fitWidth="560.0" pickOnBounds="true" />
-      <AnchorPane styleClass="bar" stylesheets="@../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0">
+      <ImageView fx:id="imageView" fitHeight="380.0" fitWidth="560.0" onMouseClicked="#clickTitle" pickOnBounds="true" />
+      <AnchorPane onMouseClicked="#clickTitle" styleClass="bar" stylesheets="@../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0">
          <children>
-            <Text fx:id="title" onMouseClicked="#clickTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." wrappingWidth="500.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." wrappingWidth="500.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="20.0" />
                </font>

@@ -97,7 +97,6 @@ public class ThanhNienExtraction extends ArticleExtractor {
             }
             catch (Exception ignored) {
                 System.out.println("Error display Thanh Nien");
-                continue;
             }
         }
     }

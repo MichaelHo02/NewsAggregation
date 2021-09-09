@@ -44,7 +44,6 @@ public class NhanDanExtraction extends ArticleExtractor {
 
         } catch (Exception e) {
             System.out.println("Cannot connect to the page from DisplayNhanDan");
-
         }
         return ARTICLE_FACTORY;
     }
