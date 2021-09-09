@@ -67,6 +67,10 @@ public class ArticleFilter {
 
         article.addCategory(0); // add to category "latest"
         for (int i = 0; i < category.length; i++) {
+            //Excriminate video article
+            if(isWordMatches(article.getLinkPage(),"video")) {
+                continue;
+            }
             // loop through all dictionaries, check if articles matches any
             if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
                 if (InitScraper.catCounter.get(i) < 50) { // if match then check if the category still has storage
@@ -86,13 +90,7 @@ public class ArticleFilter {
     }
 
     public static boolean filterArticle(String folderUrl) {
-        //            System.out.println("Get filter");
-        //Filterout video article
-        if (isWordMatches(folderUrl, "video")) {
-            return false;
-        }
-
-        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
+        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") &&!folderUrl.contains("video")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 
     public static void main(String[] args) {
