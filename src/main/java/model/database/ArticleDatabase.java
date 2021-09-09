@@ -1,7 +1,18 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor:
+        Acknowledgement:
+
+ */
 package model.database;
 
 import model.get_article_behavior.Article;
-import model.get_article_behavior.GetArticleBehavior;
 import model.scrapping_engine.InitScraper;
 
 import java.beans.PropertyChangeListener;
@@ -10,11 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ArticleDatabase { // database contains category dictionary + articles for that category
-    private static String[] dictionary;
-
     public static ArrayList<Article> articles;
-
-    private GetArticleBehavior getArticleBehavior;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -25,10 +32,6 @@ public class ArticleDatabase { // database contains category dictionary + articl
         propertyChangeSupport = new PropertyChangeSupport(this);
         stopThread = false;
     }
-//    public ArticleDatabase(String dictFile) {
-//        dictionary = loadDictionary(dictFile); // load dictionary from file
-//        articles = new ArrayList<>();
-//    }
 
     public void performGetArticle() {
         InitScraper in = new InitScraper();
@@ -55,10 +58,6 @@ public class ArticleDatabase { // database contains category dictionary + articl
         }
 //        System.out.println("After remove: " + articles);
         doNotify(true);
-    }
-
-    public String[] getDictionary() {
-        return dictionary;
     }
 
     public ArrayList<Article> getArticles() {

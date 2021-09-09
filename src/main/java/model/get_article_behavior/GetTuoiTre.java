@@ -45,7 +45,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
             }
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 // get article url
-                String tempLink = "https://tuoitre.vn/" + element.attr("href"); // Join links
+                String tempLink = WebsiteURL.TUOITRE.getUrl() + element.attr("href"); // Join links
                 if(tempLink.contains("javascript")) {
                     continue;
                 }

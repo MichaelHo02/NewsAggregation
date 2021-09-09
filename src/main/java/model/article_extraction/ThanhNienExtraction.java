@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Bui Minh Nhat
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
+        Contributor:
         Acknowledgement:
         https://www.w3schools.com/cssref/css_selectors.asp
         https://openplanning.net/10399/jsoup-java-html-parser
