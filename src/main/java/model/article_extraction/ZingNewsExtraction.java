@@ -54,7 +54,7 @@ public class ZingNewsExtraction extends ArticleExtractor {
                 } else if (ele.is("h1") && ele.select("img").size() > 0) {
                     ArticleFactory tmp = new ArticleFactory(ele.select("img").attr("data-src"), "img");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("div") && ele.attr("class").contains("widget")) { //Check graph covid
+                } else if (ele.is("div") && ele.attr("class").contains("widget")) { //Check for the COVID Widget
                     ArticleFactory tmp = new ArticleFactory(ele.attr("data-src"), "img");
                     ARTICLE_FACTORY.add(tmp);
                 } else if (ele.is("ul") || ele.is("div")) { //If see a block of tag
