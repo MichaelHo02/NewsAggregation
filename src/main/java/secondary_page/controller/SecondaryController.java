@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
+
 import main.Main;
 import model.get_article_behavior.Article;
 import model.article_extraction.ArticleFactory;

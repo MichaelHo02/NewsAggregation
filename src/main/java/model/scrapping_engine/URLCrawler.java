@@ -5,6 +5,7 @@ import model.get_article_behavior.GetNhanDan;
 import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.GetWithRSS;
 import model.get_article_behavior.GetZingNews;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,13 +31,6 @@ public class URLCrawler implements Runnable {
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href], .menu-ul li a[href]");
             for (Element element : elements) {
-                if (Thread.interrupted()) {
-                    System.out.println("Is Interrupt");
-                    if (!executorService.isTerminated()) {
-                        executorService.shutdownNow();
-                    }
-                    return;
-                }
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
                     if (url.contains("vnexpress")) {

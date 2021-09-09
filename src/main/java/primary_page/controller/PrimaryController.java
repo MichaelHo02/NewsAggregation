@@ -13,16 +13,11 @@
 package primary_page.controller;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -30,8 +25,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+
 import model.database.ArticleDatabase;
 import model.get_article_behavior.Article;
 import model.scrapping_engine.BackgroundScraper;
@@ -111,12 +106,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         databaseThread.setDaemon(true);
         databaseThread.start();
 
-        backgroundScraper = new BackgroundScraper();
-        backgroundScraper.addPropertyChangeListener(this);
-        backgroundEngine = new Thread(backgroundScraper);
-        backgroundEngine.setDaemon(true);
-        backgroundEngine.start();
-
         service = new Service<>() {
             @Override
             protected Task<Integer> createTask() {
@@ -130,6 +119,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 fadeTransition.play();
                             });
                             int i = 0;
+                            for (Article article : articleDatabase.getArticles()) {
+                                System.out.println(article.getSource());
+                            }
                             for (Article article : articleDatabase.getArticles()) {
                                 if (isCancelled()) {
                                     return 0;
@@ -169,6 +161,12 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
+
+        backgroundScraper = new BackgroundScraper();
+        backgroundScraper.addPropertyChangeListener(this);
+        backgroundEngine = new Thread(backgroundScraper);
+        backgroundEngine.setDaemon(true);
+        backgroundEngine.start();
     }
 
     private void inputArticle(int scrollValue) {

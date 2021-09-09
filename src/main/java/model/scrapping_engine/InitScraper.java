@@ -14,6 +14,7 @@
 package model.scrapping_engine;
 
 import model.get_article_behavior.Article;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

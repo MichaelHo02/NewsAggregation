@@ -1,9 +1,8 @@
 package model.get_article_behavior;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 import model.database.ArticleFilter;
 import model.scrapping_engine.InitScraper;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,8 +10,6 @@ import org.jsoup.nodes.Element;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.regex.Pattern;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 

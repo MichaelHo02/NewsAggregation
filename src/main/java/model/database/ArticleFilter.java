@@ -16,7 +16,6 @@
 package model.database;
 
 import model.get_article_behavior.Article;
-import model.get_article_behavior.WebsiteURL;
 import model.scrapping_engine.InitScraper;
 
 import java.io.File;
