@@ -67,14 +67,6 @@ public class Article {
         return category;
     }
 
-    public boolean catIsEmpty() {
-        int sum = 0;
-        for(int i : categories) {
-            sum += i;
-        }
-        return sum == 0;
-    }
-
     public List<Integer> getCategories() {
         return categories;
     }

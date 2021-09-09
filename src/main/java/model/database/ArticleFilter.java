@@ -78,31 +78,26 @@ public class ArticleFilter {
     synchronized public static boolean filterArticle(Article article) {
         String[] category = {"Covid", "Politics", "Business", "Technology", "Health", "Sport", "Entertainment", "World"};
         //Need to ingest category into isMatch methode
-
+        boolean hasCategory = false;
         article.addCategory(0); // add to category "latest"
         for (int i = 0; i < category.length; i++) {
-            //Excriminate video article
+            // Avoid video article
             if(isWordMatches(article.getLinkPage(),"video")) {
-                continue;
+                return false;
             }
             // loop through all dictionaries, check if articles matches any
             if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
                 article.addCategory(i + 1); // if yes then update category list + update counter
                 InitScraper.setValue(i, InitScraper.getValue(i) + 1);
-//                if (InitScraper.catCounter.get(i) < 50) { // if match then check if the category still has storage
-//
-//                }
+                hasCategory = true;
             }
         }
-
-        final int others = 8;
-        article.addCategory(others + 1); // update category list and counter
-        InitScraper.setValue(others, InitScraper.getValue(others) + 1);
-//        if (article.catIsEmpty() && InitScraper.getValue(others) < 50) { // if article matches no category and others still has storage
-//
-//        }
-
-        return !article.catIsEmpty(); // return whether article belongs to any category
+        if (!hasCategory) {
+            final int others = 8;
+            article.addCategory(others + 1); // update category list and counter
+            InitScraper.setValue(others, InitScraper.getValue(others) + 1);
+        }
+        return article.getCategories().size() > 1; // return whether article belongs to any category
     }
 
     public static boolean filterArticle(String folderUrl) {
