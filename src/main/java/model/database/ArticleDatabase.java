@@ -32,11 +32,15 @@ public class ArticleDatabase implements Runnable {
 
     @Override
     public void run() {
+        boolean firstLoad = true;
         System.out.println("Start execution");
         executor.scheduleAtFixedRate(() -> {
             try {
                 scrapeList.clear();
-                articlesCheck.clear();
+                if (articlesCheck.size() >= 2000) {
+                    articlesCheck.clear();
+                }
+//                articlesCheck.clear();
                 // Perform scraping new articles
                 long start = System.currentTimeMillis();
                 ExecutorService executorService = Executors.newCachedThreadPool();
@@ -46,7 +50,7 @@ public class ArticleDatabase implements Runnable {
                 executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl(), scrapeList));
                 executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl(), scrapeList));
                 executorService.shutdown();
-                executorService.awaitTermination(120, TimeUnit.SECONDS);
+                executorService.awaitTermination(12, TimeUnit.SECONDS);
 
                 List<Article> tmpList = new ArrayList<>();
                 for (int i = 0; i < scrapeList.size(); i++) {
@@ -56,7 +60,10 @@ public class ArticleDatabase implements Runnable {
                         tmpList.add(scrapeList.get(i));
                     }
                 }
-                articles.clear();
+                if (articles.size() >= 2000) {
+                    articles.clear();
+                }
+//                articles.clear();
                 articles.addAll(tmpList);
                 articles.sort(Comparator.comparing(Article::getDuration).reversed());
 
@@ -67,14 +74,14 @@ public class ArticleDatabase implements Runnable {
                 System.out.println("Scraping took: " + (elapsed / 1000) + " seconds");
                 doNotify(true);
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println("Cannot perform background scraping");
                 doNotify(false);
             }
-        }, 0, 60_000, TimeUnit.MILLISECONDS);
+        }, 0, 10_000, TimeUnit.MILLISECONDS);
     }
     public void end() {
         executor.shutdown();
+        executor.shutdownNow();
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

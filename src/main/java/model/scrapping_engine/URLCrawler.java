@@ -69,7 +69,7 @@ public class URLCrawler implements Runnable {
                 }
             }
             executorService.shutdown();
-            executorService.awaitTermination(45, TimeUnit.SECONDS);
+            executorService.awaitTermination(12, TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("URLCrawler Exception");
         }
