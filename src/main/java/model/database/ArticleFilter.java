@@ -87,18 +87,18 @@ public class ArticleFilter {
             }
             // loop through all dictionaries, check if articles matches any
             if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
-                if (InitScraper.catCounter.get(i) < 50) { // if match then check if the category still has storage
+//                if (InitScraper.catCounter.get(i) < 50) { // if match then check if the category still has storage
                     article.addCategory(i + 1); // if yes then update category list + update counter
                     InitScraper.setValue(i, InitScraper.getValue(i) + 1);
-                }
+//                }
             }
         }
 
         final int others = 8;
-        if (article.catIsEmpty() && InitScraper.getValue(others) < 50) { // if article matches no category and others still has storage
+//        if (article.catIsEmpty() && InitScraper.getValue(others) < 50) { // if article matches no category and others still has storage
             article.addCategory(others + 1); // update category list and counter
             InitScraper.setValue(others, InitScraper.getValue(others) + 1);
-        }
+//        }
 
         return !article.catIsEmpty(); // return whether article belongs to any category
     }

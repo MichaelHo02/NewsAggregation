@@ -43,13 +43,14 @@ public class ArticleDatabase { // database contains category dictionary + articl
             return;
         }
         // Remove duplicate articles
+        // TODO: sync
         HashSet<String> articlesCheck = new HashSet<>();
         for (int i = 0; i < InitScraper.articles.size(); i++) {
             if (stopThread) {
                 return;
             }
-            if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
-                articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
+            if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
+                articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
                 articles.add(InitScraper.articles.get(i));
             }
         }

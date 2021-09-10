@@ -35,7 +35,7 @@ public class InitScraper {
     //    8 numWorld
     //    9 numOthers
 
-    public static ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
+    public static final ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -58,7 +58,6 @@ public class InitScraper {
         long elap = endTime - startTime;
         System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape
         System.out.println(catCounter);
-
 
     }
 
