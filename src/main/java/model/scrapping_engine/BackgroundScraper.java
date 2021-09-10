@@ -45,6 +45,7 @@ public class BackgroundScraper implements Runnable {
         executor.scheduleAtFixedRate(() -> {
             try {
                 // Perform scraping new articles
+                Thread.sleep(30_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() +"rss"));
                 executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl()));
