@@ -37,7 +37,6 @@ public class ArticleDatabase implements Runnable {
             try {
                 scrapeList.clear();
                 articlesCheck.clear();
-                articles.clear();
                 // Perform scraping new articles
                 long start = System.currentTimeMillis();
                 ExecutorService executorService = Executors.newCachedThreadPool();
@@ -47,19 +46,19 @@ public class ArticleDatabase implements Runnable {
                 executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl(), scrapeList));
                 executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl(), scrapeList));
                 executorService.shutdown();
-                executorService.awaitTermination(30, TimeUnit.SECONDS);
+                executorService.awaitTermination(120, TimeUnit.SECONDS);
 
+                List<Article> tmpList = new ArrayList<>();
                 for (int i = 0; i < scrapeList.size(); i++) {
                     String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
                     if (!articlesCheck.contains(tmp)) {
                         articlesCheck.add(tmp);
-                        articles.add(scrapeList.get(i));
+                        tmpList.add(scrapeList.get(i));
                     }
                 }
-
+                articles.clear();
+                articles.addAll(tmpList);
                 articles.sort(Comparator.comparing(Article::getDuration).reversed());
-
-
 
                 long end = System.currentTimeMillis();
                 long elapsed = end - start;
