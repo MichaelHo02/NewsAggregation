@@ -27,10 +27,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import model.database.ArticleDatabase;
 import model.database.Article;
-import model.scrapping_engine.BackgroundScraper;
 import model.scrapping_engine.ConnectionTest;
+import model.database.Scraper;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.beans.PropertyChangeEvent;
@@ -66,7 +65,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @FXML
     private Circle connectionCircle;
 
-    private ArticleDatabase articleDatabase;
+    private Scraper scraper;
 
     private int currentPage;
 
@@ -74,7 +73,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private final boolean[] HAVE_CLICK = new boolean[5];
 
-    private BackgroundScraper backgroundScraper;
 
     private ConnectionTest connectionTest;
 
@@ -97,11 +95,16 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         backgroundConnectionTest.setDaemon(true);
         backgroundConnectionTest.start();
 
-        articleDatabase = new ArticleDatabase();
-        articleDatabase.addPropertyChangeListener(this);
-        Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
-        databaseThread.setDaemon(true);
-        databaseThread.start();
+//        articleDatabase = new ArticleDatabase();
+//        articleDatabase.addPropertyChangeListener(this);
+//        Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
+//        databaseThread.setDaemon(true);
+//        databaseThread.start();
+
+        scraper = new Scraper();
+        scraper.addPropertyChangeListener(this);
+        Thread scrapingThread = new Thread(scraper);
+        scrapingThread.start();
 
         service = new Service<>() {
             @Override
@@ -116,10 +119,10 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 fadeTransition.play();
                             });
                             int i = 0;
-                            for (Article article : articleDatabase.getArticles()) {
-                                System.out.println(article.getSource());
-                            }
-                            for (Article article : articleDatabase.getArticles()) {
+//                            for (Article article : articleDatabaseV2.getArticles()) {
+//                                System.out.println(article.getSource());
+//                            }
+                            for (Article article : scraper.getArticles()) {
                                 if (isCancelled()) {
                                     return 0;
                                 }
@@ -181,10 +184,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
             connectionTest.end();
-            articleDatabase.end();
-            if (backgroundScraper != null) {
-                backgroundScraper.end();
-            }
+            scraper.end();
             service.cancel();
         });
     }
@@ -194,13 +194,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
             System.out.println("Scraping Init is done");
             inputArticle(0);
-            backgroundScraper = new BackgroundScraper();
-            backgroundScraper.addPropertyChangeListener(this);
-            Thread backgroundEngine = new Thread(backgroundScraper);
-            backgroundEngine.setDaemon(true);
-            backgroundEngine.start();
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
+            System.out.println("Update scrapping");
             resetHaveClick();
             inputArticle(1);
         }

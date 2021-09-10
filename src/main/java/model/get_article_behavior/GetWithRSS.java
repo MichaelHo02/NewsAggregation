@@ -19,7 +19,6 @@ import com.github.sisyphsu.dateparser.DateParserUtils;
 
 import model.database.ArticleFilter;
 import model.database.Article;
-import model.scrapping_engine.InitScraper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -32,11 +31,14 @@ import java.util.stream.Stream;
 public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
     private final String URL;
-    public GetWithRSS(String url) {
+    private final List<Article> articles;
+
+    public GetWithRSS(String url, List<Article> articles) {
+        this.articles = articles;
         this.URL = url;
     }
     @Override
-    public void scrapeArticle(ArrayList<Article> articles) {
+    public void scrapeArticle() {
         try {
             RssReader reader = new RssReader();
             Stream<Item> rssFeed = reader.read(URL);
@@ -70,7 +72,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(InitScraper.articles);
+        scrapeArticle();
     }
 
 }

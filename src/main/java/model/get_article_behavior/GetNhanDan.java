@@ -18,26 +18,27 @@ package model.get_article_behavior;
 
 import model.database.ArticleFilter;
 import model.database.Article;
-import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
     private final String URL;
+    private final List<Article> articleList;
 
-    public GetNhanDan(String URL) {
+    public GetNhanDan(String URL, List<Article> articleList) {
         this.URL = URL;
+        this.articleList = articleList;
     }
 
     @Override
-    public void scrapeArticle(ArrayList<Article> articles) {
+    public void scrapeArticle() {
         try {
             Document doc = Jsoup.connect(URL).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
@@ -59,7 +60,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
                         if (ArticleFilter.filterArticle(article)) {
-                            articles.add(article);
+                            articleList.add(article);
                         }
                     }
                 } catch (Exception e) {
@@ -73,7 +74,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(InitScraper.articles);
+        scrapeArticle();
     }
 
 }
