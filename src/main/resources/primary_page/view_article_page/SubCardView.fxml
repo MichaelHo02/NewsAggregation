@@ -10,13 +10,13 @@
 
 <AnchorPane prefHeight="120.0" prefWidth="560.0" styleClass="shadow" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.CardController">
    <children>
-      <HBox alignment="CENTER" onMouseClicked="#clickTitle" styleClass="bar" stylesheets="@../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" onMouseClicked="#clickCard" styleClass="bar" stylesheets="@../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imageView" fitHeight="70.0" fitWidth="100.0" onMouseClicked="#clickTitle" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageView" fitHeight="70.0" fitWidth="100.0" onMouseClicked="#clickCard" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin></ImageView>
-            <VBox alignment="CENTER_LEFT" onMouseClicked="#clickTitle" spacing="10.0" styleClass="bar" stylesheets="@../../style/style.css" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER_LEFT" onMouseClicked="#clickCard" spacing="10.0" styleClass="bar" stylesheets="@../../style/style.css" HBox.hgrow="ALWAYS">
                <children>
                   <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." wrappingWidth="420.0">
                      <font>

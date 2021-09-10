@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author:
         Last modified date: 10/09/2021
-        Contributor: Bui Minh Nhat_s3878174
+        Contributor: Bui Minh Nhat_s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
 https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
 https://jsoup.org/cookbook/extracting-data/dom-navigation
@@ -14,6 +14,7 @@ https://jsoup.org/cookbook/extracting-data/dom-navigation
 package model.get_article_behavior;
 
 
+import model.database.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +26,6 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public abstract class GetArticleBehavior {
-
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {
             return WebsiteURL.VNEXPRESS;
@@ -40,14 +40,17 @@ public abstract class GetArticleBehavior {
         }
         return null;
     }
-    public static String scrapeCat(String url, int token) {
-        String regex = "/";
-        Pattern pattern = Pattern.compile(regex);
-        String[] result = pattern.split(url);
-        return result[token].equals("rss") ? "" : result[token];
+
+    // method to scrape category data from the url
+    public static String scrapeCategory(String url, int token) {
+        String regex = "/"; // set the delimiter
+        Pattern pattern = Pattern.compile(regex); // detect delimiter
+        String[] result = pattern.split(url); // collect tokens
+        return result[token].equals("rss") ? "" : result[token]; // return a particular token if it is not rss
     }
     // Tools for getArticle
-    public static String getImage(String description) {
+    // get image link
+    protected static String getImage(String description) {
         //Create a storage document
         Document document = Jsoup.parse(description);
         Elements images = document.select("img");
@@ -63,14 +66,14 @@ public abstract class GetArticleBehavior {
         return null;
     }
 
+    // method to format tdate
     public static String getFriendlyDate(Date date) {
-
         // Turn normal date format to friendly date
-
         Date now = new Date();
         Duration duration = Duration.between(date.toInstant(), now.toInstant());
         if (duration == null) return null;
 
+        // get time quantities in units of convention (day, hour, minute)
         long minute = duration.toMinutes();
         long hour = minute / 60;
         long day = hour / 24;
@@ -94,10 +97,8 @@ public abstract class GetArticleBehavior {
             format += remaining_minute + " minute";
         }
         return format + " ago";
-
-
     }
 
-    public abstract void scrapeArticle(String url, ArrayList<Article> articles);
+    public abstract void scrapeArticle(ArrayList<Article> articles);
 
 }

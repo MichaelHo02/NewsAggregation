@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticlePageView extends ScrollPane {
-    public final List<FXMLLoader> fxmlLoadersList;
+    public final List<FXMLLoader> FXML_LOADER_LIST;
 
-    private final int page;
+    private final int PAGE;
 
-    public ArticlePageView(int page) {
-        fxmlLoadersList = new ArrayList<>(10);
-        this.page = page;
+    public ArticlePageView(int PAGE) {
+        FXML_LOADER_LIST = new ArrayList<>(10);
+        this.PAGE = PAGE;
         getStylesheets().add("style/style.css");
         getStyleClass().add("edge-to-edge");
         setFitToWidth(true);
@@ -35,7 +35,7 @@ public class ArticlePageView extends ScrollPane {
         flowPane.setOrientation(Orientation.HORIZONTAL);
         flowPane.setAlignment(Pos.CENTER);
         int change = 0;
-        if (page == 0) {
+        if (PAGE == 0) {
             flowPane.getChildren().add(createSpecialCard(0));
             VBox subSection = new VBox();
             subSection.setAlignment(Pos.CENTER);
@@ -52,7 +52,7 @@ public class ArticlePageView extends ScrollPane {
             for (int i = change; i < 10; i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("MainCardView.fxml"));
-                fxmlLoadersList.add(fxmlLoader);
+                FXML_LOADER_LIST.add(fxmlLoader);
                 AnchorPane pane = fxmlLoader.load();
                 flowPane.getChildren().add(pane);
             }
@@ -78,7 +78,7 @@ public class ArticlePageView extends ScrollPane {
                 return null;
         }
         fxmlLoader.setLocation(getClass().getResource(cardType));
-        fxmlLoadersList.add(fxmlLoader);
+        FXML_LOADER_LIST.add(fxmlLoader);
         AnchorPane anchorPane = null;
         try {
             anchorPane = fxmlLoader.load();

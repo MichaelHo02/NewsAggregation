@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
+        Contributor: Nguyen Dich Long s3879052
         Acknowledgement:
         https://www.w3schools.com/cssref/css_selectors.asp
         https://openplanning.net/10399/jsoup-java-html-parser
@@ -20,6 +20,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
@@ -35,17 +36,17 @@ import java.util.Date;
 
 public class GetZingNews extends GetArticleBehavior implements Runnable{
 
-    private String url;
+    private final String URL;
 
-    public GetZingNews(String url) {
-        this.url = url;
+    public GetZingNews(String URL) {
+        this.URL = URL;
     }
 
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(url).get().build();
+            Request request = new Request.Builder().url(URL).get().build();
             Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
             //Get all the article in the element
             Elements elements = doc.getElementsByTag("article");
@@ -53,7 +54,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
             for (Element element : elements) {
                 // get title and article url
                 String title = element.child(1).getElementsByClass("article-title").select("a").text();
-                String linkPage = "https://zingnews.vn/" + element.getElementsByClass("article-title").select("a").attr("href");
+                String linkPage = WebsiteURL.ZINGNEWS.getUrl() + element.getElementsByClass("article-title").select("a").attr("href");
                 // get and format date
                 String tempDate = element.getElementsByClass("date").text() + " " + element.getElementsByClass("time").text();
                 Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(tempDate);
@@ -78,6 +79,6 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 }

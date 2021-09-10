@@ -182,7 +182,7 @@ public class CategoryController implements Initializable {
         };
     }
 
-    public void injectController(PrimaryController primaryController) {
+    void injectController(PrimaryController primaryController) {
         sidebarController = primaryController.getSidebarController();
     }
 }

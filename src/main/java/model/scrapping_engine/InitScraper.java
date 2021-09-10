@@ -6,14 +6,15 @@
         Created  date: 07/08/2021
         Author:
         Last modified date: 10/09/2021
-        Contributor: Bui Minh Nhat s3878174
+        Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
         https://www.baeldung.com/java-executor-service-tutorial
         https://stackoverflow.com/questions/7351073/java-how-to-synchronize-array-accesses-and-what-are-the-limitations-on-what-goe
  */
 package model.scrapping_engine;
 
-import model.get_article_behavior.Article;
+import model.database.Article;
+import model.get_article_behavior.WebsiteURL;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class InitScraper {
     //    8 numWorld
     //    9 numOthers
 
-    public static final ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
+    public static ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -43,11 +44,11 @@ public class InitScraper {
         long startTime = System.currentTimeMillis();
 
         // Call URLCrawler for each article center
-        executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
-        executorService.execute(new URLCrawler("https://tuoitre.vn/"));
-        executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
-        executorService.execute(new URLCrawler("https://nhandan.vn/"));
-        executorService.execute(new URLCrawler("https://zingnews.vn/"));
+        executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() +"rss"));
+        executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl()));
+        executorService.execute(new URLCrawler(WebsiteURL.THANHNIEN.getUrl() + "rss.html"));
+        executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl()));
+        executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl()));
         executorService.shutdown();
         executorService.awaitTermination(10, TimeUnit.SECONDS);
 
@@ -58,7 +59,6 @@ public class InitScraper {
         long elap = endTime - startTime;
         System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape
         System.out.println(catCounter);
-
     }
 
     public void stopThread() {

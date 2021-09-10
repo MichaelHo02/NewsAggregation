@@ -1,6 +1,23 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Nguyen Dich Long s3879052
+        Last modified date: 10/09/2021
+        Contributor: Student name, Student ID
+        Acknowledgement:
+         https://www.w3schools.com/cssref/css_selectors.asp
+        https://openplanning.net/10399/jsoup-java-html-parser
+        https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
+        https://jsoup.org/cookbook/extracting-data/selector-syntax
+        https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+ */
 package model.get_article_behavior;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
@@ -13,22 +30,22 @@ import java.util.Date;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
-    private String url;
+    private final String URL;
 
-    public GetNhanDan(String url) {
-        this.url = url;
+    public GetNhanDan(String URL) {
+        this.URL = URL;
     }
 
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
-            Document doc = Jsoup.connect(url).timeout(10000).get();
+            Document doc = Jsoup.connect(URL).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
                 try {
                     // get article url and handle exception
                     String tempLink = element.select("a").attr("href"); // Join links
                     if (!tempLink.contains("https://")) {
-                        tempLink = "https://nhandan.vn" + tempLink;
+                        tempLink = WebsiteURL.NHANDAN.getUrl() + tempLink;
                     }
                     // get article title, if not exists, skip
                     String title = element.getElementsByClass("box-title").text();
@@ -37,7 +54,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String date = element.select("div[class*=box-meta]").text();
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
-                    String category = title + " " + scrapeCat(url, 3); // concatenate category + title
+                    String category = title + " " + scrapeCategory(URL, 3); // concatenate category + title
 
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
@@ -56,7 +73,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 
 }

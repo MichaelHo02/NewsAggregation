@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import model.database.ArticleDatabase;
-import model.get_article_behavior.Article;
+import model.database.Article;
 import model.scrapping_engine.BackgroundScraper;
 import model.scrapping_engine.ConnectionTest;
 import primary_page.view_article_page.ArticlePageView;
@@ -66,16 +66,13 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @FXML
     private Circle connectionCircle;
 
-    ArticleDatabase articleDatabase;
-
+    private ArticleDatabase articleDatabase;
 
     private int currentPage;
 
     private int currentCategory;
 
-    private boolean[] haveClick = new boolean[5];
-
-    private Thread backgroundEngine;
+    private final boolean[] HAVE_CLICK = new boolean[5];
 
     private BackgroundScraper backgroundScraper;
 
@@ -83,10 +80,10 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private PropertyChangeSupport propertyChangeSupport;
 
-    Service<Integer> service;
+    private Service<Integer> service;
 
     private void resetHaveClick() {
-        Arrays.fill(haveClick, false);
+        Arrays.fill(HAVE_CLICK, false);
     }
 
     @Override
@@ -112,7 +109,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                 return new Task<>() {
                     @Override
                     protected Integer call() {
-                        if (!haveClick[currentPage]) {
+                        if (!HAVE_CLICK[currentPage]) {
                             Platform.runLater(() -> {
                                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                                 fadeTransition.setToValue(1);
@@ -131,14 +128,14 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 }
                                 if (article.getCategories().contains(currentCategory)) {
                                     if (i >= currentPage * 10) {
-                                        CardController cardController = pageList.get(currentPage).fxmlLoadersList.get(i % 10).getController();
+                                        CardController cardController = pageList.get(currentPage).FXML_LOADER_LIST.get(i % 10).getController();
                                         cardController.setData(article);
                                         updateProgress((i % 10) + 1, 10);
                                     }
                                     i++;
                                 }
                             }
-                            haveClick[currentPage] = true;
+                            HAVE_CLICK[currentPage] = true;
                             Platform.runLater(() -> {
                                 FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
                                 fadeTransition.setToValue(0);
@@ -156,17 +153,12 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         categoryController.addPropertyChangeListener(this);
         categoryController.injectController(this);
         resetHaveClick();
+
         pageList = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
             ArticlePageView articlePageView = new ArticlePageView(i);
             pageList.add(articlePageView);
         }
-
-        backgroundScraper = new BackgroundScraper();
-        backgroundScraper.addPropertyChangeListener(this);
-        backgroundEngine = new Thread(backgroundScraper);
-        backgroundEngine.setDaemon(true);
-        backgroundEngine.start();
     }
 
     private void inputArticle(int scrollValue) {
@@ -178,7 +170,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             borderPane.setCenter(scrollPane);
             service.restart();
         });
-
     }
 
     SidebarController getSidebarController() {
@@ -200,6 +191,11 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
             inputArticle(0);
+            backgroundScraper = new BackgroundScraper();
+            backgroundScraper.addPropertyChangeListener(this);
+            Thread backgroundEngine = new Thread(backgroundScraper);
+            backgroundEngine.setDaemon(true);
+            backgroundEngine.start();
         }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
             resetHaveClick();
