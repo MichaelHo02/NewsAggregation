@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
+        Contributor: Nguyen Dich Long s3879052
         Acknowledgement:
         https://www.w3schools.com/cssref/css_selectors.asp
         https://openplanning.net/10399/jsoup-java-html-parser
@@ -54,7 +54,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
             for (Element element : elements) {
                 // get title and article url
                 String title = element.child(1).getElementsByClass("article-title").select("a").text();
-                String linkPage = "https://zingnews.vn/" + element.getElementsByClass("article-title").select("a").attr("href");
+                String linkPage = WebsiteURL.ZINGNEWS.getUrl() + element.getElementsByClass("article-title").select("a").attr("href");
                 // get and format date
                 String tempDate = element.getElementsByClass("date").text() + " " + element.getElementsByClass("time").text();
                 Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(tempDate);

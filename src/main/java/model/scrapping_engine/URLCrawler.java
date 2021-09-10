@@ -1,3 +1,15 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Bui Minh Nhat s3878174
+        Last modified date: 10/09/2021
+        Contributor: Nguyen Dich Long s3879052
+        Acknowledgement:
+
+ */
 package model.scrapping_engine;
 
 import model.database.ArticleFilter;
@@ -11,8 +23,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;

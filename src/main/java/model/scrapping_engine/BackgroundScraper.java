@@ -1,7 +1,20 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor:
+        Acknowledgement:
+
+ */
 package model.scrapping_engine;
 
 import model.database.ArticleDatabase;
 import model.database.Article;
+import model.get_article_behavior.WebsiteURL;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -28,11 +41,11 @@ public class BackgroundScraper implements Runnable {
                 // Perform scraping new articles
                 Thread.sleep(30_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
-                executorService.execute(new URLCrawler("https://vnexpress.net/rss"));
-                executorService.execute(new URLCrawler("https://tuoitre.vn/"));
-                executorService.execute(new URLCrawler("https://thanhnien.vn/rss.html"));
-                executorService.execute(new URLCrawler("https://nhandan.vn/"));
-                executorService.execute(new URLCrawler("https://zingnews.vn/"));
+                executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() +"rss"));
+                executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl()));
+                executorService.execute(new URLCrawler(WebsiteURL.THANHNIEN.getUrl() + "rss.html"));
+                executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl()));
+                executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl()));
                 executorService.shutdown();
                 if (stopThread) {
                     executorService.shutdownNow();

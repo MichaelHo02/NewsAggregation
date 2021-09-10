@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author:
         Last modified date: 10/09/2021
-        Contributor: Bui Minh Nhat s3878174
+        Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
         https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
         https://www.baeldung.com/java-synchronized
@@ -52,7 +52,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 assert pubDate != null;
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 // Stop all thread to write the array
-                synchronized(this) {
+                synchronized(this) { // handle selected articles
                     if (ArticleFilter.filterArticle(article)) {
                         System.out.println(article.getLinkPage());
                         System.out.println(article.getCategories());

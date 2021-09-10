@@ -15,8 +15,8 @@
 package model.get_article_behavior;
 
 public enum WebsiteURL {
-    VNEXPRESS("https://vnpress.net/"),
-    ZINGNEWS("https://zingnexews.vn/"),
+    VNEXPRESS("https://vnexpress.net/"),
+    ZINGNEWS("https://zingnews.vn/"),
     TUOITRE("https://tuoitre.vn/"),
     THANHNIEN("https://thanhnien.vn/"),
     NHANDAN("https://nhandan.vn/");
