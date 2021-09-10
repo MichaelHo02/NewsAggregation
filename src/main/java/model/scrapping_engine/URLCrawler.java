@@ -12,6 +12,7 @@
  */
 package model.scrapping_engine;
 
+import model.database.Article;
 import model.database.ArticleFilter;
 import model.get_article_behavior.GetNhanDan;
 import model.get_article_behavior.GetTuoiTre;
@@ -23,6 +24,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,9 +32,11 @@ import java.util.concurrent.TimeUnit;
 public class URLCrawler implements Runnable {
 
     private final String URL;
+    private final List<Article> articleList;
 
-    public URLCrawler(String URL) {
+    public URLCrawler(String URL, List<Article> articleList) {
         this.URL = URL;
+        this.articleList = articleList;
     }
 
     public void getURLList() {
@@ -44,24 +48,24 @@ public class URLCrawler implements Runnable {
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
                     if (this.URL.contains("vnexpress")) {
-                        executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
+                        executorService.execute(new GetWithRSS("https://vnexpress.net" + folder, articleList));
                     } else if (this.URL.contains("tuoitre")) {
                         if (folder.contains("https")) {
-                            executorService.execute(new GetTuoiTre(folder));
+                            executorService.execute(new GetTuoiTre(folder, articleList));
                         } else {
-                            executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder));
+                            executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder, articleList));
                         }
                     } else if (this.URL.contains("nhandan")) {
-                        executorService.execute(new GetNhanDan("https://nhandan.vn" + folder));
+                        executorService.execute(new GetNhanDan("https://nhandan.vn" + folder, articleList));
                     } else if (this.URL.contains("zingnews")) {
-                        executorService.execute(new GetZingNews("https://zingnews.vn" + folder));
+                        executorService.execute(new GetZingNews("https://zingnews.vn" + folder, articleList));
                     } else if (this.URL.contains("thanhnien")) {
-                        executorService.execute(new GetWithRSS(folder));
+                        executorService.execute(new GetWithRSS(folder, articleList));
                     }
                 }
             }
             executorService.shutdown();
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.awaitTermination(20, TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("URLCrawler Exception");
         }

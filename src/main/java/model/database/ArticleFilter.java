@@ -15,8 +15,6 @@
 
 package model.database;
 
-import model.scrapping_engine.InitScraper;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -81,14 +79,12 @@ public class ArticleFilter {
             // loop through all dictionaries, check if articles match any
             if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
                 article.addCategory(i + 1); // if yes then update category list + update counter
-                InitScraper.setValue(i, InitScraper.getValue(i) + 1);
                 hasCategory = true;
             }
         }
         if (!hasCategory) {
             final int others = 8;
             article.addCategory(others + 1); // update category list and counter
-            InitScraper.setValue(others, InitScraper.getValue(others) + 1);
         }
         return article.getCategories().size() > 1; // return whether article belongs to any category
     }

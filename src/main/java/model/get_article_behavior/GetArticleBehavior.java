@@ -99,6 +99,6 @@ public abstract class GetArticleBehavior {
         return format + " ago";
     }
 
-    public abstract void scrapeArticle(ArrayList<Article> articles);
+    public abstract void scrapeArticle();
 
 }
