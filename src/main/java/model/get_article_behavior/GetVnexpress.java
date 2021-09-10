@@ -32,7 +32,7 @@ public class GetVnexpress extends GetArticleBehavior implements Runnable {
     public void run() {
         scrapeArticle(InitScraper.articles);
     }
-    
+
     @Override
     public void scrapeArticle(ArrayList<Article> articles) {
         try {
@@ -108,9 +108,11 @@ public class GetVnexpress extends GetArticleBehavior implements Runnable {
         tmp = tmpStr[0] + " " + tmpStr[1];
         return tmp;
     }
-    //For testung
+    //For testing
+    //The content of this is similar in the content of the implementation
     public static void main(String[] args) {
         try {
+            //Inpu URLS
             String  urls = "https://vnexpress.net/thoi-su";
             Document doc = Jsoup.connect(urls).timeout(10000).get();
             for (Element element : doc.select("h3 > a[href]")) { // Fetch all links
