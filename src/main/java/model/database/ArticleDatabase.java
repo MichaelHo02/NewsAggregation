@@ -45,6 +45,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
             return;
         }
         // Remove duplicate articles
+        // TODO: sync
         HashSet<String> articlesCheck = new HashSet<>();
         for (int i = 0; i < InitScraper.articles.size(); i++) {
             if (stopThread) {

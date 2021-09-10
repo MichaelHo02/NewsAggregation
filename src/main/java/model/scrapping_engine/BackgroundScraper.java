@@ -20,8 +20,10 @@ import model.get_article_behavior.WebsiteURL;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -55,7 +57,7 @@ public class BackgroundScraper implements Runnable {
                     return;
                 } else {
                     InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
-
+                    ArrayList<Article> tempArray = new ArrayList<Article>();
                     // Remove duplicate articles
                     HashSet<String> articlesCheck = new HashSet<>();
                     for (int i = 0; i < InitScraper.articles.size(); i++) {
@@ -63,12 +65,13 @@ public class BackgroundScraper implements Runnable {
                             executorService.shutdownNow();
                             return;
                         }
-                        if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
+                        if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
                             System.out.println("Background adding");
-                            articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
-                            ArticleDatabase.articles.add(InitScraper.articles.get(i));
+                            articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
+                            tempArray.add(InitScraper.articles.get(i));
                         }
                     }
+                    ArticleDatabase.articles = tempArray;
                 }
                 System.out.println("Success!");
                 doNotify(true);
