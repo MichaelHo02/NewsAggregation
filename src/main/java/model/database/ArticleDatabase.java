@@ -12,8 +12,6 @@
  */
 package model.database;
 
-import model.get_article_behavior.GetArticleBehavior;
-import model.get_article_behavior.Article;
 import model.scrapping_engine.InitScraper;
 
 import java.beans.PropertyChangeListener;
