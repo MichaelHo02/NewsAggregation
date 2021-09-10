@@ -113,9 +113,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                             });
                             int i = 0;
                             for (Article article : articleDatabase.getArticles()) {
-                                if (isCancelled()) {
-                                    return 0;
-                                }
                                 if (i > (currentPage + 1) * 10 - 1) {
                                     break;
                                 }
