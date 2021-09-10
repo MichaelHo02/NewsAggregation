@@ -48,7 +48,6 @@ public class ArticleDatabase implements Runnable {
                     for (int i = 0; i < scrapeList.size(); i++) {
                         String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
                         if (!articlesCheck.contains(tmp)) {
-                            System.out.println("Unique Article: " + scrapeList.get(i).getLinkPage());
                             articlesCheck.add(tmp);
                             articles.add(scrapeList.get(i));
                         }

@@ -73,7 +73,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     private final boolean[] HAVE_CLICK = new boolean[5];
 
-
     private ConnectionTest connectionTest;
 
     private PropertyChangeSupport propertyChangeSupport;
@@ -95,12 +94,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         backgroundConnectionTest.setDaemon(true);
         backgroundConnectionTest.start();
 
-//        articleDatabase = new ArticleDatabase();
-//        articleDatabase.addPropertyChangeListener(this);
-//        Thread databaseThread = new Thread(() -> articleDatabase.performGetArticle());
-//        databaseThread.setDaemon(true);
-//        databaseThread.start();
-
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
         Thread scrapingThread = new Thread(articleDatabase);
@@ -119,9 +112,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 fadeTransition.play();
                             });
                             int i = 0;
-//                            for (Article article : articleDatabaseV2.getArticles()) {
-//                                System.out.println(article.getSource());
-//                            }
                             for (Article article : articleDatabase.getArticles()) {
                                 if (isCancelled()) {
                                     return 0;
@@ -191,10 +181,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
-            System.out.println("Scraping Init is done");
-            inputArticle(0);
-        }
         if (evt.getPropertyName().equals("updateScrapeDone") && (boolean) evt.getNewValue()) {
             System.out.println("Update scrapping");
             resetHaveClick();
