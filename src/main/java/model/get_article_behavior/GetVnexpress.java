@@ -1,81 +1,159 @@
 package model.get_article_behavior;
+        import com.github.sisyphsu.dateparser.DateParserUtils;
+        import model.database.Article;
+        import model.database.ArticleFilter;
+        import model.scrapping_engine.InitScraper;
+        import org.jsoup.Connection;
+        import org.jsoup.Jsoup;
+        import org.jsoup.nodes.Document;
+        import org.jsoup.nodes.Element;
+        import org.jsoup.select.Elements;
 
-import com.github.sisyphsu.dateparser.DateParserUtils;
-import model.database.ArticleFilter;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+        import java.io.BufferedReader;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.net.MalformedURLException;
+        import java.net.URL;
+        import java.time.LocalDate;
+        import java.time.LocalDateTime;
+        import java.time.ZoneId;
+        import java.time.format.DateTimeFormatter;
+        import java.util.ArrayList;
+        import java.util.Date;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-//import java.util.ArrayList;
-//
-//public class GetVnexpress extends GetArticleBehavior implements Runnable {
-//
-//    @Override
-//    public void run() {
-//
-//    }
-//
-//    @Override
-//    public void scrapeArticle(String url, ArrayList<Article> articles) {
-//        try {
-//            Document doc;
-//            if (url.contains("https")) {
-//                doc = Jsoup.connect(url).get();
-//            } else {
-//                doc = Jsoup.connect("https://beta.tuoitre.vn" + url).get();
-//            }
-//            for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
-//                // get article url
-//                String tempLink = "https://tuoitre.vn/" + element.attr("href"); // Join links
-//                if(tempLink.contains("javascript")) {
-//                    continue;
-//                }
-//                Document tempDoc = Jsoup.connect(tempLink).get(); // Request to the destination link and extract contents
-//                // get title, date, image url and category meta
-//                String title = tempDoc.select(".article-title").text();
-//                String date = crazyDateString(tempDoc.select(".date-time").text());
-//                String imageURL = tempDoc.select(".VCSortableInPreviewMode").select("img").attr("src");
-//                String category = tempDoc.select("meta[name='keywords']" ).attr("content");
-//
-//                if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
-//                    continue;
-//                }
-//                else if (date.equals("") || date.isBlank() || date.isEmpty()) { // Handle abnormal date format
-//                    continue;
-//                }
-//                if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
-//                    imageURL = ""; // Prevent bugs with ImageView
-//                }
-//                // construct and add article to collection
-//                Article article = new Article(title, tempLink, DateParserUtils.parseDate(date), imageURL, WebsiteURL.TUOITRE, category);
-//                synchronized(this) {
-//                    if (ArticleFilter.filterArticle(article)) {
-//                        articles.add(article);
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Failed to connect in GetTuoiTre");
-//        }
-//    }
-//    private static String extract(String line, String start, String end) {
-//        // Trim from left side
-//        int firstPos = line.indexOf(start);
-//        String temp = line.substring(firstPos + start.length());
-//
-//        // Trim from right side
-//        int lastPos = temp.indexOf(end);
-//        temp = temp.substring(0, lastPos);
-//        return temp;
-//    }
-//
-//}
+public class GetVnexpress extends GetArticleBehavior implements Runnable {
+    private String url;
+
+    public GetVnexpress(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public void run() {
+        scrapeArticle(InitScraper.articles);
+    }
+    
+    @Override
+    public void scrapeArticle(ArrayList<Article> articles) {
+        try {
+            Document doc = Jsoup.connect(url).timeout(10000).get();
+            for (Element element : doc.select("h3 > a[href]")) { // Fetch all links
+                // get article url
+                String tempLink = element.attr("href"); // Join links
+                System.out.println(tempLink);
+                if(tempLink.contains("javascript")) {
+                    continue;
+                }
+                System.out.println("Get");
+                try {
+                    Document innerDoc = Jsoup.connect(tempLink).ignoreHttpErrors(true).get(); // Request to the destination link and extractor contents
+                    // get title, date, image url and category meta
+                    System.out.println("Ok");
+                    String title = innerDoc.select("h3").text();
+                    if (title.equals("")) {
+                        title = innerDoc.select("h2").text();
+                        if (title.equals("")) {
+                            title = innerDoc.select("h1").text();
+                            if (title.isEmpty()) {
+                                continue;
+                            }
+                        }
+                    }
+                    System.out.println("Title:" + title);
+                    String category = innerDoc.select("meta[name='keywords']").attr("content");
+                    System.out.println(category);
+                    String date = innerDoc.select("span.date").text();
+                    date = extractor(date,", ","(GMT+7");
+                    Date parse = DateParserUtils.parseDate(date);
+                    String imageURL = innerDoc.select("article.fck_detail").select("img").attr("data-src");
+                    System.out.println("Image : " + imageURL);
+                    //Filtering out wierd stuff
+                    if (title.equals("") || title.isBlank() || title.isEmpty()) { // Handle unpassable article
+                        continue;
+                    }
+                    else if (date.equals("") || date.isBlank() || date.isEmpty()) { // Handle abnormal date format
+                        continue;
+                    }
+                    if (!(imageURL.contains("jpg") || imageURL.contains("JPG") || imageURL.contains("jpeg") || imageURL.contains("png"))) {
+                        imageURL = ""; // Prevent bugs with ImageView
+                    }
+
+                    Article article = new Article(title, tempLink, parse, imageURL, WebsiteURL.VNEXPRESS, category);
+                    //Filter the article
+                    synchronized(this) {
+                        if (ArticleFilter.filterArticle(article)) {
+                            articles.add(article);
+                        }
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to connect in GetVNEXPRESS");
+        }
+    }
+
+    public static String extractor(String input, String begin, String last) {
+        //Determine the begin index to keep
+        int start= input.indexOf(begin);
+        int end = 0;
+        String tmp = input.substring(start + begin.length());
+        end = tmp.indexOf(last);
+        // Trim from right side
+        tmp = tmp.substring(0, end).replace(",","");
+        //Put the string in to appropriate order
+        String [] tmpStr = tmp.split(" ");
+        tmp = tmpStr[0] + " " + tmpStr[1];
+        return tmp;
+    }
+    //For testung
+    public static void main(String[] args) {
+        try {
+            String  urls = "https://vnexpress.net/thoi-su";
+            Document doc = Jsoup.connect(urls).timeout(10000).get();
+            for (Element element : doc.select("h3 > a[href]")) { // Fetch all links
+                // get article url
+                String tempLink = element.attr("href"); // Join links
+                System.out.println(tempLink);
+                if(tempLink.contains("javascript")) {
+                    continue;
+                }
+                System.out.println("Get");
+                try {
+                    Document innerDoc = Jsoup.connect(tempLink).ignoreHttpErrors(true).get(); // Request to the destination link and extractor contents
+                    // get title, date, image url and category meta
+                    System.out.println("Ok");
+                    String title = innerDoc.select("h3").text();
+                    if (title.equals("")) {
+                        title = innerDoc.select("h2").text();
+                        if (title.equals("")) {
+                            title = innerDoc.select("h1").text();
+                            if (title.isEmpty()) {
+                                continue;
+                            }
+                        }
+                    }
+                    System.out.println("Title:" + title);
+                    String category = innerDoc.select("meta[name='keywords']").attr("content");
+                    System.out.println(category);
+                    String date = innerDoc.select("span.date").text();
+                    date = extractor(date,", ","(GMT+7");
+                    Date parse = DateParserUtils.parseDate(date);
+                    System.out.println(parse);
+                    String imageURL = innerDoc.select("article.fck_detail").select("img").attr("data-src");
+                    System.out.println("Image : " + imageURL);
+                    Article article = new Article(title, tempLink, parse, imageURL, WebsiteURL.VNEXPRESS, category);
+                    //Filter the article
+
+                }catch(Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to connect in GetVNEXPRESS");
+        }
+    }
+}
