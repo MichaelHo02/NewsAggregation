@@ -104,7 +104,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         scraper = new Scraper();
         scraper.addPropertyChangeListener(this);
         Thread scrapingThread = new Thread(scraper);
-        scrapingThread.setDaemon(true);
         scrapingThread.start();
 
         service = new Service<>() {
