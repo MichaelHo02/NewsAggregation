@@ -14,6 +14,7 @@ package model.scrapping_engine;
 
 import model.database.ArticleDatabase;
 import model.database.Article;
+import model.get_article_behavior.GetTuoiTre;
 import model.get_article_behavior.WebsiteURL;
 
 import java.beans.PropertyChangeListener;
@@ -23,6 +24,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class BackgroundScraper implements Runnable {
 
@@ -35,11 +38,11 @@ public class BackgroundScraper implements Runnable {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    public void backgroundScrape() {
-        while (true) {
+    private void backgroundScrape() {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(() -> {
             try {
                 // Perform scraping new articles
-                Thread.sleep(30_000);
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() +"rss"));
                 executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl()));
@@ -71,8 +74,9 @@ public class BackgroundScraper implements Runnable {
                 doNotify(true);
             } catch (Exception e) {
                 System.out.println("Cannot perform background scraping");
+                doNotify(false);
             }
-        }
+        }, 0, 30_000, TimeUnit.MILLISECONDS);
     }
 
     @Override

@@ -9,7 +9,6 @@ public class ConnectionTest implements Runnable {
 
     private PropertyChangeSupport propertyChangeSupport;
     private boolean stopThread;
-    private boolean newValue;
 
     // Constructor
     public ConnectionTest() {
@@ -17,7 +16,7 @@ public class ConnectionTest implements Runnable {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    public void checkConnection() {
+    private void checkConnection() {
         while (true) {
             try {
                 if (stopThread) { // To stop thread
@@ -25,7 +24,7 @@ public class ConnectionTest implements Runnable {
                 }
 
                 // Check the connection for every 10 seconds
-                Thread.sleep(10000);
+                Thread.sleep(10_000);
                 URL url1 = new URL("https://vnexpress.net/rss");
                 URL url2 = new URL("https://tuoitre.vn/");
                 URL url3 = new URL("https://thanhnien.vn/rss.html");

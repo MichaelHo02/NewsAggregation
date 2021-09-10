@@ -182,7 +182,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             System.out.println("Stage will close");
             connectionTest.end();
             articleDatabase.end();
-            backgroundScraper.end();
+            if (backgroundScraper != null) {
+                backgroundScraper.end();
+            }
             service.cancel();
         });
     }
@@ -190,6 +192,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("isScrapeDone") && (boolean) evt.getNewValue()) {
+            System.out.println("Scraping Init is done");
             inputArticle(0);
             backgroundScraper = new BackgroundScraper();
             backgroundScraper.addPropertyChangeListener(this);
@@ -213,7 +216,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
             inputArticle(currentPage);
         }
         if (evt.getPropertyName().equals("Bad internet connection")) {
-            System.out.println("Get here");
             if ((boolean) evt.getNewValue()) {
                 System.out.println("Bad internet connection");
                 Platform.runLater(() -> connectionCircle.setFill(Color.RED));

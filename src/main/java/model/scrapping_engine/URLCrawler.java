@@ -29,33 +29,33 @@ import java.util.concurrent.TimeUnit;
 
 public class URLCrawler implements Runnable {
 
-    private String url;
+    private final String URL;
 
-    public URLCrawler(String url) {
-        this.url = url;
+    public URLCrawler(String URL) {
+        this.URL = URL;
     }
 
-    public void getURLList(String url) {
+    public void getURLList() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         try {
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(this.URL).get();
             Elements elements = doc.select(".list-rss li a[href], .rss-list li a[href], .category-menu li a[href], .uk-nav li a[href], .menu-ul li a[href]");
             for (Element element : elements) {
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
-                    if (url.contains("vnexpress")) {
+                    if (this.URL.contains("vnexpress")) {
                         executorService.execute(new GetWithRSS("https://vnexpress.net" + folder));
-                    } else if (url.contains("tuoitre")) {
+                    } else if (this.URL.contains("tuoitre")) {
                         if (folder.contains("https")) {
                             executorService.execute(new GetTuoiTre(folder));
                         } else {
                             executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder));
                         }
-                    } else if (url.contains("nhandan")) {
+                    } else if (this.URL.contains("nhandan")) {
                         executorService.execute(new GetNhanDan("https://nhandan.vn" + folder));
-                    } else if (url.contains("zingnews")) {
+                    } else if (this.URL.contains("zingnews")) {
                         executorService.execute(new GetZingNews("https://zingnews.vn" + folder));
-                    } else if (url.contains("thanhnien")) {
+                    } else if (this.URL.contains("thanhnien")) {
                         executorService.execute(new GetWithRSS(folder));
                     }
                 }
@@ -69,7 +69,7 @@ public class URLCrawler implements Runnable {
 
     @Override
     public void run() {
-        getURLList(this.url);
+        getURLList();
     }
 
 }

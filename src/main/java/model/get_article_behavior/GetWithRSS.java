@@ -54,9 +54,9 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 // Stop all thread to write the array
                 synchronized(this) { // handle selected articles
                     if (ArticleFilter.filterArticle(article)) {
-                        System.out.println(article.getLinkPage());
-                        System.out.println(article.getCategories());
-                        System.out.println(article.getDuration());
+//                        System.out.println(article.getLinkPage());
+//                        System.out.println(article.getCategories());
+//                        System.out.println(article.getDuration());
                         articles.add(article);
                     }
                 }

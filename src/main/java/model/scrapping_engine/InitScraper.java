@@ -36,7 +36,7 @@ public class InitScraper {
     //    8 numWorld
     //    9 numOthers
 
-    public static ArrayList<Integer> catCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
+    private static ArrayList<Integer> categoryCounter = new ArrayList<>(Collections.nCopies(9, 0)); // For controlling the quantity of each categories
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -58,7 +58,7 @@ public class InitScraper {
         long endTime = System.currentTimeMillis();
         long elap = endTime - startTime;
         System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape
-        System.out.println(catCounter);
+        System.out.println(categoryCounter);
     }
 
     public void stopThread() {
@@ -67,14 +67,14 @@ public class InitScraper {
 
     //Array accessor
     public static void setValue(int index, int value) {
-        synchronized (catCounter) {
-            catCounter.set(index, value);
+        synchronized (categoryCounter) {
+            categoryCounter.set(index, value);
         }
     }
 
     public static int getValue(int index) {
-        synchronized (catCounter) {
-            return catCounter.get(index);
+        synchronized (categoryCounter) {
+            return categoryCounter.get(index);
         }
     }
 }
