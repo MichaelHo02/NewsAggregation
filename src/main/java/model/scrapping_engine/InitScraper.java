@@ -50,11 +50,10 @@ public class InitScraper {
         executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl()));
         executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl()));
         executorService.shutdown();
-        executorService.awaitTermination(10, TimeUnit.SECONDS);
-
-
-        articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the data by release time
-
+        if (!executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+            System.out.println("Fail to Scrape init");
+        }
+//        articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the data by release time
         long endTime = System.currentTimeMillis();
         long elap = endTime - startTime;
         System.out.println("Scraping done in: " + elap); // Check for how long does it take to scrape

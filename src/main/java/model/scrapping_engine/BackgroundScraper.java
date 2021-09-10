@@ -56,22 +56,18 @@ public class BackgroundScraper implements Runnable {
                     executorService.shutdownNow();
                     return;
                 } else {
-                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
-                    ArrayList<Article> tempArray = new ArrayList<Article>();
+//                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
                     // Remove duplicate articles
-                    HashSet<String> articlesCheck = new HashSet<>();
+                    HashSet<String> articlesCheck = new HashSet<>(ArticleDatabase.articlesCheck);
                     for (int i = 0; i < InitScraper.articles.size(); i++) {
-                        if (stopThread) {
-                            executorService.shutdownNow();
-                            return;
-                        }
-                        if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
-                            System.out.println("Background adding");
-                            articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
-                            tempArray.add(InitScraper.articles.get(i));
+                        String tmp = InitScraper.articles.get(i).getTitlePage() + " " + InitScraper.articles.get(i).getSource().getUrl();
+                        if (!articlesCheck.contains(tmp)) {
+                            System.out.println("Unique Article: " + InitScraper.articles.get(i).getLinkPage());
+                            articlesCheck.add(tmp);
+                            ArticleDatabase.articles.add(InitScraper.articles.get(i));
                         }
                     }
-                    ArticleDatabase.articles = tempArray;
+                    ArticleDatabase.articles.sort(Comparator.comparing(Article::getDuration).reversed());
                 }
                 System.out.println("Success!");
                 doNotify(true);

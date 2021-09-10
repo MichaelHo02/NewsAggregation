@@ -17,10 +17,13 @@ import model.scrapping_engine.InitScraper;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 
 public class ArticleDatabase { // database contains category dictionary + articles for that category
     public static ArrayList<Article> articles;
+
+    public static HashSet<String> articlesCheck;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -46,16 +49,16 @@ public class ArticleDatabase { // database contains category dictionary + articl
         }
         // Remove duplicate articles
         // TODO: sync
-        HashSet<String> articlesCheck = new HashSet<>();
+        articlesCheck = new HashSet<>();
         for (int i = 0; i < InitScraper.articles.size(); i++) {
-            if (stopThread) {
-                return;
-            }
-            if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
-                articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
+            String tmp = InitScraper.articles.get(i).getTitlePage() + " " + InitScraper.articles.get(i).getSource().getUrl();
+            if (!articlesCheck.contains(tmp)) {
+                System.out.println("Unique Article: " + InitScraper.articles.get(i).getLinkPage());
+                articlesCheck.add(tmp);
                 articles.add(InitScraper.articles.get(i));
             }
         }
+        articles.sort(Comparator.comparing(Article::getDuration).reversed());
         System.out.println("After remove: " + articles);
         doNotify(true);
     }
