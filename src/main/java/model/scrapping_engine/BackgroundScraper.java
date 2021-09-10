@@ -53,22 +53,24 @@ public class BackgroundScraper implements Runnable {
                     executorService.shutdownNow();
                     return;
                 } else {
-                    InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
-                    ArrayList<Article> tempArray = new ArrayList<Article>();
-                    // Remove duplicate articles
-                    HashSet<String> articlesCheck = new HashSet<>();
-                    for (int i = 0; i < InitScraper.articles.size(); i++) {
-                        if (stopThread) {
-                            executorService.shutdownNow();
-                            return;
+                    synchronized(this) {
+                        InitScraper.articles.sort(Comparator.comparing(Article::getDuration).reversed()); // Sort the array
+                        ArrayList<Article> tempArray = new ArrayList<Article>();
+                        // Remove duplicate articles
+                        HashSet<String> articlesCheck = new HashSet<>();
+                        for (int i = 0; i < InitScraper.articles.size(); i++) {
+                            if (stopThread) {
+                                executorService.shutdownNow();
+                                return;
+                            }
+                            if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
+                                System.out.println("Background adding");
+                                articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
+                                tempArray.add(InitScraper.articles.get(i));
+                            }
                         }
-                        if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
-                            System.out.println("Background adding");
-                            articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
-                            tempArray.add(InitScraper.articles.get(i));
-                        }
+                        ArticleDatabase.articles = tempArray;
                     }
-                    ArticleDatabase.articles = tempArray;
                 }
                 System.out.println("Success!");
                 doNotify(true);

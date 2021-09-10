@@ -32,7 +32,7 @@ public class ArticleDatabase { // database contains category dictionary + articl
         stopThread = false;
     }
 
-    public void performGetArticle() {
+     synchronized public void performGetArticle() {
         InitScraper in = new InitScraper();
         try {
             in.scrapeLinks();
