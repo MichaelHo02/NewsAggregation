@@ -51,8 +51,8 @@ public class ArticleDatabase { // database contains category dictionary + articl
             if (stopThread) {
                 return;
             }
-            if (!articlesCheck.contains(InitScraper.articles.get(i).getLinkPage())) {
-                articlesCheck.add(InitScraper.articles.get(i).getLinkPage());
+            if (!articlesCheck.contains(InitScraper.articles.get(i).getTitlePage())) {
+                articlesCheck.add(InitScraper.articles.get(i).getTitlePage());
                 articles.add(InitScraper.articles.get(i));
             }
         }
