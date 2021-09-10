@@ -72,16 +72,16 @@ public class ThanhNienExtraction extends ArticleExtractor {
         return ARTICLE_FACTORY;
     }
 
-    private void divChecker(Element div) {
+    private void divChecker(Element element) {
         // If element has 0 children and is not an ad div
-        if (div.select("> *").size() == 0 && !div.className().contains("ads") && div.hasText()){
-            ArticleFactory tmpdiv = new ArticleFactory(div.text(),"div");
+        if (element.select("> *").size() == 0 && !element.className().contains("ads") && element.hasText()){
+            ArticleFactory tmpdiv = new ArticleFactory(element.text(),"div");
             ARTICLE_FACTORY.add(tmpdiv);
             return;
         }
 
         // Loop through div elements
-        for (Element ele : div.select("> *")) {
+        for (Element ele : element.select("> *")) {
             try {
                 if (ele.is("div") && !ele.attr("class").contains("image")) {
                     divChecker(ele);
@@ -102,14 +102,14 @@ public class ThanhNienExtraction extends ArticleExtractor {
                       ARTICLE_FACTORY.add(lab);
                     }
                     else if (ele.hasText()) {
-                        ArticleFactory txt =new ArticleFactory(ele.text(),"caption");
+                        ARTICLE_FACTORY.add(new ArticleFactory(ele.text(),"caption"));
                     }
                 }
                 else if (ele.is("h2") || ele.is("h3")) {
-                    ArticleFactory cont = new ArticleFactory(ele.text(), "h");
+                    ARTICLE_FACTORY.add(new ArticleFactory(ele.text(), "h"));
                 }
-                else if (ele.hasText()) {
-                   ArticleFactory cont = new ArticleFactory(div.text(),"div");
+                else if (ele.hasText()) { //If the children content still have test
+                   ARTICLE_FACTORY.add(new ArticleFactory(element.text(),"p"));
                     break;
                 }
             }
