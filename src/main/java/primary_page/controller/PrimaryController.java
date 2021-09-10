@@ -29,7 +29,7 @@ import javafx.util.Duration;
 
 import model.database.Article;
 import model.scrapping_engine.ConnectionTest;
-import model.database.Scraper;
+import model.database.ArticleDatabase;
 import primary_page.view_article_page.ArticlePageView;
 
 import java.beans.PropertyChangeEvent;
@@ -65,7 +65,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     @FXML
     private Circle connectionCircle;
 
-    private Scraper scraper;
+    private ArticleDatabase articleDatabase;
 
     private int currentPage;
 
@@ -101,9 +101,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 //        databaseThread.setDaemon(true);
 //        databaseThread.start();
 
-        scraper = new Scraper();
-        scraper.addPropertyChangeListener(this);
-        Thread scrapingThread = new Thread(scraper);
+        articleDatabase = new ArticleDatabase();
+        articleDatabase.addPropertyChangeListener(this);
+        Thread scrapingThread = new Thread(articleDatabase);
         scrapingThread.start();
 
         service = new Service<>() {
@@ -122,7 +122,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 //                            for (Article article : articleDatabaseV2.getArticles()) {
 //                                System.out.println(article.getSource());
 //                            }
-                            for (Article article : scraper.getArticles()) {
+                            for (Article article : articleDatabase.getArticles()) {
                                 if (isCancelled()) {
                                     return 0;
                                 }
@@ -184,7 +184,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
             connectionTest.end();
-            scraper.end();
+            articleDatabase.end();
             service.cancel();
         });
     }
