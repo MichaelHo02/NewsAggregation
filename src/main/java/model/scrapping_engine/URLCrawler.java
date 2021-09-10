@@ -31,6 +31,10 @@ import java.util.concurrent.TimeUnit;
 
 public class URLCrawler implements Runnable {
 
+    // Workflow:
+    // 1. Scrape all categories links in the main homepages
+    // 2.
+
     private final String URL;
     private final List<Article> articleList;
 
@@ -65,7 +69,7 @@ public class URLCrawler implements Runnable {
                 }
             }
             executorService.shutdown();
-            executorService.awaitTermination(20, TimeUnit.SECONDS);
+            executorService.awaitTermination(45, TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println("URLCrawler Exception");
         }

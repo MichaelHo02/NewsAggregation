@@ -7,6 +7,10 @@ import java.net.URLConnection;
 
 public class ConnectionTest implements Runnable {
 
+    // Workflow:
+    // Run in the background and try to connect to given urls
+    // If connection is normal/abnormal then notify PrimaryController
+
     private PropertyChangeSupport propertyChangeSupport;
     private boolean stopThread;
 

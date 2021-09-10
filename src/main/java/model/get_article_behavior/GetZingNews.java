@@ -54,8 +54,9 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
             Elements elements = doc.getElementsByTag("article");
             //Looping through each element
             for (Element element : elements) {
-                // get title and article url
+                // get title
                 String title = element.child(1).getElementsByClass("article-title").select("a").text();
+                // get link
                 String linkPage = WebsiteURL.ZINGNEWS.getUrl() + element.getElementsByClass("article-title").select("a").attr("href");
                 // get and format date
                 String tempDate = element.getElementsByClass("date").text() + " " + element.getElementsByClass("time").text();
@@ -64,6 +65,10 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
                 String image = getImage(element.getElementsByClass("article-thumbnail").select("img").toString());
                 // get article meta category
                 String category = element.getElementsByClass("article-meta").select("a").attr("title");
+
+                // eliminate false article
+                if (title == null || date == null || image == null) { continue; }
+
                 // construct article
                 Article article = new Article(title, linkPage, date, image, getSource("ZingNews"), category);
                 // thread-safe handling article
@@ -73,8 +78,8 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
                     }
                 }
             }
-        } catch (IOException | ParseException e) {
-            System.out.println("URL error in GetZingNews");
+        } catch (IOException | ParseException ignored) {
+//            System.out.println("URL error in GetZingNews");
         }
     }
 

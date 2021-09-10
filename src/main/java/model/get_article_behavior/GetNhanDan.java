@@ -56,19 +56,19 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
                     String category = title + " " + scrapeCategory(URL, 3); // concatenate category + title
-
+                    if (tempDate == null || imageURL == null) { continue; }
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
                         if (ArticleFilter.filterArticle(article)) {
                             articleList.add(article);
                         }
                     }
-                } catch (Exception e) {
-                    System.out.println("Cannot parse date in GetNhanDan");
+                } catch (Exception ignored) {
+//                    System.out.println("Cannot parse date in GetNhanDan");
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Failed to connect in GetNhanDan");
+        } catch (Exception ignored) {
+//            System.out.println("Failed to connect in GetNhanDan");
         }
     }
 

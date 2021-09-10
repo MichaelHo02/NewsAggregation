@@ -45,20 +45,23 @@ public class ArticleDatabase implements Runnable {
                 executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl(), scrapeList));
                 executorService.shutdown();
                 executorService.awaitTermination(20, TimeUnit.SECONDS);
-//                synchronized (this) {
-                    for (int i = 0; i < scrapeList.size(); i++) {
-                        String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
-                        if (!articlesCheck.contains(tmp)) {
-                            articlesCheck.add(tmp);
-                            articles.add(scrapeList.get(i));
-                        }
+
+                for (int i = 0; i < scrapeList.size(); i++) {
+                    String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
+                    if (!articlesCheck.contains(tmp)) {
+                        articlesCheck.add(tmp);
+                        articles.add(scrapeList.get(i));
                     }
-//                }
+                }
+
                 articles.sort(Comparator.comparing(Article::getDuration).reversed());
-                    long end = System.currentTimeMillis();
-                    long elapsed = end - start;
+
+                long end = System.currentTimeMillis();
+                long elapsed = end - start;
+
                 System.out.println("Article size: " + articles.size());
                 System.out.println("Scraping took: " + (elapsed / 1000) + " seconds");
+
                 doNotify(true);
             } catch (Exception e) {
                 e.printStackTrace();

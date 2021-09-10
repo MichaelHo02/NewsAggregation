@@ -51,7 +51,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
                 String category = title + " " + scrapeCategory(URL, 3) + " " + scrapeCategory(URL, 4);
-                assert pubDate != null;
+                if (title == null || link == null || pubDate == null || image == null || source == null) { continue; }
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 // Stop all thread to write the array
                 synchronized(this) { // handle selected articles
@@ -63,10 +63,10 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                     }
                 }
             }
-        } catch (MalformedURLException e) {
-            System.out.println("Url Error in GetWithRSS");
-        } catch (IOException e) {
-            System.out.println("XML parser error in GetWithRSS");
+        } catch (MalformedURLException ignored) {
+//            System.out.println("Url Error in GetWithRSS");
+        } catch (IOException ignored) {
+//            System.out.println("XML parser error in GetWithRSS");
         }
     }
 
