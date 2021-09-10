@@ -20,6 +20,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
@@ -35,17 +36,17 @@ import java.util.Date;
 
 public class GetZingNews extends GetArticleBehavior implements Runnable{
 
-    private String url;
+    private final String URL;
 
-    public GetZingNews(String url) {
-        this.url = url;
+    public GetZingNews(String URL) {
+        this.URL = URL;
     }
 
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(url).get().build();
+            Request request = new Request.Builder().url(URL).get().build();
             Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
             //Get all the article in the element
             Elements elements = doc.getElementsByTag("article");
@@ -78,6 +79,6 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 }

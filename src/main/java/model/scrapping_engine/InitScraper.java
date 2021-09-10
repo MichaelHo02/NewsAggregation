@@ -13,7 +13,7 @@
  */
 package model.scrapping_engine;
 
-import model.get_article_behavior.Article;
+import model.database.Article;
 
 import java.util.ArrayList;
 import java.util.Collections;

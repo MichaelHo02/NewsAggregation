@@ -19,6 +19,7 @@ package model.get_article_behavior;
 import com.github.sisyphsu.dateparser.DateParserUtils;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
@@ -28,20 +29,20 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 
 public class GetTuoiTre extends GetArticleBehavior implements Runnable {
-    private String url;
+    private final String URL;
 
-    public GetTuoiTre(String url) {
-        this.url = url;
+    public GetTuoiTre(String URL) {
+        this.URL = URL;
     }
 
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
             Document doc;
-            if (url.contains("https")) {
-                doc = Jsoup.connect(url).get();
+            if (URL.contains("https")) {
+                doc = Jsoup.connect(URL).get();
             } else {
-                doc = Jsoup.connect("https://beta.tuoitre.vn" + url).get();
+                doc = Jsoup.connect("https://beta.tuoitre.vn" + URL).get();
             }
             for (Element element : doc.select("h2 > a[href]")) { // Fetch all links
                 // get article url
@@ -80,7 +81,7 @@ public class GetTuoiTre extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 
     public String crazyDateString(String dateString) {

@@ -10,8 +10,10 @@
         Acknowledgement:
         https://www.w3schools.com/java/java_oop.asp
  */
-package model.get_article_behavior;
+package model.database;
 
+
+import model.get_article_behavior.WebsiteURL;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -14,32 +14,25 @@ package secondary_page.controller;
        https://www.howkteam.vn/course/lap-trinh-javafx-co-ban/dinh-dang-bang-css-trong-javafx-2648
  */
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 
 import main.Main;
-import model.get_article_behavior.Article;
+import model.database.Article;
 import model.article_extraction.ArticleFactory;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class SecondaryController implements Initializable {
+public class SecondaryController {
 
     @FXML
     private BorderPane borderPane;
 
     @FXML
-    public Button secondaryButton;
+    private Button secondaryButton;
 
     @FXML
-    public Label title;
+    private Label title;
 
     private Article article;
 
@@ -52,20 +45,7 @@ public class SecondaryController implements Initializable {
         Main.setRoot();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
     public void setupView() {
-        //Clear article vbox
-//        DisplayEngine displayEngine = new DisplayEngine();
-//        WebView webView = new WebView();
-//        WebEngine webEngine = webView.getEngine();
-//        //Display through the web view
-//        webEngine.loadContent(displayEngine.getHTML(article));
-//        articleVbox.getChildren().add(webView)
-
-;
         //Setup title
         borderPane.setCenter(ArticleFactory.dispArt(ArticleFactory.articleSwitcher(article)));
         title.setFont(new Font(18));
@@ -74,16 +54,14 @@ public class SecondaryController implements Initializable {
     }
 
     @FXML
-    public void zoomIn(MouseEvent e) {
+    private void zoomIn() {
         title.setScaleX(1.2);
         title.setScaleY(1.2);
-        System.out.println("Mouse in");
     }
 
     @FXML
-    public void  zoomOut(MouseEvent e) {
+    private void zoomOut() {
         title.setScaleX(1);
         title.setScaleY(1);
-        System.out.println("Mouse out");
     }
 }

@@ -15,15 +15,12 @@
 
 package model.database;
 
-import model.get_article_behavior.Article;
 import model.scrapping_engine.InitScraper;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.regex.Pattern;
-
-import static model.database.ArticleFilter.isWordMatches;
 
 
 public class ArticleFilter {

@@ -1,6 +1,7 @@
 package model.get_article_behavior;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import org.jsoup.Jsoup;
@@ -13,16 +14,16 @@ import java.util.Date;
 
 public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
-    private String url;
+    private final String URL;
 
-    public GetNhanDan(String url) {
-        this.url = url;
+    public GetNhanDan(String URL) {
+        this.URL = URL;
     }
 
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
-            Document doc = Jsoup.connect(url).timeout(10000).get();
+            Document doc = Jsoup.connect(URL).timeout(10000).get();
             for (Element element : doc.select("article")) { // Fetch all links
                 try {
                     // get article url and handle exception
@@ -37,7 +38,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String date = element.select("div[class*=box-meta]").text();
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
-                    String category = title + " " + scrapeCat(url, 3); // concatenate category + title
+                    String category = title + " " + scrapeCategory(URL, 3); // concatenate category + title
 
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
@@ -56,7 +57,7 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 
 }

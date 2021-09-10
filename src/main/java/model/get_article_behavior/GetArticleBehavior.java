@@ -14,6 +14,7 @@ https://jsoup.org/cookbook/extracting-data/dom-navigation
 package model.get_article_behavior;
 
 
+import model.database.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,14 +41,14 @@ public abstract class GetArticleBehavior {
         }
         return null;
     }
-    public static String scrapeCat(String url, int token) {
+    protected static String scrapeCategory(String url, int token) {
         String regex = "/";
         Pattern pattern = Pattern.compile(regex);
         String[] result = pattern.split(url);
         return result[token].equals("rss") ? "" : result[token];
     }
     // Tools for getArticle
-    public static String getImage(String description) {
+    protected static String getImage(String description) {
         //Create a storage document
         Document document = Jsoup.parse(description);
         Elements images = document.select("img");
@@ -98,6 +99,6 @@ public abstract class GetArticleBehavior {
 
     }
 
-    public abstract void scrapeArticle(String url, ArrayList<Article> articles);
+    public abstract void scrapeArticle(ArrayList<Article> articles);
 
 }

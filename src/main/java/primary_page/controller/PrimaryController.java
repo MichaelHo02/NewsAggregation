@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import model.database.ArticleDatabase;
-import model.get_article_behavior.Article;
+import model.database.Article;
 import model.scrapping_engine.BackgroundScraper;
 import model.scrapping_engine.ConnectionTest;
 import primary_page.view_article_page.ArticlePageView;

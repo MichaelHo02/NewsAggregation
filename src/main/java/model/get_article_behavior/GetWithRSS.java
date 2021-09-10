@@ -18,6 +18,7 @@ import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
 
 import model.database.ArticleFilter;
+import model.database.Article;
 import model.scrapping_engine.InitScraper;
 
 import java.io.IOException;
@@ -30,15 +31,15 @@ import java.util.stream.Stream;
 
 public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
-    private String url;
+    private final String URL;
     public GetWithRSS(String url) {
-        this.url = url;
+        this.URL = url;
     }
     @Override
-    public void scrapeArticle(String url, ArrayList<Article> articles) {
+    public void scrapeArticle(ArrayList<Article> articles) {
         try {
             RssReader reader = new RssReader();
-            Stream<Item> rssFeed = reader.read(url);
+            Stream<Item> rssFeed = reader.read(URL);
             List<Item> itemList = rssFeed.collect(Collectors.toList());
             for (Item item : itemList) {
                 // Get article title, article url, date, image url and category
@@ -47,7 +48,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
-                String category = title + " " + scrapeCat(url, 3) + " " + scrapeCat(url, 4);
+                String category = title + " " + scrapeCategory(URL, 3) + " " + scrapeCategory(URL, 4);
                 assert pubDate != null;
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 // Stop all thread to write the array
@@ -69,7 +70,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
 
     @Override
     public void run() {
-        scrapeArticle(this.url, InitScraper.articles);
+        scrapeArticle(InitScraper.articles);
     }
 
 }

@@ -1,7 +1,7 @@
 package model.scrapping_engine;
 
 import model.database.ArticleDatabase;
-import model.get_article_behavior.Article;
+import model.database.Article;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -26,7 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import model.get_article_behavior.Article;
+import model.database.Article;
 import primary_page.controller.CardController;
 
 import java.util.List;

@@ -16,8 +16,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.get_article_behavior.Article;
+
+import model.database.Article;
 import primary_page.controller.PrimaryController;
+
 import secondary_page.controller.SecondaryController;
 
 public class Main extends Application {
