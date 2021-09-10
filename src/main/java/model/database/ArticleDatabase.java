@@ -36,6 +36,7 @@ public class ArticleDatabase implements Runnable {
         executor.scheduleAtFixedRate(() -> {
             try {
                 // Perform scraping new articles
+                long start = System.currentTimeMillis();
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() + "rss", scrapeList));
                 executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl(), scrapeList));
@@ -54,8 +55,10 @@ public class ArticleDatabase implements Runnable {
                     }
 //                }
                 articles.sort(Comparator.comparing(Article::getDuration).reversed());
+                    long end = System.currentTimeMillis();
+                    long elapsed = end - start;
                 System.out.println("Article size: " + articles.size());
-                System.out.println("Success!");
+                System.out.println("Scraping took: " + (elapsed / 1000) + " seconds");
                 doNotify(true);
             } catch (Exception e) {
                 e.printStackTrace();
