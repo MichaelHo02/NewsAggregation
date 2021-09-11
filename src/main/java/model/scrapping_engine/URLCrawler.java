@@ -30,7 +30,8 @@ public class URLCrawler implements Runnable {
 
     // Workflow:
     // 1. Scrape all categories links in the main homepages
-    // 2.
+    // 2. Filter categories
+    // 3. Call scraper for each link
 
     private final String URL;
     private final List<Article> articleList;
