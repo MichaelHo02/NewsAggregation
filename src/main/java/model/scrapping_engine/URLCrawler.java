@@ -14,10 +14,7 @@ package model.scrapping_engine;
 
 import model.database.Article;
 import model.database.ArticleFilter;
-import model.get_article_behavior.GetNhanDan;
-import model.get_article_behavior.GetTuoiTre;
-import model.get_article_behavior.GetWithRSS;
-import model.get_article_behavior.GetZingNews;
+import model.get_article_behavior.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -52,17 +49,17 @@ public class URLCrawler implements Runnable {
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
                     if (this.URL.contains("vnexpress")) {
-                        executorService.execute(new GetWithRSS("https://vnexpress.net" + folder, articleList));
+                        executorService.execute(new GetWithRSS(WebsiteURL.VNEXPRESS.getUrl() + folder, articleList));
                     } else if (this.URL.contains("tuoitre")) {
                         if (folder.contains("https")) {
                             executorService.execute(new GetTuoiTre(folder, articleList));
                         } else {
-                            executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder, articleList));
+                            executorService.execute(new GetTuoiTre(WebsiteURL.TUOITRE.getUrl() + folder, articleList));
                         }
                     } else if (this.URL.contains("nhandan")) {
-                        executorService.execute(new GetNhanDan("https://nhandan.vn" + folder, articleList));
+                        executorService.execute(new GetNhanDan(WebsiteURL.NHANDAN.getUrl() + folder, articleList));
                     } else if (this.URL.contains("zingnews")) {
-                        executorService.execute(new GetZingNews("https://zingnews.vn" + folder, articleList));
+                        executorService.execute(new GetZingNews(WebsiteURL.ZINGNEWS.getUrl() + folder, articleList));
                     } else if (this.URL.contains("thanhnien")) {
                         executorService.execute(new GetWithRSS(folder, articleList));
                     }

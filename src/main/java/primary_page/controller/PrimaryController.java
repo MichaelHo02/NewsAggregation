@@ -107,11 +107,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                     @Override
                     protected Integer call() {
                         if (!HAVE_CLICK[currentPage]) {
-                            Platform.runLater(() -> {
-                                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
-                                fadeTransition.setToValue(1);
-                                fadeTransition.play();
-                            });
                             int i = 0;
                             for (Article article : articleDatabase.getArticles()) {
                                 if (i > (currentPage + 1) * 10 - 1) {
@@ -127,11 +122,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 }
                             }
                             HAVE_CLICK[currentPage] = true;
-                            Platform.runLater(() -> {
-                                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2), progressBar);
-                                fadeTransition.setToValue(0);
-                                fadeTransition.play();
-                            });
                         }
                         return 1;
                     }
