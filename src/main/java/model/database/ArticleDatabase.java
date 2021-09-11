@@ -33,49 +33,47 @@ public class ArticleDatabase implements Runnable {
     @Override
     public void run() {
         System.out.println("Start execution");
-        performScrape(15);
-        executor.scheduleAtFixedRate(() -> performScrape(10), 0, 20_000, TimeUnit.MILLISECONDS);
-    }
+        executor.scheduleAtFixedRate(() -> {
+            try {
+                scrapeList.clear();
+                articlesCheck.clear();
 
-    private void performScrape(int time) {
-        try {
-            scrapeList.clear();
-            articlesCheck.clear();
-            // Perform scraping new articles
-            long start = System.currentTimeMillis();
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() + "rss", scrapeList));
-            executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl(), scrapeList));
-            executorService.execute(new URLCrawler(WebsiteURL.THANHNIEN.getUrl() + "rss.html", scrapeList));
-            executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl(), scrapeList));
-            executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl(), scrapeList));
-            executorService.shutdown();
-            executorService.awaitTermination(time, TimeUnit.SECONDS);
+                // Perform scraping new articles
+                long start = System.currentTimeMillis();
+                ExecutorService executorService = Executors.newCachedThreadPool();
+                executorService.execute(new URLCrawler(WebsiteURL.VNEXPRESS.getUrl() + "rss", scrapeList));
+                executorService.execute(new URLCrawler(WebsiteURL.TUOITRE.getUrl(), scrapeList));
+                executorService.execute(new URLCrawler(WebsiteURL.THANHNIEN.getUrl() + "rss.html", scrapeList));
+                executorService.execute(new URLCrawler(WebsiteURL.NHANDAN.getUrl(), scrapeList));
+                executorService.execute(new URLCrawler(WebsiteURL.ZINGNEWS.getUrl(), scrapeList));
+                executorService.shutdown();
+                executorService.awaitTermination(15, TimeUnit.SECONDS);
 
-            List<Article> tmpList = new ArrayList<>();
-            for (int i = 0; i < scrapeList.size(); i++) {
-                String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
-                if (!articlesCheck.contains(tmp)) {
-                    articlesCheck.add(tmp);
-                    tmpList.add(scrapeList.get(i));
+                List<Article> tmpList = new ArrayList<>();
+                for (int i = 0; i < scrapeList.size(); i++) {
+                    String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
+                    if (!articlesCheck.contains(tmp)) {
+                        articlesCheck.add(tmp);
+                        tmpList.add(scrapeList.get(i));
+                    }
                 }
+
+                articles.clear();
+                articles.addAll(tmpList);
+                articles.sort(Comparator.comparing(Article::getDuration).reversed());
+
+                long end = System.currentTimeMillis();
+                long elapsed = end - start;
+
+                System.out.println("Article size: " + articles.size());
+                System.out.println("Scraping took: " + (elapsed / 1000) + " seconds");
+                doNotify(true);
+            } catch (Exception e) {
+                System.out.println("Cannot perform background scraping");
+                doNotify(false);
             }
-            articles.clear();
-            System.out.println("This is tmpList: " + tmpList.size());
-            articles.addAll(tmpList);
-            articles.sort(Comparator.comparing(Article::getDuration).reversed());
-
-            long end = System.currentTimeMillis();
-            long elapsed = end - start;
-
-            System.out.println("Article size: " + articles.size());
-            System.out.println("Scraping took: " + (elapsed / 1000) + " seconds");
-            doNotify(true);
-        } catch (Exception e) {
-            System.out.println("Cannot perform background scraping");
-        }
+        }, 0, 30_000, TimeUnit.MILLISECONDS);
     }
-
     public void end() {
         executor.shutdown();
         executor.shutdownNow();
