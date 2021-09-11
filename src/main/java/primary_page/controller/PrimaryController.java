@@ -85,7 +85,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connectionCircle.setFill(Color.GREEN);
+        connectionCircle.setFill(Color.rgb(0,194,66));
         propertyChangeSupport = new PropertyChangeSupport(this);
 
         connectionTest = new ConnectionTest();
@@ -198,9 +198,9 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         if (evt.getPropertyName().equals("Bad internet connection")) {
             if ((boolean) evt.getNewValue()) {
                 System.out.println("Bad internet connection");
-                Platform.runLater(() -> connectionCircle.setFill(Color.RED));
-            } else if (connectionCircle.getFill().equals(Color.RED) && !((boolean) evt.getNewValue())) {
-                Platform.runLater(() -> connectionCircle.setFill(Color.GREEN));
+                Platform.runLater(() -> connectionCircle.setFill(Color.rgb(255,81,82)));
+            } else if (connectionCircle.getFill().equals(Color.rgb(255,81,82)) && !((boolean) evt.getNewValue())) {
+                Platform.runLater(() -> connectionCircle.setFill(Color.rgb(0,194,66)));
                 inputArticle(0);
             }
         }
