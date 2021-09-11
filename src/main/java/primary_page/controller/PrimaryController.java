@@ -97,6 +97,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         articleDatabase = new ArticleDatabase();
         articleDatabase.addPropertyChangeListener(this);
         Thread scrapingThread = new Thread(articleDatabase);
+        scrapingThread.setDaemon(true);
         scrapingThread.start();
 
         service = new Service<>() {
