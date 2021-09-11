@@ -7,7 +7,7 @@
 
 <VBox fx:id="sidebar" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.SidebarController">
    <children>
-      <Button fx:id="newBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Latest" textFill="BLACK">
+      <Button fx:id="newBar" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="58.0" styleClass="selected" stylesheets="@../style/style.css" text="Newest" textFill="BLACK">
          <font>
             <Font size="22.0" />
          </font>

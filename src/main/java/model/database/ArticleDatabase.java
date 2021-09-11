@@ -72,7 +72,7 @@ public class ArticleDatabase implements Runnable {
                 System.out.println("Cannot perform background scraping");
                 doNotify(false);
             }
-        }, 0, 30_000, TimeUnit.MILLISECONDS);
+        }, 0, 20_000, TimeUnit.MILLISECONDS);
     }
     public void end() {
         executor.shutdown();
