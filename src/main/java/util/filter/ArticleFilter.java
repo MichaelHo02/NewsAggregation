@@ -13,7 +13,9 @@
         https://www.javatpoint.com/java-io
  */
 
-package model.database;
+package util.filter;
+
+import model.database.Article;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -77,7 +79,7 @@ public class ArticleFilter {
                 return false;
             }
             // loop through all dictionaries, check if articles match any
-            if (isMatch(article.getCategory(), "src/main/java/model/database/dictionary/" + category[i] + ".txt")) {
+            if (isMatch(article.getCategory(), "src/main/java/util/filter/dictionary/" + category[i] + ".txt")) {
                 article.addCategory(i + 1); // if yes then update category list + update counter
                 hasCategory = true;
             }
@@ -90,7 +92,7 @@ public class ArticleFilter {
     }
 
     public static boolean filterArticle(String folderUrl) {
-        return isMatch(folderUrl, "src/main/java/model/database/dictionary/" + "NavigationFolder.txt") &&!folderUrl.contains("video")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
+        return isMatch(folderUrl, "src/main/java/util/filter/dictionary/" + "NavigationFolder.txt") &&!folderUrl.contains("video")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 
 }

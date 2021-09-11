@@ -8,11 +8,9 @@ import javafx.scene.text.Text;
 
 import main.Main;
 import model.database.Article;
-import model.get_article_behavior.GetArticleBehavior;
-import model.get_article_behavior.WebsiteURL;
+import util.get_article_behavior.WebsiteURL;
 
 public class CardController {
-
     @FXML
     private Text source;
 
@@ -25,9 +23,9 @@ public class CardController {
     @FXML
     private ImageView imageView;
 
-    public static String websiteLink;
+    public String websiteLink;
 
-    public static WebsiteURL websiteSource;
+    public WebsiteURL websiteSource;
 
     private Article cardArticle;
 
@@ -39,7 +37,7 @@ public class CardController {
         websiteSource = article.getSource();
         if (time != null) {
             if (article.getDuration() != null) {
-                timeStr = GetArticleBehavior.getFriendlyDate(article.getDuration());
+                timeStr = Article.getFriendlyDate(article.getDuration());
             } else {
                 timeStr = "No Time";
             }

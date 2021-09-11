@@ -15,7 +15,7 @@
         https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
  */
 
-package model.article_extraction;
+package util.article_extraction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

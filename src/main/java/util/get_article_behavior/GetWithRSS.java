@@ -11,18 +11,17 @@
         https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
         https://www.baeldung.com/java-synchronized
  */
-package model.get_article_behavior;
+package util.get_article_behavior;
 
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
 
-import model.database.ArticleFilter;
+import util.filter.ArticleFilter;
 import model.database.Article;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

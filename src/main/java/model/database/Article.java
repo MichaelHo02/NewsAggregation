@@ -13,8 +13,9 @@
 package model.database;
 
 
-import model.get_article_behavior.WebsiteURL;
+import util.get_article_behavior.WebsiteURL;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,5 +89,38 @@ public class Article {
 
     public List<Integer> getCategories() {
         return categories;
+    }
+
+    // method to format tdate
+    public static String getFriendlyDate(Date date) {
+        // Turn normal date format to friendly date
+        Date now = new Date();
+        Duration duration = Duration.between(date.toInstant(), now.toInstant());
+        if (duration == null) return null;
+
+        // get time quantities in units of convention (day, hour, minute)
+        long minute = duration.toMinutes();
+        long hour = minute / 60;
+        long day = hour / 24;
+        long remaining_hour = hour % 24;
+        long remaining_minute = minute % 60;
+        String format = "";
+
+        if (day == 1) {
+            format += day + " day ";
+        } else if (day > 1) {
+            format += day + " days ";
+        }
+        if (remaining_hour == 1) {
+            format += remaining_hour + " hour ";
+        } else if (hour > 1) {
+            format += remaining_hour + " hours ";
+        }
+        if (remaining_minute > 1) {
+            format += remaining_minute + " minutes";
+        } else {
+            format += remaining_minute + " minute";
+        }
+        return format + " ago";
     }
 }

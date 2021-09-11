@@ -13,8 +13,8 @@
 package model.scrapping_engine;
 
 import model.database.Article;
-import model.database.ArticleFilter;
-import model.get_article_behavior.*;
+import util.filter.ArticleFilter;
+import util.get_article_behavior.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

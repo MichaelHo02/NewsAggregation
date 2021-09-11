@@ -14,18 +14,17 @@
         https://jsoup.org/cookbook/extracting-data/selector-syntax
         https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
  */
-package model.get_article_behavior;
+package util.get_article_behavior;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
 
-import model.database.ArticleFilter;
+import util.filter.ArticleFilter;
 import model.database.Article;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GetTuoiTre extends GetArticleBehavior implements Runnable {

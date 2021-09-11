@@ -16,7 +16,7 @@
         https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Font.html
  */
 
-package model.article_extraction;
+package util.article_extraction;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,7 +27,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import model.database.Article;
-import primary_page.controller.CardController;
 
 import java.util.List;
 
@@ -50,30 +49,28 @@ public class ArticleFactory {
 
     //Extract the article in the content list
     public static List<ArticleFactory> articleSwitcher(Article article) {
-
-        ArticleExtractor disp;
-        switch (CardController.websiteSource) {
+        ArticleExtractor display;
+        switch (article.getSource()) {
             case VNEXPRESS:
-                disp = new VnExpressExtraction();
+                display = new VnExpressExtraction();
                 break;
             case TUOITRE:
-                disp = new TuoiTreExtraction();
+                display = new TuoiTreExtraction();
                 break;
             case ZINGNEWS:
-                disp = new ZingNewsExtraction();
+                display = new ZingNewsExtraction();
                 break;
             case NHANDAN:
-                disp = new NhanDanExtraction();
+                display = new NhanDanExtraction();
                 break;
             case THANHNIEN:
-                disp = new ThanhNienExtraction();
+                display = new ThanhNienExtraction();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " +article.getSource() );
         }
 //        System.out.println(source.getUrl());
-        List<ArticleFactory> articleFactoryList = disp.getContent(CardController.websiteLink);
-        return articleFactoryList;
+        return display.getContent(article.getLinkPage());
     }
 
     //Add everythinf to vbox

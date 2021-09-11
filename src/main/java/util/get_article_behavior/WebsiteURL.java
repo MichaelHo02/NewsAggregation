@@ -12,7 +12,7 @@
         https://www.tutorialspoint.com/java/java_files_io.htm
         https://www.javatpoint.com/java-io
  */
-package model.get_article_behavior;
+package util.get_article_behavior;
 
 public enum WebsiteURL {
     VNEXPRESS("https://vnexpress.net/"),

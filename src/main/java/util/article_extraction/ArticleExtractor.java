@@ -1,4 +1,4 @@
-package model.article_extraction;
+package util.article_extraction;
 /*
         RMIT University Vietnam
         Course: INTE2512 Object-Oriented Programming

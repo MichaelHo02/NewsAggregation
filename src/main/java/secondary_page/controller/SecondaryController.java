@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 
 import main.Main;
 import model.database.Article;
-import model.article_extraction.ArticleFactory;
+import util.article_extraction.ArticleFactory;
 
 public class SecondaryController {
 

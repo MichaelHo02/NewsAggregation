@@ -1,6 +1,6 @@
 package model.database;
 
-import model.get_article_behavior.WebsiteURL;
+import util.get_article_behavior.WebsiteURL;
 import model.scrapping_engine.URLCrawler;
 
 import java.beans.PropertyChangeListener;
