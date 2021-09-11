@@ -37,7 +37,7 @@ public class ArticleDatabase implements Runnable {
         executor.scheduleAtFixedRate(() -> {
             try {
                 scrapeList.clear();
-                if (articlesCheck.size() >= 2000) {
+                if (articlesCheck.size() >= 1500) {
                     articlesCheck.clear();
                 }
 //                articlesCheck.clear();
@@ -60,7 +60,7 @@ public class ArticleDatabase implements Runnable {
                         tmpList.add(scrapeList.get(i));
                     }
                 }
-                if (articles.size() >= 2000) {
+                if (articles.size() >= 1500) {
                     articles.clear();
                 }
 //                articles.clear();
