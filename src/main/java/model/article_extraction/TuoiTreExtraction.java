@@ -35,7 +35,7 @@ public class TuoiTreExtraction extends ArticleExtractor {
             //Add Description
             ArticleFactory des = new ArticleFactory(elements.select("h2").text(), "p");
             ARTICLE_FACTORY.add(des);
-            //Get the main body of the article
+            //Get the main body of the article in the div tag
             divChecker( document.select("div#main-detail-body > *"));
             //Get tauthor
             if (elements.select("div.author").size() > 0) {
@@ -52,22 +52,23 @@ public class TuoiTreExtraction extends ArticleExtractor {
     public void divChecker(Elements div) {
         for (Element element : div) {
             try {
-                if (element.is("p") && element.hasText()) { //If element is a ordinary p element
+                if (element.tagName().equals("p") && element.hasText()) { //If element is a ordinary p element
                     ArticleFactory tmp = new ArticleFactory(element.text(), "p");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (element.is("div")) { //If element is a p tag
+                } else if (element.tagName().equals("div")) { //If element is a p tag
                     // Add image if element is image
                     if (element.attr("type").equals("Photo")) {
-                        String address = element.select("img").attr("src");
+                        String imgSrc = element.select("img").attr("src");
                         try {
                             //Clean up image url
-                            address = address.replace("thumb_w/586/", "");
+                            imgSrc = imgSrc.replace("thumb_w/586/", "");
                         } catch (Exception ignored) {}
-                        ArticleFactory img = new ArticleFactory(address, "img");
+                        ArticleFactory img = new ArticleFactory(imgSrc, "img");
                         ARTICLE_FACTORY.add(img);
+                        //Add caption of the image
                         ArticleFactory cap = new ArticleFactory(element.select("p").text(), "caption");
                         ARTICLE_FACTORY.add(cap);
-                    } else if (element.attr("type").equals("wrapnote")) {
+                    } else if (element.attr("type").equals("wrapnote")) { //Check the wrapnote Element
                         divChecker(element.select("> *"));
                     }
                 }

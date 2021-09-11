@@ -16,9 +16,6 @@
  */
 package model.get_article_behavior;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-
 import model.database.ArticleFilter;
 import model.database.Article;
 
@@ -30,7 +27,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,9 +43,7 @@ public class GetZingNews extends GetArticleBehavior implements Runnable{
     @Override
     public void scrapeArticle() {
         try {
-            OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(URL).get().build();
-            Document doc = Jsoup.parse(okHttpClient.newCall(request).execute().body().string());
+            Document doc = Jsoup.connect(URL).get();
             //Get all the article in the element
             Elements elements = doc.getElementsByTag("article");
             //Looping through each element

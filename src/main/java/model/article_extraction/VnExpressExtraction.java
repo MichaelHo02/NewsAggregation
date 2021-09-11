@@ -30,16 +30,18 @@ public class VnExpressExtraction extends ArticleExtractor {
             ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
             Element article;
+            //Chekc if the size of the element artucle
             if (doc.select("article.fck_detail").size() > 0) {
+                //Selecting the first element of the article
                 article = doc.select("article.fck_detail").first();
             } else {
                 article = doc.select("div[class*=fck_detail]").first();
             }
-            // Add description to article view
+            // Add  element description  to the Article Factory
             ARTICLE_FACTORY.add(new ArticleFactory(doc.select("p.description").text(), "p"));
             // ChEck the div tag of VNEXPRESS
-            checkBody(article);
-            // Add author label to article view
+            divChecker(article);
+            // Add author label
             String tmp = article.select("p[style*=text-align:right]").text();
             if (tmp.equals("")) {
                 tmp = article.select("p[class*=author]").text();
@@ -51,22 +53,23 @@ public class VnExpressExtraction extends ArticleExtractor {
             System.out.println("Failed connection to the destination page");
             return null;
         }
+
     }
 
-    private void checkBody(Element div) {
+    private void divChecker(Element div) {
         for (Element element : div.select("> *")) {
             // If element is text not author
-            if (element.is("p") && !element.attr("style").contains("text-align:right;") && !element.attr("class").contains("author")) {
+            if (element.tagName().equals("p") && !element.attr("style").contains("text-align:right;") && !element.attr("class").contains("author")) {
                 String type = "p";
                 if (element.select("strong").size() > 0)
                     type = "h";
                 ARTICLE_FACTORY.add(new ArticleFactory(element.text(), type));
 
-            } else if (element.is("h2")) {
+            } else if (element.tagName().equals("h2")) {
                 ARTICLE_FACTORY.add(new ArticleFactory(element.text(), "h"));
             }
             // If element is image
-            else if (element.is("figure") && element.select("img").size() > 0) {
+            else if (element.tagName().equals("figure") && element.select("img").size() > 0) {
                 String imgTmp = element.select("img").attr("data-src");
                 if (imgTmp.equals("")) {
                     imgTmp = element.select("img").attr("src");
@@ -86,14 +89,16 @@ public class VnExpressExtraction extends ArticleExtractor {
                     //Image Caption
                     ARTICLE_FACTORY.add(new ArticleFactory(element.select("p").text(), "caption"));
                 }
-            } else if (element.is("div") && element.attr("class").equals("box_brief_info")) {
+                //If meeting an inner element
+            } else if (element.tagName().equals("div") && element.attr("class").equals("box_brief_info")) {
                 for (Element innerEle : element.select("> *")) {
-                    if (innerEle.is("p")) {
+                    if (innerEle.tagName().equals("p")) {
                         ARTICLE_FACTORY.add(new ArticleFactory(innerEle.text(), "p"));
                     }
                 }
-            } else if (element.is("div")) {
-                checkBody(element);
+            } else if (element.tagName().equals("div")) {
+                //Initialize checkdiv again
+                divChecker(element);
             }
         }
     }
