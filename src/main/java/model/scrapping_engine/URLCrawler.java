@@ -49,17 +49,17 @@ public class URLCrawler implements Runnable {
                 String folder = element.attr("href");
                 if (ArticleFilter.filterArticle(folder)) {
                     if (this.URL.contains("vnexpress")) {
-                        executorService.execute(new GetWithRSS(WebsiteURL.VNEXPRESS.getUrl() + folder, articleList));
+                        executorService.execute(new GetWithRSS("https://vnexpress.net" + folder, articleList));
                     } else if (this.URL.contains("tuoitre")) {
                         if (folder.contains("https")) {
                             executorService.execute(new GetTuoiTre(folder, articleList));
                         } else {
-                            executorService.execute(new GetTuoiTre(WebsiteURL.TUOITRE.getUrl() + folder, articleList));
+                            executorService.execute(new GetTuoiTre("https://tuoitre.vn" + folder, articleList));
                         }
                     } else if (this.URL.contains("nhandan")) {
-                        executorService.execute(new GetNhanDan(WebsiteURL.NHANDAN.getUrl() + folder, articleList));
+                        executorService.execute(new GetNhanDan("https://nhandan.vn" + folder, articleList));
                     } else if (this.URL.contains("zingnews")) {
-                        executorService.execute(new GetZingNews(WebsiteURL.ZINGNEWS.getUrl() + folder, articleList));
+                        executorService.execute(new GetZingNews("https://zingnews.vn" + folder, articleList));
                     } else if (this.URL.contains("thanhnien")) {
                         executorService.execute(new GetWithRSS(folder, articleList));
                     }
