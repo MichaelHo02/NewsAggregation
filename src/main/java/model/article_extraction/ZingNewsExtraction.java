@@ -26,7 +26,7 @@ import java.util.List;
 public class ZingNewsExtraction extends ArticleExtractor {
 
     @Override
-    public List<ArticleFactory> getContent(String linkPage) {
+    public List<ArticleFactory> getContent(String linkPage)  {
         try {
             ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
@@ -35,28 +35,28 @@ public class ZingNewsExtraction extends ArticleExtractor {
             //Extract the summary
             ArticleFactory tmp = new ArticleFactory(doc.select("p.the-article-summary").text(), "h");
             ARTICLE_FACTORY.add(tmp);
-            zingDivChecker(elements);
+            divChecker(elements);
             //Get author info
             ArticleFactory author = new ArticleFactory(doc.getElementsByClass("author").text(), "author");
             ARTICLE_FACTORY.add(author);
         } catch (Exception e) {
-            System.out.println("Cannot connect to the page from DisplayZingNews");
+            System.out.println("Cannot connect to the page from DtagName().equalsplayZingNews");
         }
         return ARTICLE_FACTORY;
     }
 //Scrape content of ZingNews
-    private void zingDivChecker(Elements elements) {
-        for (Element ele : elements) {
+    private void divChecker(Elements div) {
+        for (Element ele : div) {
             try {
-                if (ele.is("p")) { //Check if element not author
+                if (ele.tagName().equals("p")) { //Check if element not author
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "p");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("div") && ele.attr("class").equals("notebox ncenter")) {
-                    zingDivChecker(ele.select("> *"));
-                } else if (ele.is("h3")) { //Check header
+                } else if (ele.tagName().equals("div") && ele.attr("class").equals("notebox ncenter")) {
+                    divChecker(ele.select("> *"));
+                } else if (ele.tagName().equals("h3")) { //Check header
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "h");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("table") && ele.attr("class").contains("picture")) { //For full picture post
+                } else if (ele.tagName().equals("table") && ele.attr("class").contains("picture")) { //For full picture post
                     for (Element inner : ele.select("td.pic > *")) {
                         //Extract the URL
                         String imageURL = inner.select("img").attr("data-src");
@@ -67,21 +67,21 @@ public class ZingNewsExtraction extends ArticleExtractor {
                         ArticleFactory tmp = new ArticleFactory(ele.select("td[class=\"pCaption caption\"]").text(), "caption");
                         ARTICLE_FACTORY.add(tmp);
                     }
-                } else if (ele.is("h1") && ele.select("img").size() > 0) {
+                } else if (ele.tagName().equals("h1") && ele.select("img").size() > 0) {
                     ArticleFactory tmp = new ArticleFactory(ele.select("img").attr("data-src"), "img");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("div") && ele.attr("class").contains("widget")) { //Check for the COVID Widget
+                } else if (ele.tagName().equals("div") && ele.attr("class").contains("widget")) { //Check for the COVID Widget
                     ArticleFactory tmp = new ArticleFactory(ele.attr("data-src"), "img");
                     ARTICLE_FACTORY.add(tmp);
-                } else if (ele.is("ul") || ele.is("div")) { //If see a block of tag
-                    zingDivChecker(ele.select("> *"));
-                } else if (ele.hasText() && ele.is("li")) {
+                } else if (ele.tagName().equals("ul") || ele.tagName().equals("div")) { //If see a block of tag
+                    divChecker(ele.select("> *"));
+                } else if (ele.hasText() && ele.tagName().equals("li")) {
                     ArticleFactory tmp = new ArticleFactory(ele.text(), "p");
-                } else if (ele.is("blockquote")) {
-                    zingDivChecker(ele.select("> *"));
+                } else if (ele.tagName().equals("blockquote")) {
+                    divChecker(ele.select("> *"));
                 }
             } catch (Exception e) {
-                System.out.println("Error displaying the article");
+                System.out.println("Error Display Zingnews the article");
                 continue;
             }
         }
