@@ -39,7 +39,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(720);
         stage.setMinHeight(730);
-        stage.setTitle("Remarkable News Aggregator");
+        stage.setTitle("L I T");
         stage.show();
     }
 
