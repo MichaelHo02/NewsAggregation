@@ -19,8 +19,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.time.Duration;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 public abstract class GetArticleBehavior {

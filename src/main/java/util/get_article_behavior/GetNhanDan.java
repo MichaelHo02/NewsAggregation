@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Nguyen Dich Long s3879052
         Last modified date: 10/09/2021
-        Contributor: Bui Minh Nhat s3878174
+        Contributor: Bui Minh Nhat s3878174, Ho Le Minh Thach s3877980
         Acknowledgement:
          https://www.w3schools.com/cssref/css_selectors.asp
         https://openplanning.net/10399/jsoup-java-html-parser

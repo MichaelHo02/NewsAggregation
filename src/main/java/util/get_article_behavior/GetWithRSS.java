@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
@@ -55,9 +55,6 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 // Stop all thread to write the array
                 synchronized(this) { // handle selected articles
                     if (ArticleFilter.filterArticle(article)) {
-//                        System.out.println(article.getLinkPage());
-//                        System.out.println(article.getCategories());
-//                        System.out.println(article.getDuration());
                         articles.add(article);
                     }
                 }

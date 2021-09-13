@@ -4,12 +4,16 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
         Acknowledgement:
-
+        https://www.baeldung.com/java-observer-pattern help me to apply the observable pattern into MVC
+        Thank you, Professor Nick Wergeles for explaining the concept of:
+            - JavaThread Service and Task
+            - MVC model
+        https://youtube.com/playlist?list=PLpvL1C_oZsr-BMBvdtgipMCDZK14BNigd
  */
+
 package primary_page.controller;
 
 import javafx.fxml.FXML;

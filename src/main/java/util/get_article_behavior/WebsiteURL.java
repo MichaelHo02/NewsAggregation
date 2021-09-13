@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Contributor: Student name, Student ID
         Acknowledgement:

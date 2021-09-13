@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Ho Le Minh Thach s3877980
+        Last modified date: 10/09/2021
+        Acknowledgement:
+        Thank you, Professor Nick Wergeles for explaining the concept of Javafx RunLater
+        https://youtube.com/playlist?list=PLpvL1C_oZsr-BMBvdtgipMCDZK14BNigd
+ */
+
 package primary_page.controller;
 
 import javafx.application.Platform;

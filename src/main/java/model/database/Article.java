@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
@@ -54,14 +54,6 @@ public class Article {
     // add a category to the category list
     public void addCategory(int category) { categories.add(category); }
 
-    // check if the article belongs to any category by adding up the indices
-    public boolean catIsEmpty() {
-        int sum = 0;
-        for(int i : categories) {
-            sum += i;
-        }
-        return sum == 0;
-    }
     // getters
     public String getTitlePage() {
         return titlePage;
@@ -91,7 +83,7 @@ public class Article {
         return categories;
     }
 
-    // method to format tdate
+    // method to format date
     public static String getFriendlyDate(Date date) {
         // Turn normal date format to friendly date
         Date now = new Date();
