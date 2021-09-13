@@ -44,10 +44,10 @@ public class CardController {
 
     public void setData(Article article) {
         this.cardArticle = article;
-        String titleStr = article.getTitlePage();
+        String titleStr = article.getTITLE_PAGE();
         String timeStr = null;
-        websiteLink = article.getLinkPage();
-        websiteSource = article.getSource();
+        websiteLink = article.getLINK_PAGE();
+        websiteSource = article.getSOURCE();
         if (time != null) {
             if (article.getDuration() != null) {
                 timeStr = Article.getFriendlyDate(article.getDuration());
@@ -57,14 +57,14 @@ public class CardController {
         }
         Image imageURL = null;
         if (imageView != null) {
-            if (article.getImageURL() != null && !article.getImageURL().isEmpty()) {
-                imageURL = new Image(article.getImageURL());
+            if (article.getIMAGE_URL() != null && !article.getIMAGE_URL().isEmpty()) {
+                imageURL = new Image(article.getIMAGE_URL());
             } else {
                 imageURL = null;
             }
         }
         String sourceName = "";
-        switch (cardArticle.getSource()) {
+        switch (cardArticle.getSOURCE()) {
             case VNEXPRESS:
                 sourceName = "VNExpress";
                 break;
@@ -93,9 +93,10 @@ public class CardController {
         });
     }
 
-    public void clickCard() {
-        websiteLink = this.cardArticle.getLinkPage();
-        websiteSource = this.cardArticle.getSource();
+    @FXML
+    private void clickCard() {
+        websiteLink = this.cardArticle.getLINK_PAGE();
+        websiteSource = this.cardArticle.getSOURCE();
         Main.setRoot(cardArticle);
     }
 }

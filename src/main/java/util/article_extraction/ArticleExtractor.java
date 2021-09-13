@@ -32,6 +32,6 @@ public abstract class ArticleExtractor {
     // If type is Image then create a ImageView
     // If type is Video then create a MediaView
 
-    final static List<ArticleFactory> ARTICLE_FACTORY = new ArrayList<ArticleFactory>();
+    final static List<ArticleFactory> ARTICLE_FACTORY = new ArrayList<>();
     public abstract List<ArticleFactory> getContent(String linkPage);
 }

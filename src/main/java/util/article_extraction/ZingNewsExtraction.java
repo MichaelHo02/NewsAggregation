@@ -81,8 +81,7 @@ public class ZingNewsExtraction extends ArticleExtractor {
                     divChecker(ele.select("> *"));
                 }
             } catch (Exception e) {
-                System.out.println("Error Display Zingnews the article");
-                continue;
+//                System.out.println("Error Display Zingnews the article");
             }
         }
     }

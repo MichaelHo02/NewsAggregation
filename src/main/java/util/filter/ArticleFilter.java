@@ -75,11 +75,11 @@ public class ArticleFilter {
         article.addCategory(0); // add to category "latest" with index 0
         for (int i = 0; i < category.length; i++) {
             // Avoid video article
-            if(isWordMatches(article.getLinkPage(),"video")) {
+            if(isWordMatches(article.getLINK_PAGE(),"video")) {
                 return false;
             }
             // loop through all dictionaries, check if articles match any
-            if (isMatch(article.getCategory(), "src/main/java/util/filter/dictionary/" + category[i] + ".txt")) {
+            if (isMatch(article.getCATEGORY(), "src/main/java/util/filter/dictionary/" + category[i] + ".txt")) {
                 article.addCategory(i + 1); // if yes then update category list + update counter
                 hasCategory = true;
             }
@@ -88,7 +88,7 @@ public class ArticleFilter {
             final int others = 8;
             article.addCategory(others + 1); // update category list and counter
         }
-        return article.getCategories().size() > 1; // return whether article belongs to any category
+        return article.getCATEGORIES().size() > 1; // return whether article belongs to any category
     }
 
     public static boolean filterArticle(String folderUrl) {

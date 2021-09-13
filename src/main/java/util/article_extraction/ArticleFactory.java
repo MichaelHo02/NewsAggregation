@@ -31,8 +31,8 @@ import model.database.Article;
 import java.util.List;
 
 public class ArticleFactory {
-    private String context;
-    private String type;
+    private final String context;
+    private final String type;
 
     public ArticleFactory(String context, String type) {
         this.context = context;
@@ -50,7 +50,7 @@ public class ArticleFactory {
     //Extract the article in the content list
     public static List<ArticleFactory> articleSwitcher(Article article) {
         ArticleExtractor display;
-        switch (article.getSource()) {
+        switch (article.getSOURCE()) {
             case VNEXPRESS:
                 display = new VnExpressExtraction();
                 break;
@@ -67,10 +67,10 @@ public class ArticleFactory {
                 display = new ThanhNienExtraction();
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " +article.getSource() );
+                throw new IllegalStateException("Unexpected value: " +article.getSOURCE() );
         }
 //        System.out.println(source.getUrl());
-        return display.getContent(article.getLinkPage());
+        return display.getContent(article.getLINK_PAGE());
     }
 
     //Add everythinf to vbox

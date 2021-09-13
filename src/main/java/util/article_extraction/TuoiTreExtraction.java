@@ -49,7 +49,7 @@ public class TuoiTreExtraction extends ArticleExtractor {
         return ARTICLE_FACTORY;
     }
 
-    public void divChecker(Elements div) {
+    private void divChecker(Elements div) {
         for (Element element : div) {
             try {
                 if (element.tagName().equals("p") && element.hasText()) { //If element is a ordinary p element

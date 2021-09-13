@@ -17,9 +17,13 @@ import java.util.concurrent.TimeUnit;
 public class ArticleDatabase implements Runnable {
 
     private final PropertyChangeSupport propertyChangeSupport;
+
     private final ScheduledExecutorService executor;
+
     private final HashSet<String> articlesCheck;
+
     private final List<Article> scrapeList;
+
     private final List<Article> articles;
 
     public ArticleDatabase() {
@@ -51,7 +55,7 @@ public class ArticleDatabase implements Runnable {
 
                 List<Article> tmpList = new ArrayList<>();
                 for (int i = 0; i < scrapeList.size(); i++) {
-                    String tmp = scrapeList.get(i).getTitlePage() + " " + scrapeList.get(i).getSource().getUrl();
+                    String tmp = scrapeList.get(i).getTITLE_PAGE() + " " + scrapeList.get(i).getSOURCE().getUrl();
                     if (!articlesCheck.contains(tmp)) {
                         articlesCheck.add(tmp);
                         tmpList.add(scrapeList.get(i));

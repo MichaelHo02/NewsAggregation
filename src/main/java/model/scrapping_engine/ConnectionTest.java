@@ -11,7 +11,7 @@ public class ConnectionTest implements Runnable {
     // Run in the background and try to connect to given urls
     // If connection is normal/abnormal then notify PrimaryController
 
-    private PropertyChangeSupport propertyChangeSupport;
+    private final PropertyChangeSupport propertyChangeSupport;
     private boolean stopThread;
 
     // Constructor
@@ -26,7 +26,6 @@ public class ConnectionTest implements Runnable {
                 if (stopThread) { // To stop thread
                     return;
                 }
-
                 // Check the connection for every 10 seconds
                 Thread.sleep(10_000);
                 URL url1 = new URL("https://vnexpress.net/rss");

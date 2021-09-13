@@ -50,7 +50,7 @@ public class SecondaryController {
         borderPane.setCenter(ArticleFactory.dispArt(ArticleFactory.articleSwitcher(article)));
         title.setFont(new Font(18));
         title.setStyle("-fx-font-weight: bold");
-        title.setText(article.getTitlePage());
+        title.setText(article.getTITLE_PAGE());
     }
 
     @FXML

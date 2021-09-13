@@ -31,11 +31,8 @@ public class ThanhNienExtraction extends ArticleExtractor {
         try {
             ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
-//          // TODO: Scrap sapo
-            String firstImage = doc.select("#contentAvatar img").attr("src");
             Elements articleBody = doc.select("div[class~=.*content]");
             Elements elements = doc.select("div[id=abody] > *");
-//            System.out.println(doc.select("div[id=abody] > *").toString());
             if (articleBody.select("div.sapo").size() > 0) {
                 ArticleFactory cont = new ArticleFactory(articleBody.select("div.sapo").text(),"p");
                 ARTICLE_FACTORY.add(cont);
@@ -114,7 +111,7 @@ public class ThanhNienExtraction extends ArticleExtractor {
                 }
             }
             catch (Exception ignored) {
-                System.out.println("Error display Thanh Nien");
+//                System.out.println("Error display Thanh Nien");
             }
         }
     }

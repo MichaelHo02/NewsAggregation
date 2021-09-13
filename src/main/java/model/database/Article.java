@@ -22,14 +22,14 @@ import java.util.List;
 
 public class Article {
     // article attributes
-    private String titlePage;
-    private String linkPage;
-    private Date date;
-    private String imageURL;
-    private WebsiteURL source;
-    private String category; // Raw category data to filter
-    private List<Integer> categories; // store category indices
-    //    Category indices are as follow
+    private final String TITLE_PAGE;
+    private final String LINK_PAGE;
+    private final Date DATE;
+    private final String IMAGE_URL;
+    private final WebsiteURL SOURCE;
+    private final String CATEGORY; // Raw category data to filter
+    private final List<Integer> CATEGORIES; // store category indices
+    //    Category indices are as follows
     //    1 Covid
     //    2 Politics
     //    3 Business
@@ -41,46 +41,46 @@ public class Article {
     //    9 Others
 
     // Constructor
-    public Article(String titlePage, String linkPage, Date date, String imageURL, WebsiteURL source, String category) {
-        this.titlePage = titlePage;
-        this.linkPage = linkPage;
-        this.date = date;
-        this.imageURL = imageURL;
-        this.source = source;
-        this.category = category;
-        categories = new ArrayList<>();
+    public Article(String TITLE_PAGE, String LINK_PAGE, Date DATE, String IMAGE_URL, WebsiteURL SOURCE, String CATEGORY) {
+        this.TITLE_PAGE = TITLE_PAGE;
+        this.LINK_PAGE = LINK_PAGE;
+        this.DATE = DATE;
+        this.IMAGE_URL = IMAGE_URL;
+        this.SOURCE = SOURCE;
+        this.CATEGORY = CATEGORY;
+        CATEGORIES = new ArrayList<>();
     }
 
     // add a category to the category list
-    public void addCategory(int category) { categories.add(category); }
+    public void addCategory(int category) { CATEGORIES.add(category); }
 
     // getters
-    public String getTitlePage() {
-        return titlePage;
+    public String getTITLE_PAGE() {
+        return TITLE_PAGE;
     }
 
-    public String getLinkPage() {
-        return linkPage;
+    public String getLINK_PAGE() {
+        return LINK_PAGE;
     }
 
     public Date getDuration() {
-        return date;
+        return DATE;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getIMAGE_URL() {
+        return IMAGE_URL;
     }
 
-    public WebsiteURL getSource() {
-        return source;
+    public WebsiteURL getSOURCE() {
+        return SOURCE;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCATEGORY() {
+        return CATEGORY;
     }
 
-    public List<Integer> getCategories() {
-        return categories;
+    public List<Integer> getCATEGORIES() {
+        return CATEGORIES;
     }
 
     // method to format date

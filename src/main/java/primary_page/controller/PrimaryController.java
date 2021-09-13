@@ -43,8 +43,6 @@ import java.util.*;
 public class PrimaryController implements Initializable, PropertyChangeListener {
     private List<ArticlePageView> pageList;
 
-    private Stage stage;
-
     @FXML
     private NavigationController navigationController;
 
@@ -114,7 +112,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                                 if (i > (currentPage + 1) * 10 - 1) {
                                     break;
                                 }
-                                if (article.getCategories().contains(currentCategory)) {
+                                if (article.getCATEGORIES().contains(currentCategory)) {
                                     if (i >= currentPage * 10) {
                                         CardController cardController = pageList.get(currentPage).FXML_LOADER_LIST.get(i % 10).getController();
                                         cardController.setData(article);
@@ -160,7 +158,6 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
     }
 
     public void ready(Stage stage) {
-        this.stage = stage;
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");
             connectionTest.end();
