@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
+        Contributor: Bui Minh Nhat s3878174
         Acknowledgement:
         https://webfocusinfocenter.informationbuilders.com/wfappent/TLs/TL_srv_dm/source/regex.htm
         https://www.tutorialspoint.com/java/java_files_io.htm

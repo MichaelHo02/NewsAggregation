@@ -8,6 +8,8 @@
         Last modified date: 10/09/2021
         Contributor: Nguyen Dich Long s3879052
         Acknowledgement:
+        https://mkyong.com/java/jsoup-basic-web-crawler-example/
+        https://www.youtube.com/watch?v=KZK5rnxBWcU
 
  */
 package model.scrapping_engine;

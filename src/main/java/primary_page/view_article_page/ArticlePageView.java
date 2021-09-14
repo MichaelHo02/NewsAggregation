@@ -5,6 +5,7 @@
         Assessment: Final Project
         Created  date: 07/08/2021
         Author: Ho Le Minh Thach s3877980
+        Contributpr: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
         Acknowledgement:
         https://www.baeldung.com/java-observer-pattern help me to apply the observable pattern into MVC

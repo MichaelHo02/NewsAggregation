@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author:
+        Last modified date: 10/09/2021
+        Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174
+        Acknowledgement:
+
+
+ */
 package model.database;
 
 import util.get_article_behavior.WebsiteURL;

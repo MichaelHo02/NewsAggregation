@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author: Bui Minh Nhat
+        Author: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
         Contributor:
         Acknowledgement:
@@ -13,6 +13,7 @@
         https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
         https://jsoup.org/cookbook/extracting-data/selector-syntax
         https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
+   Thank for guidance of Mr Khoi To Hoang S3698211 - Student at RMIT Melbourne
  */
 
 package util.article_extraction;

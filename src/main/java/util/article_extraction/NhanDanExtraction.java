@@ -1,19 +1,4 @@
-/*
-        RMIT University Vietnam
-        Course: INTE2512 Object-Oriented Programming
-        Semester: 2021B
-        Assessment: Final Project
-        Created  date: 07/08/2021
-        Author: Bui Minh Nhat s3878174
-        Last modified date: 10/09/2021
-        Contributor:
-        Acknowledgement:
-        https://www.w3schools.com/cssref/css_selectors.asp
-        https://openplanning.net/10399/jsoup-java-html-parser
-        https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
-        https://jsoup.org/cookbook/extracting-data/selector-syntax
-        https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
- */
+
 package util.article_extraction;
 
 import org.jsoup.Jsoup;

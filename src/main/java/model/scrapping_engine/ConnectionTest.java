@@ -1,3 +1,16 @@
+/*
+        RMIT University Vietnam
+        Course: INTE2512 Object-Oriented Programming
+        Semester: 2021B
+        Assessment: Final Project
+        Created  date: 07/08/2021
+        Author: Truong Nhat Anh 
+        Last modified date: 10/09/2021
+        Contributor:
+        Acknowledgement:
+        https://www.tutorialspoint.com/Checking-internet-connectivity-in-Java
+        https://www.geeksforgeeks.org/checking-internet-connectivity-using-java/
+ */
 package model.scrapping_engine;
 
 import java.beans.PropertyChangeListener;
