@@ -16,13 +16,12 @@
  */
 package util.get_article_behavior;
 
-import util.filter.ArticleFilter;
 import model.database.Article;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import util.filter.ArticleFilter;
 
 import java.io.IOException;
 import java.text.ParseException;

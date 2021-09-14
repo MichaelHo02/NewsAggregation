@@ -16,12 +16,11 @@
  */
 package util.get_article_behavior;
 
-import util.filter.ArticleFilter;
 import model.database.Article;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import util.filter.ArticleFilter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

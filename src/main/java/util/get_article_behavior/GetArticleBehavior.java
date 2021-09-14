@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat_s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
@@ -22,6 +22,8 @@ import org.jsoup.select.Elements;
 import java.util.regex.Pattern;
 
 public abstract class GetArticleBehavior {
+
+    // Get the sources base on the string scraped
     protected static WebsiteURL getSource(String source) {
         if (source.contains("VnExpress")) {
             return WebsiteURL.VNEXPRESS;

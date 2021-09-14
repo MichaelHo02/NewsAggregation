@@ -23,9 +23,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import model.database.Article;
 
 import java.util.List;
@@ -73,17 +74,19 @@ public class ArticleFactory {
         return display.getContent(article.getLINK_PAGE());
     }
 
-    //Add everythinf to vbox
+    //Add everything to vbox
     public static ScrollPane dispArt(List<ArticleFactory> articleFactoryList) {
         final double PAD = 100;
         System.out.println("Working");
         ScrollPane scroll = new ScrollPane();
+        // Apply the styling for the scrollpane
         scroll.getStylesheets().add("style/style.css");
         scroll.getStyleClass().add("edge-to-edge");
         scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
+        // Apply the styling for the article box
         articleVbox.getStylesheets().add("style/style.css");
         articleVbox.getStyleClass().add("dark_background");
         articleVbox.setAlignment(Pos.CENTER);
@@ -94,10 +97,12 @@ public class ArticleFactory {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 20pt");
                 articleVbox.getChildren().add(text);
+                // Listen for changes in width when user resize
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             } else if (cnt.getType().equals("caption")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 18pt; -fx-font-style: italic;");
+                // Listen for changes in width when user resize
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
                StackPane stackPane = new StackPane();
                stackPane.getChildren().add(text);
@@ -108,6 +113,7 @@ public class ArticleFactory {
                     ImageView imageView = new ImageView();
                     imageView.setSmooth(true);
                     imageView.setPreserveRatio(true);
+                    // Listen for changes in width when user resize
                     imageView.fitWidthProperty().bind(scroll.widthProperty().subtract(PAD));
                     imageView.setImage(new Image(cnt.getContext()));
                     imageView.setStyle("-fx-padding: 10px");
@@ -122,11 +128,13 @@ public class ArticleFactory {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 17pt; -fx-font-weight: bold;");
                 articleVbox.getChildren().add(text);
+                // Listen for changes in width when user resize
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             } else if (cnt.getType().equals("h")) {
                 Text text = new Text(cnt.getContext());
                 text.setStyle("-fx-font-size: 18pt; -fx-font-weight: bold;");
                 articleVbox.getChildren().add(text);
+                // Listen for changes in width when user resize
                 text.wrappingWidthProperty().bind(scroll.widthProperty().subtract(PAD));
             }
         }

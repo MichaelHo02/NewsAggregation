@@ -40,25 +40,29 @@ public class SecondaryController {
         this.article = article;
     }
 
+    // THis function will listen to the click of the return button and change back to primary view
     @FXML
     private void switchToPrimary() {
         Main.setRoot();
     }
 
+    // This function will set up the content
     public void setupView() {
-        //Setup title
+        //Setup title and the scrollpane as the center of the border pane
         borderPane.setCenter(ArticleFactory.dispArt(ArticleFactory.articleSwitcher(article)));
         title.setFont(new Font(18));
         title.setStyle("-fx-font-weight: bold");
         title.setText(article.getTITLE_PAGE());
     }
 
+    // Make the title zoom in
     @FXML
     private void zoomIn() {
         title.setScaleX(1.2);
         title.setScaleY(1.2);
     }
 
+    // Make the title zoom out
     @FXML
     private void zoomOut() {
         title.setScaleX(1);

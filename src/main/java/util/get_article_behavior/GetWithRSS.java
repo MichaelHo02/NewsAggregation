@@ -16,9 +16,8 @@ package util.get_article_behavior;
 import com.apptastic.rssreader.Item;
 import com.apptastic.rssreader.RssReader;
 import com.github.sisyphsu.dateparser.DateParserUtils;
-
-import util.filter.ArticleFilter;
 import model.database.Article;
+import util.filter.ArticleFilter;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -32,6 +31,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
     private final String URL;
     private final List<Article> articles;
 
+    // Get the articles clone of database and the url to access
     public GetWithRSS(String url, List<Article> articles) {
         this.articles = articles;
         this.URL = url;
@@ -39,6 +39,7 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
     @Override
     public void scrapeArticle() {
         try {
+            // Use the RssReader library to scrape articles
             RssReader reader = new RssReader();
             Stream<Item> rssFeed = reader.read(URL);
             List<Item> itemList = rssFeed.collect(Collectors.toList());

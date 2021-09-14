@@ -92,6 +92,7 @@ public class ArticleFilter {
     }
 
     public static boolean filterArticle(String folderUrl) {
+        // return true if the directory is in the acceptable range (limit the wasteful directory that is not related to any category)
         return isMatch(folderUrl, "src/main/java/util/filter/dictionary/" + "NavigationFolder.txt") &&!folderUrl.contains("video")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 

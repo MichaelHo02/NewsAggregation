@@ -34,6 +34,7 @@ public class SidebarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set the sidebar to be invisible init
         sidebar.setVisible(false);
         newBar.setVisible(false);
         covidBar.setVisible(false);
@@ -47,6 +48,7 @@ public class SidebarController implements Initializable {
         othersBar.setVisible(false);
     }
 
+    // This function will clean the popup by make it invisible
     public void cleanEffect(int n) {
         sidebar.setVisible(false);
         switch (n) {
@@ -83,6 +85,7 @@ public class SidebarController implements Initializable {
         }
     }
 
+    // This function will make the sidebar popup by make it visible
     public void setButtonEffect(int n) {
         sidebar.setVisible(true);
         switch (n) {

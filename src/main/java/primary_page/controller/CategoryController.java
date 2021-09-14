@@ -43,8 +43,10 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set up the observable
         propertyChangeSupport = new PropertyChangeSupport(this);
 
+        // Set up the feature of hover on to the button
         newButton.hoverProperty().addListener(toggleHover(0));
         covidButton.hoverProperty().addListener(toggleHover(1));
         politicsButton.hoverProperty().addListener(toggleHover(2));
@@ -55,11 +57,13 @@ public class CategoryController implements Initializable {
         entertainmentButton.hoverProperty().addListener(toggleHover(7));
         worldButton.hoverProperty().addListener(toggleHover(8));
         othersButton.hoverProperty().addListener(toggleHover(9));
+        // Setup the init page
         setCurrentButton();
     }
 
     private void setCurrentButton() {
         currentCategory = 0;
+        // Create effect when select the button
         selectedButton();
     }
 
@@ -139,6 +143,7 @@ public class CategoryController implements Initializable {
         }
     }
 
+    // Make the button effect like it gets selected
     private void selectedButton() {
         String style = "-fx-border-color: transparent transparent transparent #000000";
         switch (currentCategory) {
@@ -175,28 +180,36 @@ public class CategoryController implements Initializable {
         }
     }
 
+    // This function will notify the listener (observer) to get the update information in this case current category
     private void doNotify(int oldCategory) {
+        // Only notify the observer when old value and new value is different
         propertyChangeSupport.firePropertyChange("currentCategory", oldCategory, currentCategory);
     }
 
+    // Add the observer
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
+    // Remove the observer not use yet but maybe for further development usage
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
+    // Listen for change in hover
     private ChangeListener<Boolean> toggleHover(int n) {
         return (observableValue, oldValue, newValue) -> {
+            // If hover then let the sidebar pop out
             if (newValue) {
                 sidebarController.setButtonEffect(n);
             } else {
+                // Set the sidebar to pop in
                 sidebarController.cleanEffect(n);
             }
         };
     }
 
+    // This method is to get the primary controller object and get the sidebar controller instance
     void injectController(PrimaryController primaryController) {
         sidebarController = primaryController.getSidebarController();
     }

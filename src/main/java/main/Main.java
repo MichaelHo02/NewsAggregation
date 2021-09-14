@@ -4,7 +4,7 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174
         Acknowledgement:
@@ -16,10 +16,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import model.database.Article;
 import primary_page.controller.PrimaryController;
-
 import secondary_page.controller.SecondaryController;
 
 public class Main extends Application {
@@ -30,13 +28,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Load and save the primaryFxmlLoader and secondaryFxmlLoader for further reusable
         primaryFxmlLoader = new FXMLLoader(Main.class.getResource("/PrimaryView.fxml"));
         secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryView.fxml"));
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
+        // Get the stage into the primary controller to listen for app shutdown
         PrimaryController primaryController = primaryFxmlLoader.getController();
         primaryController.ready(stage);
         stage.setScene(scene);
+        // Set the minimum width and height of the application
         stage.setMinWidth(720);
         stage.setMinHeight(730);
         stage.setTitle("L I T");
@@ -44,6 +45,7 @@ public class Main extends Application {
     }
 
 
+    // Change the root to secondary view
     public static void setRoot(Article article) {
         SecondaryController secondaryController = secondaryFxmlLoader.getController();
         secondaryController.setArticle(article);
@@ -51,10 +53,12 @@ public class Main extends Application {
         scene.setRoot(secondaryFxmlLoader.getRoot());
     }
 
+    // Change the root to the primary view
     public static void setRoot() {
         scene.setRoot(primaryFxmlLoader.getRoot());
     }
 
+    // Run main
     public static void main(String[] args) {
         launch();
     }

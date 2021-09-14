@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Truong Nhat Anh s3878231
         Last modified date: 10/09/2021
-        Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174
+        Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174, Ho Le Minh Thach s3877980
         Acknowledgement:
         https://ofstack.com/Java/8204/detail-the-observer-design-pattern-for-java-programming.html
         https://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date
@@ -16,8 +16,8 @@
  */
 package model.database;
 
-import util.get_article_behavior.WebsiteURL;
 import model.scrapping_engine.URLCrawler;
+import util.get_article_behavior.WebsiteURL;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

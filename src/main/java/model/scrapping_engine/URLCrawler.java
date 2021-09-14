@@ -16,13 +16,15 @@
 package model.scrapping_engine;
 
 import model.database.Article;
-import util.filter.ArticleFilter;
-import util.get_article_behavior.*;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import util.filter.ArticleFilter;
+import util.get_article_behavior.GetNhanDan;
+import util.get_article_behavior.GetTuoiTre;
+import util.get_article_behavior.GetWithRSS;
+import util.get_article_behavior.GetZingNews;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
