@@ -9,10 +9,12 @@ package util.article_extraction;
         Last modified date: 10/09/2021
         Contributor: Truong Nhat Anh s3878231
         Acknowledgement:
+        1. CSS selector
         https://www.w3schools.com/cssref/css_selectors.asp
-        https://openplanning.net/10399/jsoup-java-html-parser
         https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
         https://jsoup.org/cookbook/extracting-data/selector-syntax
+        2. HTML parser
+        https://openplanning.net/10399/jsoup-java-html-parser
         https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
  */
 

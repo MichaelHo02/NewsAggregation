@@ -8,9 +8,12 @@
         Last modified date: 10/09/2021
         Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174, Ho Le Minh Thach s3877980
         Acknowledgement:
+        1. Design pattern in Java Programming
         https://ofstack.com/Java/8204/detail-the-observer-design-pattern-for-java-programming.html
+        2. Sort objects by date
         https://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date
-        https://rmit.instructure.com (Lecture slides about multithreading)
+        3. Lecture slides from the course INTE2512 on multithreading
+
 
 
  */

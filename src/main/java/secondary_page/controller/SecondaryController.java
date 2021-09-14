@@ -9,7 +9,9 @@ package secondary_page.controller;
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174
         Acknowledgement:
+       1. Magnification in JavaFX
        https://stackoverflow.com/questions/29506156/javafx-8-zooming-relative-to-mouse-pointer
+       2. CSS
        https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
        https://www.howkteam.vn/course/lap-trinh-javafx-co-ban/dinh-dang-bang-css-trong-javafx-2648
  */

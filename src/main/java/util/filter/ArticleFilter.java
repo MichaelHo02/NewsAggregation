@@ -8,7 +8,9 @@
         Last modified date: 10/09/2021
         Contributor: Nguyen Dich Long s3879052, Ho Le Minh Thach s3877980
         Acknowledgement:
+        1. Java Regex
         https://webfocusinfocenter.informationbuilders.com/wfappent/TLs/TL_srv_dm/source/regex.htm
+        2, Java file IO
         https://www.tutorialspoint.com/java/java_files_io.htm
         https://www.javatpoint.com/java-io
  */

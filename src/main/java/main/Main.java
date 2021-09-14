@@ -8,7 +8,8 @@
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174
         Acknowledgement:
-       https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/FXMLLoader.html
+        1. JavaFX FXML Loader
+        https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/FXMLLoader.html
  */
 package main;
 

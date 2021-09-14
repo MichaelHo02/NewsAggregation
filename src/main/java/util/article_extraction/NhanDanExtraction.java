@@ -6,14 +6,16 @@
         Created  date: 07/08/2021
         Author: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
-        Contributor:
+        Contributor: Nguyen Dich Long s3879052
         Acknowledgement:
+        1. CSS selector
         https://www.w3schools.com/cssref/css_selectors.asp
-        https://openplanning.net/10399/jsoup-java-html-parser
         https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
         https://jsoup.org/cookbook/extracting-data/selector-syntax
+        2. HTML parser
+        https://openplanning.net/10399/jsoup-java-html-parser
         https://nira.com/chrome-developer-tools/#:~:text=From%20the%20Chrome%20menu%3A,web%20page%20you're%20on.
-        Thank for guidance of Mr Khoi To Hoang S3698211 - Student at RMIT Melbourne
+        Thank you Mr Khoi To Hoang S3698211 for guidance.
  */
 package util.article_extraction;
 

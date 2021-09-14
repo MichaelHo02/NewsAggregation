@@ -8,8 +8,11 @@
         Last modified date: 10/09/2021
         Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174, Ho Le Minh Thach s3877980
         Acknowledgement:
+        1. Web crawler example using Jsoup
         https://mkyong.com/java/jsoup-basic-web-crawler-example/
+        2. How to make a multi-threaded web crawler
         https://www.youtube.com/watch?v=KZK5rnxBWcU
+        3. Jsoup library
         https://jsoup.org/
 
  */

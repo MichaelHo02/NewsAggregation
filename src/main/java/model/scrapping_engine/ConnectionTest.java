@@ -8,6 +8,7 @@
         Last modified date: 10/09/2021
         Contributor:
         Acknowledgement:
+        1. Checking network connectivity in Java
         https://www.tutorialspoint.com/Checking-internet-connectivity-in-Java
         https://www.geeksforgeeks.org/checking-internet-connectivity-using-java/
  */

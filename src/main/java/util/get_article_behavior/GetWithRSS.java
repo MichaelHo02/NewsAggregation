@@ -8,7 +8,9 @@
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
+        1. Reading XML file
         https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+        2. Synchronized collection
         https://www.baeldung.com/java-synchronized
  */
 package util.get_article_behavior;

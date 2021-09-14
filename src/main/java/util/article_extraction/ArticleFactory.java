@@ -8,10 +8,13 @@
         Last modified date: 10/09/2021
         Contributor : Ho Le Minh Thach s3877980, Truong Nhat Anh s3878231
         Acknowledgement:
+        1. CSS selector
         https://www.w3schools.com/cssref/css_selectors.asp
-        https://openplanning.net/10399/jsoup-java-html-parser
         https://www.youtube.com/watch?v=l1mER1bV0N0&ab_channel=WebDevSimplified
         https://jsoup.org/cookbook/extracting-data/selector-syntax
+        2. HTML parser
+        https://openplanning.net/10399/jsoup-java-html-parser
+        3. Font formatting
         https://docs.microsoft.com/en-us/windows/apps/design/signature-experiences/typography
         https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Font.html
  */

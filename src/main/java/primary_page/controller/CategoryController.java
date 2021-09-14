@@ -7,8 +7,9 @@
         Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
         Acknowledgement:
-        https://www.baeldung.com/java-observer-pattern help me to apply the observable pattern into MVC
-        Thank you, Professor Nick Wergeles for explaining the concept of:
+        1. MVC observable pattern
+        https://www.baeldung.com/java-observer-pattern
+        2. Thank you, Professor Nick Wergeles for explaining the concept of:
             - JavaThread Service and Task
             - MVC model
         https://youtube.com/playlist?list=PLpvL1C_oZsr-BMBvdtgipMCDZK14BNigd

@@ -8,6 +8,7 @@
         Last modified date: 10/09/2021
         Contributor: Bui Minh Nhat s3878174, Nguyen Dich Long s3879052
         Acknowledgement:
+        1. Java OOP fundamentals
         https://www.w3schools.com/java/java_oop.asp
  */
 package model.database;
