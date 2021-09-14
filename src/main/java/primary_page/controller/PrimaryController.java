@@ -6,7 +6,7 @@
         Created  date: 07/08/2021
         Author: Ho Le Minh Thach s3877980
         Last modified date: 10/09/2021
-        Contributor: Bui Minh Nhat s3878174
+        Contributor: Bui Minh Nhat s3878174, Truong Nhat Anh s3878231
         Acknowledgement:
         https://www.baeldung.com/java-observer-pattern help me to apply the observable pattern into MVC
         Thank you, Professor Nick Wergeles for explaining the concept of:

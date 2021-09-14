@@ -7,7 +7,7 @@ package util.article_extraction;
         Created  date: 07/08/2021
         Author: Bui Minh Nhat s3878174
         Last modified date: 10/09/2021
-        Contributor: Student name, Student ID
+        Contributor: Truong Nhat Anh s3878231
         Acknowledgement:
         https://www.w3schools.com/cssref/css_selectors.asp
         https://openplanning.net/10399/jsoup-java-html-parser

@@ -4,10 +4,13 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author:
+        Author: Truong Nhat Anh s3878231
         Last modified date: 10/09/2021
         Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174
         Acknowledgement:
+        https://ofstack.com/Java/8204/detail-the-observer-design-pattern-for-java-programming.html
+        https://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date
+        https://rmit.instructure.com (Lecture slides about multithreading)
 
 
  */

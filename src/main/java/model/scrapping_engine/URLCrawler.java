@@ -4,12 +4,13 @@
         Semester: 2021B
         Assessment: Final Project
         Created  date: 07/08/2021
-        Author: Bui Minh Nhat s3878174
+        Author: Truong Nhat Anh s3878231
         Last modified date: 10/09/2021
-        Contributor: Nguyen Dich Long s3879052
+        Contributor: Nguyen Dich Long s3879052, Bui Minh Nhat s3878174, Ho Le Minh Thach s3877980
         Acknowledgement:
         https://mkyong.com/java/jsoup-basic-web-crawler-example/
         https://www.youtube.com/watch?v=KZK5rnxBWcU
+        https://jsoup.org/
 
  */
 package model.scrapping_engine;
