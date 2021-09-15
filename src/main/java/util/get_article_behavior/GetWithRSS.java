@@ -52,7 +52,8 @@ public class GetWithRSS extends GetArticleBehavior implements Runnable {
                 String pubDate = item.getPubDate().isPresent() ? item.getPubDate().get() : null;
                 String image = item.getDescription().isPresent() ? item.getDescription().get() : null;
                 String source = item.getChannel().getTitle().isBlank() ? null : item.getChannel().getTitle();
-                String category = title + " " + scrapeCategory(URL, 3) + " " + scrapeCategory(URL, 4);
+                final int CATTOKENA = 3, CATTOKENB = 4; // define token position of category component in web path
+                String category = title + " " + scrapeCategory(URL, CATTOKENA) + " " + scrapeCategory(URL, CATTOKENB); // concatenate title and category token
                 if (title == null || link == null || pubDate == null || image == null || source == null) { continue; }
                 Article article = new Article(title, link, DateParserUtils.parseDate(pubDate), GetArticleBehavior.getImage(image), getSource(source), category);
                 // Stop all thread to write the array

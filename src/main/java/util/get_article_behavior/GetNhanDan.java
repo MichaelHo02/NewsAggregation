@@ -57,7 +57,8 @@ public class GetNhanDan extends GetArticleBehavior implements Runnable {
                     String date = element.select("div[class*=box-meta]").text();
                     Date tempDate = new SimpleDateFormat("HH:mm dd/MM/yyyy").parse(date);
                     String imageURL = element.select("img").attr("data-src");
-                    String category = title + " " + scrapeCategory(URL, 3); // concatenate category + title
+                    final int CATTOKENA = 3; // define token position of category component in web path
+                    String category = title + " " + scrapeCategory(URL, CATTOKENA); // concatenate category + title as category data because cannot reach for category metadata (would result in significant thread runtime
                     if (tempDate == null || imageURL == null) { continue; }
                     Article article = new Article(title, tempLink, tempDate, imageURL, WebsiteURL.NHANDAN, category);
                     synchronized(this) {
