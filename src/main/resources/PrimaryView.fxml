@@ -46,7 +46,7 @@
       </children>
    </AnchorPane>
    <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="0.0" />
-   <AnchorPane layoutX="1100.0" layoutY="770.0">
+   <AnchorPane AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <children>
          <HBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
