@@ -129,7 +129,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
                         // Check if the button has click or not
                         if (!HAVE_CLICK[currentPage]) {
                             int i = 0;
-                            // If not then interate through the database to get the article
+                            // If not then iterate through the database to get the article
                             for (Article article : articleDatabase.getArticles()) {
                                 // If the number of article is greater than 10 for a page then break
                                 if (i > (currentPage + 1) * 10 - 1) {
@@ -203,7 +203,7 @@ public class PrimaryController implements Initializable, PropertyChangeListener 
         return sidebarController;
     }
 
-    // Make the stage listen for closing the app to shutdown the thread that still running
+    // Make the stage listen for closing the app to shut down the thread that still running
     public void ready(Stage stage) {
         stage.setOnCloseRequest(event -> {
             System.out.println("Stage will close");

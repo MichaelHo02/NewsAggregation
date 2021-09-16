@@ -21,6 +21,8 @@ import model.database.Article;
 import primary_page.controller.PrimaryController;
 import secondary_page.controller.SecondaryController;
 
+import java.nio.file.FileSystems;
+
 public class Main extends Application {
 
     private static Scene scene;
@@ -29,9 +31,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        String pathSeparator = FileSystems.getDefault().getSeparator();
         // Load and save the primaryFxmlLoader and secondaryFxmlLoader for further reusable
-        primaryFxmlLoader = new FXMLLoader(Main.class.getResource("/PrimaryView.fxml"));
-        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryView.fxml"));
+        String primaryView = "/PrimaryView.fxml".replaceAll("/", pathSeparator);
+        String secondaryView = "/SecondaryView.fxml".replaceAll("/", pathSeparator);
+        primaryFxmlLoader = new FXMLLoader(Main.class.getResource(primaryView));
+        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource(secondaryView));
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
         // Get the stage into the primary controller to listen for app shutdown

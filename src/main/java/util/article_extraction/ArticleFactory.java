@@ -32,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.database.Article;
 
+import java.nio.file.FileSystems;
 import java.util.List;
 
 public class ArticleFactory {
@@ -71,7 +72,7 @@ public class ArticleFactory {
                 display = new ThanhNienExtraction();
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " +article.getSOURCE() );
+                throw new IllegalStateException("Unexpected value: " + article.getSOURCE());
         }
 //        System.out.println(source.getUrl());
         return display.getContent(article.getLINK_PAGE());
@@ -83,14 +84,14 @@ public class ArticleFactory {
         System.out.println("Working");
         ScrollPane scroll = new ScrollPane();
         // Apply the styling for the scrollpane
-        scroll.getStylesheets().add("style/style.css");
+        scroll.getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
         scroll.getStyleClass().add("edge-to-edge");
         scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
         // Apply the styling for the article box
-        articleVbox.getStylesheets().add("style/style.css");
+        articleVbox.getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
         articleVbox.getStyleClass().add("dark_background");
         articleVbox.setAlignment(Pos.CENTER);
         articleVbox.setSpacing(20);

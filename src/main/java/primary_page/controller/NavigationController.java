@@ -33,8 +33,6 @@ public class NavigationController implements Initializable, PropertyChangeListen
 
     private int currentPage;
 
-    private PrimaryController primaryController;
-
     @FXML
     private Button page1, page2, page3, page4, page5, prevPage, nextPage;
 
@@ -50,8 +48,7 @@ public class NavigationController implements Initializable, PropertyChangeListen
 
     // This method is to get the primary controller instance and to add this class as an observer into the controller
     void injectController(PrimaryController primaryController) {
-        this.primaryController = primaryController;
-        this.primaryController.addPropertyChangeListener(this);
+        primaryController.addPropertyChangeListener(this);
     }
 
     // This function will clean the effect of selecting button

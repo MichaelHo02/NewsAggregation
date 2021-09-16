@@ -55,7 +55,7 @@ public class CardController {
         if (time != null) {
             // If the duration is not null then get the time duration in string
             if (article.getDuration() != null) {
-                // Get the duration in string by using a static method getFreindlyDate()
+                // Get the duration in string by using a static method getFriendlyDate()
                 timeStr = Article.getFriendlyDate(article.getDuration());
             } else {
                 // If no time then return string no time (rare case)

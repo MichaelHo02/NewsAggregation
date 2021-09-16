@@ -33,7 +33,7 @@ public class VnExpressExtraction extends ArticleExtractor {
             ARTICLE_FACTORY.clear();
             Document doc = Jsoup.connect(linkPage).get();
             Element article;
-            //Chekc if the size of the element artucle
+            //Chekc if the size of the element article
             if (doc.select("article.fck_detail").size() > 0) {
                 //Selecting the first element of the article
                 article = doc.select("article.fck_detail").first();
