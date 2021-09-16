@@ -84,14 +84,18 @@ public class ArticleFactory {
         System.out.println("Working");
         ScrollPane scroll = new ScrollPane();
         // Apply the styling for the scrollpane
-        scroll.getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
+        // the function need to have '/' and it is not related to the OS
+        // If using '\\' then it cannot find the style on window because it reads URL not file path
+        scroll.getStylesheets().add("style/style.css");
         scroll.getStyleClass().add("edge-to-edge");
         scroll.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scroll.setPrefWidth(Region.USE_COMPUTED_SIZE);
         scroll.setFitToWidth(true);
         VBox articleVbox = new VBox();
         // Apply the styling for the article box
-        articleVbox.getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
+        // the function need to have '/' and it is not related to the OS
+        // If using '\\' then it cannot find the style on window because it reads URL not file path
+        articleVbox.getStylesheets().add("style/style.css");
         articleVbox.getStyleClass().add("dark_background");
         articleVbox.setAlignment(Pos.CENTER);
         articleVbox.setSpacing(20);

@@ -28,6 +28,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
@@ -44,7 +45,9 @@ public class ArticlePageView extends ScrollPane {
         FXML_LOADER_LIST = new ArrayList<>(10);
         this.PAGE = PAGE;
         // Applying CSS style for the page
-        getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
+        // the function need to have '/' and it is not related to the OS
+        // If using '\\' then it cannot find the style on window because it reads URL not file path
+        getStylesheets().add("style/style.css");
         getStyleClass().add("edge-to-edge");
         // Apllying property to ensure the layout of the object is pretty
         setFitToWidth(true);
@@ -57,7 +60,9 @@ public class ArticlePageView extends ScrollPane {
         // Create structure base on stackpane
         StackPane stackPane = new StackPane();
         // Apply CSS for the stackpane, apply layout property to make it looks pretty
-        stackPane.getStylesheets().add("style/style.css".replaceAll("/", FileSystems.getDefault().getSeparator()));
+        // the function need to have '/' and it is not related to the OS
+        // If using '\\' then it cannot find the style on window because it reads URL not file path
+        stackPane.getStylesheets().add("style/style.css");
         stackPane.getStyleClass().add("dark_background");
         stackPane.setPadding(new Insets(10, 10, 10, 10));
         // Create a flowpane to store all the cards

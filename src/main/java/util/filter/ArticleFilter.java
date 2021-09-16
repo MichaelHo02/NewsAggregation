@@ -31,8 +31,13 @@ public class ArticleFilter {
     public static String[] loadDictionary(String dictionaryFile) {
         String[] dictionary;
         try {
+            // Handle the OS file path
+            String fileSeparator = FileSystems.getDefault().getSeparator();
+            if (fileSeparator.equals("\\")) {
+                fileSeparator = "\\\\";
+            }
             // dictionary input
-            File input = new File(dictionaryFile);
+            File input = new File(dictionaryFile.replaceAll("/", fileSeparator));
             String delim = ", ";
             String src = Files.readString(Path.of(input.getPath()));
             //Need to split the string contain delim
@@ -83,8 +88,7 @@ public class ArticleFilter {
             }
             // loop through all dictionaries, check if articles match any
             if (isMatch(article.getCATEGORY(),
-                    ("src/main/java/util/filter/dictionary/" + category[i] + ".txt")
-                            .replaceAll("/", FileSystems.getDefault().getSeparator()))) {
+                    ("src/main/java/util/filter/dictionary/" + category[i] + ".txt"))) {
                 article.addCategory(i + 1); // if yes then update category list + update counter
                 hasCategory = true;
             }
@@ -99,8 +103,7 @@ public class ArticleFilter {
     public static boolean filterArticle(String folderUrl) {
         // return true if the directory is in the acceptable range (limit the wasteful directory that is not related to any category)
         return isMatch(folderUrl,
-                ("src/main/java/util/filter/dictionary/" + "NavigationFolder.txt")
-                        .replaceAll("/", FileSystems.getDefault().getSeparator()))
+                ("src/main/java/util/filter/dictionary/" + "NavigationFolder.txt"))
                 && !folderUrl.contains("video")  && !folderUrl.contains("game") && !folderUrl.contains("viec-lam");
     }
 

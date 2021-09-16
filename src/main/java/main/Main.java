@@ -31,12 +31,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String pathSeparator = FileSystems.getDefault().getSeparator();
         // Load and save the primaryFxmlLoader and secondaryFxmlLoader for further reusable
-        String primaryView = "/PrimaryView.fxml".replaceAll("/", pathSeparator);
-        String secondaryView = "/SecondaryView.fxml".replaceAll("/", pathSeparator);
-        primaryFxmlLoader = new FXMLLoader(Main.class.getResource(primaryView));
-        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource(secondaryView));
+        // This is the URL so no need to convert to file separate
+        primaryFxmlLoader = new FXMLLoader(Main.class.getResource("/PrimaryView.fxml"));
+        secondaryFxmlLoader = new FXMLLoader(Main.class.getResource("/SecondaryView.fxml"));
         secondaryFxmlLoader.load();
         scene = new Scene(primaryFxmlLoader.load());
         // Get the stage into the primary controller to listen for app shutdown
