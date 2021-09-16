@@ -88,7 +88,13 @@ public class Article {
     public static String getFriendlyDate(Date date) {
         // Turn normal date format to friendly date
         Date now = new Date();
-        Duration duration = Duration.between(date.toInstant(), now.toInstant());
+        String tempOS = System.getProperty("os.name").toLowerCase();
+        Duration duration = null;
+        if (tempOS.contains("nix") || tempOS.contains("nux") || tempOS.contains("aix")) {
+            duration = Duration.between(now.toInstant(), date.toInstant());
+        } else {
+            duration = Duration.between(date.toInstant(), now.toInstant());
+        }
         if (duration == null) return null;
 
         // get time quantities in units of convention (day, hour, minute)
