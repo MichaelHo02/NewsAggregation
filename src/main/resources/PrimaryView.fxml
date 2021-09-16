@@ -21,15 +21,15 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="960.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary_page.controller.PrimaryController">
+<AnchorPane minHeight="600.0" minWidth="960.0" prefHeight="1200.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrimaryController">
     <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
-         <fx:include fx:id="navigation" source="primary_page/NavigationView.fxml" />
+         <fx:include fx:id="navigation" source="controller/NavigationView.fxml" />
       </bottom>
       <left>
          <AnchorPane styleClass="column_row_background" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
             <children>
-               <fx:include fx:id="category" source="primary_page/CategoryView.fxml" AnchorPane.topAnchor="0.0" />
+               <fx:include fx:id="category" source="controller/CategoryView.fxml" AnchorPane.topAnchor="0.0" />
             </children></AnchorPane>
       </left>
    </BorderPane>
@@ -45,7 +45,7 @@
          </ProgressBar>
       </children>
    </AnchorPane>
-   <fx:include fx:id="sidebar" source="primary_page/SidebarView.fxml" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="0.0" />
+   <fx:include fx:id="sidebar" source="controller/SidebarView.fxml" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="0.0" />
    <AnchorPane AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <children>
          <HBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
