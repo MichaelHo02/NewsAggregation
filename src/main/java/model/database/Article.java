@@ -88,8 +88,10 @@ public class Article {
     public static String getFriendlyDate(Date date) {
         // Turn normal date format to friendly date
         Date now = new Date();
-        String tempOS = System.getProperty("os.name").toLowerCase();
         Duration duration = null;
+
+        // Handle Duration.between order works differently on Linux
+        String tempOS = System.getProperty("os.name").toLowerCase();
         if (tempOS.contains("nix") || tempOS.contains("nux") || tempOS.contains("aix")) {
             duration = Duration.between(now.toInstant(), date.toInstant());
         } else {
