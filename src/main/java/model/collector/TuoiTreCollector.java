@@ -21,10 +21,10 @@ package model.collector;
 
 import com.github.sisyphsu.dateparser.DateParserUtils;
 import model.Article;
+import model.ArticleFilter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import model.ArticleFilter;
 
 import java.util.List;
 

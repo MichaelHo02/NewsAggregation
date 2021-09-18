@@ -19,8 +19,6 @@
  */
 package model;
 
-import model.Article;
-import model.URLCrawler;
 import model.collector.WebsiteURL;
 
 import java.beans.PropertyChangeListener;

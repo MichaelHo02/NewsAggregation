@@ -20,10 +20,10 @@
 package model.collector;
 
 import model.Article;
+import model.ArticleFilter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import model.ArticleFilter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

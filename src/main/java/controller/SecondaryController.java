@@ -15,14 +15,14 @@ package controller;
        https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
        https://www.howkteam.vn/course/lap-trinh-javafx-co-ban/dinh-dang-bang-css-trong-javafx-2648
  */
+
+import controller.article_extraction.ArticleFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
-
 import model.Article;
-import controller.article_extraction.ArticleFactory;
 
 public class SecondaryController {
 

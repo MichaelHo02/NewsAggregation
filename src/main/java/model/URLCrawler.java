@@ -18,14 +18,14 @@
  */
 package model;
 
+import model.collector.NhanDanCollector;
+import model.collector.RSSCollector;
+import model.collector.TuoiTreCollector;
+import model.collector.ZingNewsCollector;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import model.collector.NhanDanCollector;
-import model.collector.TuoiTreCollector;
-import model.collector.RSSCollector;
-import model.collector.ZingNewsCollector;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
