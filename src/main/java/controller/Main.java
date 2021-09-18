@@ -38,8 +38,8 @@ public class Main extends Application {
         primaryController.ready(stage);
         stage.setScene(scene);
         // Set the minimum width and height of the application
-        stage.setMinWidth(720);
-        stage.setMinHeight(730);
+        stage.setMinWidth(400);
+        stage.setMinHeight(400);
         stage.setTitle("L I T");
         stage.show();
     }
