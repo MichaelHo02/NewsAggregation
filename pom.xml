@@ -26,6 +26,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>15.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -43,6 +44,7 @@
             <artifactId>jsoup</artifactId>
             <version>1.13.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.rometools</groupId>
             <artifactId>rome</artifactId>
@@ -66,12 +68,6 @@
             <groupId>com.github.sisyphsu</groupId>
             <artifactId>dateparser</artifactId>
             <version>1.0.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.reactivex.rxjava3</groupId>
-            <artifactId>rxjava</artifactId>
-            <version>3.1.0</version>
         </dependency>
 
         <dependency>
