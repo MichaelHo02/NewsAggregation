@@ -10,6 +10,10 @@
         Acknowledgement:
         1. JavaFX FXML Loader
         https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/FXMLLoader.html
+        2. Decide Stage size by knowing screen resolution
+        https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
+        3. Find the window taskbar height
+        https://stackoverflow.com/questions/6844996/windows-taskbar-height-width
  */
 package controller;
 
