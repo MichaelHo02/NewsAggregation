@@ -23,7 +23,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/new.png" />
+                  <Image url="@../icons/resized/new2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -32,7 +32,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/covid.png" />
+                  <Image url="@../icons/resized/covid2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -41,7 +41,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/political.png" />
+                  <Image url="@../icons/resized/political2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -50,7 +50,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/icon2Resized/business.png" />
+                  <Image url="@../icons/resized/business2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -59,7 +59,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/technology.png" />
+                  <Image url="@../icons/resized/technology2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -68,7 +68,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/health.png" />
+                  <Image url="@../icons/resized/health2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -77,7 +77,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/icon2Resized/sport.png" />
+                  <Image url="@../icons/resized/sport2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -86,7 +86,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/entertainment.png" />
+                  <Image url="@../icons/resized/entertainment2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -95,7 +95,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/world.png" />
+                  <Image url="@../icons/resized/world2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -104,7 +104,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../icons/iconResized/other.png" />
+                  <Image url="@../icons/resized/other2.png" />
                </image>
             </ImageView>
          </graphic>
