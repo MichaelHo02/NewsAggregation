@@ -10,6 +10,8 @@
         Acknowledgement:
         1. JavaFX FXML Loader
         https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/FXMLLoader.html
+        2. How to get screen size
+        https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
  */
 package controller;
 
@@ -44,7 +46,7 @@ public class Main extends Application {
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
         stage.setWidth(width);
-        stage.setHeight(height);
+        stage.setHeight(height - 20);
         // Set the minimum width and height of the application
         stage.setMinWidth(720);
         stage.setMinHeight(730);
