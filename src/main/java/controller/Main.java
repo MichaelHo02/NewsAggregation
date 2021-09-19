@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import model.Article;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Main extends Application {
 
@@ -43,8 +44,19 @@ public class Main extends Application {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
-        stage.setWidth(width);
-        stage.setHeight(height);
+        // Check the application os
+        String OS = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
+        if(OS.contains("win")) {
+            //Check taskbar size
+            Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+            Rectangle winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            int taskBarHeight = scrnSize.height - winSize.height;
+            stage.setWidth(width);
+            stage.setHeight(height - taskBarHeight + 15);
+        } else {
+            stage.setWidth(width);
+            stage.setHeight(height);
+        }
         // Set the minimum width and height of the application
         stage.setMinWidth(720);
         stage.setMinHeight(730);
