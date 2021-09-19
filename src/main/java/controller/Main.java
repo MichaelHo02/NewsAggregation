@@ -30,6 +30,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //Update
         // Load and save the primaryFxmlLoader and secondaryFxmlLoader for further reusable
         // This is the URL so no need to change file separate
         primaryFxmlLoader = new FXMLLoader(Main.class.getResource("/PrimaryView.fxml"));
