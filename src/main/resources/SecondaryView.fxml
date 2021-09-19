@@ -22,13 +22,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SecondaryController">
-    <BorderPane fx:id="borderPane" prefHeight="800.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SecondaryController">
+    <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
          <VBox fx:id="articleVbox" prefHeight="716.0" prefWidth="1200.0" styleClass="light_background" stylesheets="@style/style.css" BorderPane.alignment="CENTER" />
       </center>
       <top>
-         <HBox alignment="CENTER" opacity="0.64" prefHeight="58.0" prefWidth="1200.0" styleClass="column_row_background" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER" opacity="0.64" prefHeight="58.0" styleClass="column_row_background" stylesheets="@style/style.css" BorderPane.alignment="CENTER">
             <children>
                <Label fx:id="title" onMouseEntered="#zoomIn" onMouseExited="#zoomOut" text="Label" />
             </children>

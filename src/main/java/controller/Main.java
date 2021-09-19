@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Article;
 
+import java.awt.*;
+
 public class Main extends Application {
 
     private static Scene scene;
@@ -37,6 +39,12 @@ public class Main extends Application {
         PrimaryController primaryController = primaryFxmlLoader.getController();
         primaryController.ready(stage);
         stage.setScene(scene);
+        // Set up the screen size base on the monitor's screen resolution and size
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        stage.setWidth(width);
+        stage.setHeight(height);
         // Set the minimum width and height of the application
         stage.setMinWidth(720);
         stage.setMinHeight(730);
